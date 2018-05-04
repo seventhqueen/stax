@@ -1,0 +1,4433 @@
+/*
+ * # SQ FRAMEWORK - 1.0.0
+ * http://www.seventhqueen.com/
+ *
+ *
+ * Copyright 2012 SeventhQueen
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+body.stax-header-enabled {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+body.stax-header-enabled.et_fixed_nav.et_show_nav #page-container {
+  padding-top: 0 !important;
+}
+@-ms-viewport {
+  width: device-width;
+}
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+.header-section {
+  /* HTML5 display-role reset for older browsers */
+}
+.header-section *,
+.header-section *::before,
+.header-section *::after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+.header-section span,
+.header-section applet,
+.header-section object,
+.header-section h1,
+.header-section h2,
+.header-section h3,
+.header-section h4,
+.header-section h5,
+.header-section h6,
+.header-section p,
+.header-section blockquote,
+.header-section pre,
+.header-section a,
+.header-section abbr,
+.header-section acronym,
+.header-section address,
+.header-section big,
+.header-section cite,
+.header-section code,
+.header-section del,
+.header-section dfn,
+.header-section em,
+.header-section img,
+.header-section ins,
+.header-section kbd,
+.header-section q,
+.header-section s,
+.header-section samp,
+.header-section small,
+.header-section strike,
+.header-section strong,
+.header-section sub,
+.header-section sup,
+.header-section tt,
+.header-section var,
+.header-section b,
+.header-section u,
+.header-section i,
+.header-section center,
+.header-section dl,
+.header-section dt,
+.header-section dd,
+.header-section ol,
+.header-section ul,
+.header-section li,
+.header-section fieldset,
+.header-section form,
+.header-section label,
+.header-section legend,
+.header-section table,
+.header-section caption,
+.header-section tbody,
+.header-section tfoot,
+.header-section thead,
+.header-section tr,
+.header-section th,
+.header-section td,
+.header-section article,
+.header-section aside,
+.header-section canvas,
+.header-section details,
+.header-section embed,
+.header-section figure,
+.header-section figcaption,
+.header-section footer,
+.header-section header,
+.header-section hgroup,
+.header-section menu,
+.header-section nav,
+.header-section output,
+.header-section ruby,
+.header-section section,
+.header-section summary,
+.header-section time,
+.header-section mark,
+.header-section audio,
+.header-section video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+.header-section article,
+.header-section aside,
+.header-section details,
+.header-section figcaption,
+.header-section figure,
+.header-section footer,
+.header-section header,
+.header-section hgroup,
+.header-section menu,
+.header-section nav,
+.header-section section {
+  display: block;
+}
+.header-section ol,
+.header-section ul {
+  list-style: none;
+}
+.header-section blockquote,
+.header-section q {
+  quotes: none;
+}
+.header-section blockquote:before,
+.header-section blockquote:after,
+.header-section q:before,
+.header-section q:after {
+  content: '';
+  content: none;
+}
+.header-section table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.header-section p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.header-section svg:not(:root) {
+  overflow: hidden;
+}
+.header-section a,
+.header-section area,
+.header-section button,
+.header-section [role="button"],
+.header-section input:not([type="range"]),
+.header-section label,
+.header-section select,
+.header-section summary,
+.header-section textarea {
+  touch-action: manipulation;
+}
+.header-section button {
+  border-radius: 0;
+}
+.header-section input,
+.header-section button,
+.header-section select,
+.header-section optgroup,
+.header-section textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.header-section button,
+.header-section input {
+  overflow: visible;
+}
+.header-section button,
+.header-section select {
+  text-transform: none;
+}
+.header-section button,
+.header-section html [type="button"],
+.header-section [type="reset"],
+.header-section [type="submit"] {
+  -webkit-appearance: button;
+}
+.header-section button::-moz-focus-inner,
+.header-section [type="button"]::-moz-focus-inner,
+.header-section [type="reset"]::-moz-focus-inner,
+.header-section [type="submit"]::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+.header-section input[type="radio"],
+.header-section input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+.header-section input[type="date"],
+.header-section input[type="time"],
+.header-section input[type="datetime-local"],
+.header-section input[type="month"] {
+  -webkit-appearance: listbox;
+}
+.header-section textarea {
+  overflow: auto;
+  resize: vertical;
+}
+.header-section input[type="text"]:focus,
+.header-section input[type="email"]:focus,
+.header-section input[type="url"]:focus,
+.header-section input[type="password"]:focus,
+.header-section input[type="search"]:focus,
+.header-section input[type="number"]:focus,
+.header-section input[type="tel"]:focus,
+.header-section input[type="range"]:focus,
+.header-section input[type="date"]:focus,
+.header-section input[type="month"]:focus,
+.header-section input[type="week"]:focus,
+.header-section input[type="time"]:focus,
+.header-section input[type="datetime"]:focus,
+.header-section input[type="datetime-local"]:focus,
+.header-section input[type="color"]:focus,
+.header-section textarea:focus {
+  color: inherit;
+  border-color: transparent;
+}
+/*
+ * # SQ FRAMEWORK - 1.0.0
+ * http://www.seventhqueen.com/
+ *
+ *
+ * Copyright 2012 SeventhQueen
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*
+ * Bootstrap 4.0 alpha grid
+ */
+.sq-container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+@media (min-width: 576px) {
+  .sq-container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .sq-container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 992px) {
+  .sq-container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .sq-container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 576px) {
+  .sq-container {
+    width: 540px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .sq-container {
+    width: 720px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .sq-container {
+    width: 960px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .sq-container {
+    width: 1140px;
+    max-width: 100%;
+  }
+}
+.sq-container-fluid {
+  position: static;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+@media (min-width: 576px) {
+  .sq-container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .sq-container-fluid {
+    position: relative;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 992px) {
+  .sq-container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .sq-container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+.sq-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  /*-webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;*/
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media (min-width: 576px) {
+  .sq-row {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+}
+@media (min-width: 768px) {
+  .sq-row {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+}
+@media (min-width: 992px) {
+  .sq-row {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+}
+@media (min-width: 1200px) {
+  .sq-row {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+}
+.sq-no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.sq-no-gutters > .sq-col,
+.sq-no-gutters > [class*="sq-col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+.sq-col-1,
+.sq-col-2,
+.sq-col-3,
+.sq-col-4,
+.sq-col-5,
+.sq-col-6,
+.sq-col-7,
+.sq-col-8,
+.sq-col-9,
+.sq-col-10,
+.sq-col-11,
+.sq-col-12,
+.sq-col,
+.sq-col-sm-1,
+.sq-col-sm-2,
+.sq-col-sm-3,
+.sq-col-sm-4,
+.sq-col-sm-5,
+.sq-col-sm-6,
+.sq-col-sm-7,
+.sq-col-sm-8,
+.sq-col-sm-9,
+.sq-col-sm-10,
+.sq-col-sm-11,
+.sq-col-sm-12,
+.sq-col-sm,
+.sq-col-md-1,
+.sq-col-md-2,
+.sq-col-md-3,
+.sq-col-md-4,
+.sq-col-md-5,
+.sq-col-md-6,
+.sq-col-md-7,
+.sq-col-md-8,
+.sq-col-md-9,
+.sq-col-md-10,
+.sq-col-md-11,
+.sq-col-md-12,
+.sq-col-md,
+.sq-col-lg-1,
+.sq-col-lg-2,
+.sq-col-lg-3,
+.sq-col-lg-4,
+.sq-col-lg-5,
+.sq-col-lg-6,
+.sq-col-lg-7,
+.sq-col-lg-8,
+.sq-col-lg-9,
+.sq-col-lg-10,
+.sq-col-lg-11,
+.sq-col-lg-12,
+.sq-col-lg,
+.sq-col-xl-1,
+.sq-col-xl-2,
+.sq-col-xl-3,
+.sq-col-xl-4,
+.sq-col-xl-5,
+.sq-col-xl-6,
+.sq-col-xl-7,
+.sq-col-xl-8,
+.sq-col-xl-9,
+.sq-col-xl-10,
+.sq-col-xl-11,
+.sq-col-xl-12,
+.sq-col-xl {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+@media (min-width: 576px) {
+  .sq-col-1,
+  .sq-col-2,
+  .sq-col-3,
+  .sq-col-4,
+  .sq-col-5,
+  .sq-col-6,
+  .sq-col-7,
+  .sq-col-8,
+  .sq-col-9,
+  .sq-col-10,
+  .sq-col-11,
+  .sq-col-12,
+  .sq-col,
+  .sq-col-sm-1,
+  .sq-col-sm-2,
+  .sq-col-sm-3,
+  .sq-col-sm-4,
+  .sq-col-sm-5,
+  .sq-col-sm-6,
+  .sq-col-sm-7,
+  .sq-col-sm-8,
+  .sq-col-sm-9,
+  .sq-col-sm-10,
+  .sq-col-sm-11,
+  .sq-col-sm-12,
+  .sq-col-sm,
+  .sq-col-md-1,
+  .sq-col-md-2,
+  .sq-col-md-3,
+  .sq-col-md-4,
+  .sq-col-md-5,
+  .sq-col-md-6,
+  .sq-col-md-7,
+  .sq-col-md-8,
+  .sq-col-md-9,
+  .sq-col-md-10,
+  .sq-col-md-11,
+  .sq-col-md-12,
+  .sq-col-md,
+  .sq-col-lg-1,
+  .sq-col-lg-2,
+  .sq-col-lg-3,
+  .sq-col-lg-4,
+  .sq-col-lg-5,
+  .sq-col-lg-6,
+  .sq-col-lg-7,
+  .sq-col-lg-8,
+  .sq-col-lg-9,
+  .sq-col-lg-10,
+  .sq-col-lg-11,
+  .sq-col-lg-12,
+  .sq-col-lg,
+  .sq-col-xl-1,
+  .sq-col-xl-2,
+  .sq-col-xl-3,
+  .sq-col-xl-4,
+  .sq-col-xl-5,
+  .sq-col-xl-6,
+  .sq-col-xl-7,
+  .sq-col-xl-8,
+  .sq-col-xl-9,
+  .sq-col-xl-10,
+  .sq-col-xl-11,
+  .sq-col-xl-12,
+  .sq-col-xl {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .sq-col-1,
+  .sq-col-2,
+  .sq-col-3,
+  .sq-col-4,
+  .sq-col-5,
+  .sq-col-6,
+  .sq-col-7,
+  .sq-col-8,
+  .sq-col-9,
+  .sq-col-10,
+  .sq-col-11,
+  .sq-col-12,
+  .sq-col,
+  .sq-col-sm-1,
+  .sq-col-sm-2,
+  .sq-col-sm-3,
+  .sq-col-sm-4,
+  .sq-col-sm-5,
+  .sq-col-sm-6,
+  .sq-col-sm-7,
+  .sq-col-sm-8,
+  .sq-col-sm-9,
+  .sq-col-sm-10,
+  .sq-col-sm-11,
+  .sq-col-sm-12,
+  .sq-col-sm,
+  .sq-col-md-1,
+  .sq-col-md-2,
+  .sq-col-md-3,
+  .sq-col-md-4,
+  .sq-col-md-5,
+  .sq-col-md-6,
+  .sq-col-md-7,
+  .sq-col-md-8,
+  .sq-col-md-9,
+  .sq-col-md-10,
+  .sq-col-md-11,
+  .sq-col-md-12,
+  .sq-col-md,
+  .sq-col-lg-1,
+  .sq-col-lg-2,
+  .sq-col-lg-3,
+  .sq-col-lg-4,
+  .sq-col-lg-5,
+  .sq-col-lg-6,
+  .sq-col-lg-7,
+  .sq-col-lg-8,
+  .sq-col-lg-9,
+  .sq-col-lg-10,
+  .sq-col-lg-11,
+  .sq-col-lg-12,
+  .sq-col-lg,
+  .sq-col-xl-1,
+  .sq-col-xl-2,
+  .sq-col-xl-3,
+  .sq-col-xl-4,
+  .sq-col-xl-5,
+  .sq-col-xl-6,
+  .sq-col-xl-7,
+  .sq-col-xl-8,
+  .sq-col-xl-9,
+  .sq-col-xl-10,
+  .sq-col-xl-11,
+  .sq-col-xl-12,
+  .sq-col-xl {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 992px) {
+  .sq-col-1,
+  .sq-col-2,
+  .sq-col-3,
+  .sq-col-4,
+  .sq-col-5,
+  .sq-col-6,
+  .sq-col-7,
+  .sq-col-8,
+  .sq-col-9,
+  .sq-col-10,
+  .sq-col-11,
+  .sq-col-12,
+  .sq-col,
+  .sq-col-sm-1,
+  .sq-col-sm-2,
+  .sq-col-sm-3,
+  .sq-col-sm-4,
+  .sq-col-sm-5,
+  .sq-col-sm-6,
+  .sq-col-sm-7,
+  .sq-col-sm-8,
+  .sq-col-sm-9,
+  .sq-col-sm-10,
+  .sq-col-sm-11,
+  .sq-col-sm-12,
+  .sq-col-sm,
+  .sq-col-md-1,
+  .sq-col-md-2,
+  .sq-col-md-3,
+  .sq-col-md-4,
+  .sq-col-md-5,
+  .sq-col-md-6,
+  .sq-col-md-7,
+  .sq-col-md-8,
+  .sq-col-md-9,
+  .sq-col-md-10,
+  .sq-col-md-11,
+  .sq-col-md-12,
+  .sq-col-md,
+  .sq-col-lg-1,
+  .sq-col-lg-2,
+  .sq-col-lg-3,
+  .sq-col-lg-4,
+  .sq-col-lg-5,
+  .sq-col-lg-6,
+  .sq-col-lg-7,
+  .sq-col-lg-8,
+  .sq-col-lg-9,
+  .sq-col-lg-10,
+  .sq-col-lg-11,
+  .sq-col-lg-12,
+  .sq-col-lg,
+  .sq-col-xl-1,
+  .sq-col-xl-2,
+  .sq-col-xl-3,
+  .sq-col-xl-4,
+  .sq-col-xl-5,
+  .sq-col-xl-6,
+  .sq-col-xl-7,
+  .sq-col-xl-8,
+  .sq-col-xl-9,
+  .sq-col-xl-10,
+  .sq-col-xl-11,
+  .sq-col-xl-12,
+  .sq-col-xl {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .sq-col-1,
+  .sq-col-2,
+  .sq-col-3,
+  .sq-col-4,
+  .sq-col-5,
+  .sq-col-6,
+  .sq-col-7,
+  .sq-col-8,
+  .sq-col-9,
+  .sq-col-10,
+  .sq-col-11,
+  .sq-col-12,
+  .sq-col,
+  .sq-col-sm-1,
+  .sq-col-sm-2,
+  .sq-col-sm-3,
+  .sq-col-sm-4,
+  .sq-col-sm-5,
+  .sq-col-sm-6,
+  .sq-col-sm-7,
+  .sq-col-sm-8,
+  .sq-col-sm-9,
+  .sq-col-sm-10,
+  .sq-col-sm-11,
+  .sq-col-sm-12,
+  .sq-col-sm,
+  .sq-col-md-1,
+  .sq-col-md-2,
+  .sq-col-md-3,
+  .sq-col-md-4,
+  .sq-col-md-5,
+  .sq-col-md-6,
+  .sq-col-md-7,
+  .sq-col-md-8,
+  .sq-col-md-9,
+  .sq-col-md-10,
+  .sq-col-md-11,
+  .sq-col-md-12,
+  .sq-col-md,
+  .sq-col-lg-1,
+  .sq-col-lg-2,
+  .sq-col-lg-3,
+  .sq-col-lg-4,
+  .sq-col-lg-5,
+  .sq-col-lg-6,
+  .sq-col-lg-7,
+  .sq-col-lg-8,
+  .sq-col-lg-9,
+  .sq-col-lg-10,
+  .sq-col-lg-11,
+  .sq-col-lg-12,
+  .sq-col-lg,
+  .sq-col-xl-1,
+  .sq-col-xl-2,
+  .sq-col-xl-3,
+  .sq-col-xl-4,
+  .sq-col-xl-5,
+  .sq-col-xl-6,
+  .sq-col-xl-7,
+  .sq-col-xl-8,
+  .sq-col-xl-9,
+  .sq-col-xl-10,
+  .sq-col-xl-11,
+  .sq-col-xl-12,
+  .sq-col-xl {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+.sq-col {
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  max-width: 100%;
+}
+.sq-col-auto {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: auto;
+}
+.sq-col-1 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 8.333333%;
+  -ms-flex: 0 0 8.333333%;
+  flex: 0 0 8.333333%;
+  max-width: 8.333333%;
+}
+.sq-col-2 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 16.666667%;
+  -ms-flex: 0 0 16.666667%;
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+}
+.sq-col-3 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 25%;
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+.sq-col-4 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 33.333333%;
+  -ms-flex: 0 0 33.333333%;
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+.sq-col-5 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 41.666667%;
+  -ms-flex: 0 0 41.666667%;
+  flex: 0 0 41.666667%;
+  max-width: 41.666667%;
+}
+.sq-col-6 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.sq-col-7 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 58.333333%;
+  -ms-flex: 0 0 58.333333%;
+  flex: 0 0 58.333333%;
+  max-width: 58.333333%;
+}
+.sq-col-8 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 66.666667%;
+  -ms-flex: 0 0 66.666667%;
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+.sq-col-9 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 75%;
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+.sq-col-10 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 83.333333%;
+  -ms-flex: 0 0 83.333333%;
+  flex: 0 0 83.333333%;
+  max-width: 83.333333%;
+}
+.sq-col-11 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 91.666667%;
+  -ms-flex: 0 0 91.666667%;
+  flex: 0 0 91.666667%;
+  max-width: 91.666667%;
+}
+.sq-col-12 {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+@media (min-width: 576px) {
+  .sq-col-sm {
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+  .sq-col-sm-auto {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .sq-col-sm-1 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 8.333333%;
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+  }
+  .sq-col-sm-2 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 16.666667%;
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+  .sq-col-sm-3 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 25%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .sq-col-sm-4 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.333333%;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  .sq-col-sm-5 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 41.666667%;
+    -ms-flex: 0 0 41.666667%;
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+  }
+  .sq-col-sm-6 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .sq-col-sm-7 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 58.333333%;
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+  }
+  .sq-col-sm-8 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 66.666667%;
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+  .sq-col-sm-9 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 75%;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .sq-col-sm-10 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 83.333333%;
+    -ms-flex: 0 0 83.333333%;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+  }
+  .sq-col-sm-11 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 91.666667%;
+    -ms-flex: 0 0 91.666667%;
+    flex: 0 0 91.666667%;
+    max-width: 91.666667%;
+  }
+  .sq-col-sm-12 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .sq-col-md {
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+  .sq-col-md-auto {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .sq-col-md-1 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 8.333333%;
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+  }
+  .sq-col-md-2 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 16.666667%;
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+  .sq-col-md-3 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 25%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .sq-col-md-4 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.333333%;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  .sq-col-md-5 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 41.666667%;
+    -ms-flex: 0 0 41.666667%;
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+  }
+  .sq-col-md-6 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .sq-col-md-7 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 58.333333%;
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+  }
+  .sq-col-md-8 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 66.666667%;
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+  .sq-col-md-9 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 75%;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .sq-col-md-10 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 83.333333%;
+    -ms-flex: 0 0 83.333333%;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+  }
+  .sq-col-md-11 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 91.666667%;
+    -ms-flex: 0 0 91.666667%;
+    flex: 0 0 91.666667%;
+    max-width: 91.666667%;
+  }
+  .sq-col-md-12 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .sq-col-lg {
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+  .sq-col-lg-auto {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .sq-col-lg-1 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 8.333333%;
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+  }
+  .sq-col-lg-2 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 16.666667%;
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+  .sq-col-lg-3 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 25%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .sq-col-lg-4 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.333333%;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  .sq-col-lg-5 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 41.666667%;
+    -ms-flex: 0 0 41.666667%;
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+  }
+  .sq-col-lg-6 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .sq-col-lg-7 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 58.333333%;
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+  }
+  .sq-col-lg-8 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 66.666667%;
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+  .sq-col-lg-9 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 75%;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .sq-col-lg-10 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 83.333333%;
+    -ms-flex: 0 0 83.333333%;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+  }
+  .sq-col-lg-11 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 91.666667%;
+    -ms-flex: 0 0 91.666667%;
+    flex: 0 0 91.666667%;
+    max-width: 91.666667%;
+  }
+  .sq-col-lg-12 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .sq-col-xl {
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+  .sq-col-xl-auto {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .sq-col-xl-1 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 8.333333%;
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+  }
+  .sq-col-xl-2 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 16.666667%;
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+  .sq-col-xl-3 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 25%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .sq-col-xl-4 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.333333%;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  .sq-col-xl-5 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 41.666667%;
+    -ms-flex: 0 0 41.666667%;
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+  }
+  .sq-col-xl-6 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .sq-col-xl-7 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 58.333333%;
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+  }
+  .sq-col-xl-8 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 66.666667%;
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+  .sq-col-xl-9 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 75%;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  .sq-col-xl-10 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 83.333333%;
+    -ms-flex: 0 0 83.333333%;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+  }
+  .sq-col-xl-11 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 91.666667%;
+    -ms-flex: 0 0 91.666667%;
+    flex: 0 0 91.666667%;
+    max-width: 91.666667%;
+  }
+  .sq-col-xl-12 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+.justify-content-start {
+  -webkit-box-pack: start !important;
+  -webkit-justify-content: flex-start !important;
+  -ms-flex-pack: start !important;
+  justify-content: flex-start !important;
+}
+.justify-content-end {
+  -webkit-box-pack: end !important;
+  -webkit-justify-content: flex-end !important;
+  -ms-flex-pack: end !important;
+  justify-content: flex-end !important;
+}
+.justify-content-center {
+  -webkit-box-pack: center !important;
+  -webkit-justify-content: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+}
+.align-items-start {
+  -webkit-box-align: start !important;
+  -webkit-align-items: flex-start !important;
+  -ms-flex-align: start !important;
+  align-items: flex-start !important;
+}
+.align-items-end {
+  -webkit-box-align: end !important;
+  -webkit-align-items: flex-end !important;
+  -ms-flex-align: end !important;
+  align-items: flex-end !important;
+}
+.align-items-center {
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+/*
+* # SQ FRAMEWORK - 1.0.0
+* http://www.seventhqueen.com/
+*
+*
+* Copyright 2012 SeventhQueen
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+*/
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*------------------------------------
+      Top Header Section 
+-------------------------------------*/
+/* Height */
+/* Backgrounds & Colors */
+/* Typography */
+/* Inputs */
+/* Dropdown */
+/* Sidemenu */
+/* Modal */
+/* Shadow */
+/*------------------------------------
+      Middle Header Section 
+-------------------------------------*/
+/* Height */
+/* Backgrounds & Colors */
+/* Typography */
+/* Inputs */
+/* Dropdown */
+/* Sidemenu */
+/* Modal */
+/* Shadow */
+/*------------------------------------
+      Bottom Header Section 
+-------------------------------------*/
+/* Height */
+/* Backgrounds & Colors */
+/* Typography */
+/* Inputs */
+/* Dropdown */
+/* Sidemenu */
+/* Modal */
+/* Shadow */
+/*--------------------------
+          Header Items
+---------------------------*/
+/* Items */
+/*@headerItemTopBottomPadding: @itemTopBottomPadding;
+@headerItemLeftRightPadding: @itemLeftRightPadding;
+@headerItemPadding: @headerItemTopBottomPadding @headerItemLeftRightPadding;*/
+/*-------------------------------
+    Header Section General
+--------------------------------*/
+.header-section {
+  position: relative;
+}
+.header-section .header-content > .header-content {
+  height: 100%;
+  -ms-flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+.header-section .header-content .sq-row {
+  height: 100%;
+}
+.header-section .header-content .header-item {
+  position: initial;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  padding: 0;
+}
+.header-overflow .header-item.justify-content-end,
+.header-overflow .header-item.justify-content-center {
+  -webkit-box-pack: start !important;
+  -webkit-justify-content: flex-start !important;
+  -ms-flex-pack: start !important;
+  justify-content: flex-start !important;
+}
+.header-section {
+  /* Dropdown */
+  /* Paddings */
+  /* General Settings*/
+  margin: 0 auto;
+  /* Header Items */
+  /*** Items ***/
+}
+.header-section .header-fullwidth .header-content {
+  width: 100%;
+}
+.header-section .header-content {
+  height: 100%;
+  font-size: 16px;
+  letter-spacing: 0;
+  color: #1f1f1f;
+}
+.header-section .header-item {
+  /*&.align-items-start {
+        .item-child {
+          -webkit-box-align: start;
+          -webkit-align-items: flex-start;
+          -ms-flex-align: start;
+          align-items: flex-start;
+        }
+      }
+      &.align-items-center {
+        .item-child {
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -ms-flex-align: center;
+          align-items: center;
+        }
+      }
+      &.align-items-end {
+        .item-child {
+          -webkit-box-align: end;
+          -webkit-align-items: flex-end;
+          -ms-flex-align: end;
+          align-items: flex-end;
+        }
+      }
+      &.justify-content-start {
+        .item-child {
+          -webkit-box-pack: start;
+          -webkit-justify-content: flex-start;
+          -ms-flex-pack: start;
+          justify-content: flex-start;
+        }
+      }
+      &.justify-content-center {
+        .item-child {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+        }
+      }
+      &.justify-content-end {
+        .item-child {
+          -webkit-box-pack: end;
+          -webkit-justify-content: flex-end;
+          -ms-flex-pack: end;
+          justify-content: flex-end;
+        }
+      }*/
+}
+.header-section .header-item .item .item-child {
+  white-space: nowrap;
+}
+.header-section .header-item .item.is-full-height {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+.header-section .header-item .item.is-full-width {
+  width: 100%;
+}
+.header-section .link-color {
+  color: #F0114C;
+}
+.header-section .accent-color {
+  color: #F0114C;
+}
+/* Keyframes */
+@-moz-keyframes overflow-hidden {
+  0% {
+    overflow: hidden;
+  }
+  100% {
+    overflow: visible;
+  }
+}
+@-webkit-keyframes overflow-hidden {
+  0% {
+    overflow: hidden;
+  }
+  100% {
+    overflow: visible;
+  }
+}
+@keyframes overflow-hidden {
+  0% {
+    overflow: hidden;
+  }
+  100% {
+    overflow: visible;
+  }
+}
+@-o-keyframes overflow-hidden {
+  0% {
+    overflow: hidden;
+  }
+  100% {
+    overflow: visible;
+  }
+}
+@-moz-keyframes visibility-keyframe {
+  0% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes visibility-keyframe {
+  0% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+@keyframes visibility-keyframe {
+  0% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+@-o-keyframes visibility-keyframe {
+  0% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+.header-section.header-fullwidth .header-content > .header-content {
+  width: 100% !important;
+}
+/*** Sticky ***/
+.header-section.header-sticky.is-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 100;
+}
+/* Transparent */
+.header-section.is-sticky.header-transparent.is-transparent {
+  background: transparent !important;
+}
+.header-section.header-sticky {
+  -webkit-transition: top 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), height 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), background 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), box-shadow 0s linear;
+  -moz-transition: top 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), height 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), background 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), box-shadow 0s linear;
+  -o-transition: top 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), height 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), background 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), box-shadow 0s linear;
+  -ms-transition: top 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), height 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), background 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), box-shadow 0s linear;
+  transition: top 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), height 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), background 0.2s cubic-bezier(0.72, 0.29, 0.41, 0.84), box-shadow 0s linear;
+  /*&.reverse {
+    .transition(~"top @{scrollupDuration} @{scrollupEasing}, height @{scrollupDuration} @{scrollupEasing}, background @{scrollupDuration} @{scrollupEasing}, box-shadow @{scrollupDuration} @{scrollupEasing}");
+  }*/
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+       Logo Element
+*******************************/
+.header-section .sq-logo {
+  /* Logo Image */
+}
+.header-section .sq-logo .item-child {
+  display: inline-block;
+}
+.header-section .sq-logo .item-child img {
+  vertical-align: middle;
+  transition: all 0.2s;
+  max-width: none;
+}
+.header-section .sq-logo img {
+  max-height: 100%;
+  border: 0;
+}
+.header-section.is-sticky.is-resized .sq-logo img {
+  max-height: 100%;
+}
+/*
+* # SQ FRAMEWORK - 1.0.0
+* http://www.seventhqueen.com/
+*
+*
+* Copyright 2012 SeventhQueen
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+*/
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*------------------------------------
+      Top Header Section 
+-------------------------------------*/
+/* Height */
+/* Backgrounds & Colors */
+/* Typography */
+/* Inputs */
+/* Dropdown */
+/* Sidemenu */
+/* Modal */
+/* Shadow */
+/*------------------------------------
+      Middle Header Section 
+-------------------------------------*/
+/* Height */
+/* Backgrounds & Colors */
+/* Typography */
+/* Inputs */
+/* Dropdown */
+/* Sidemenu */
+/* Modal */
+/* Shadow */
+/*------------------------------------
+      Bottom Header Section 
+-------------------------------------*/
+/* Height */
+/* Backgrounds & Colors */
+/* Typography */
+/* Inputs */
+/* Dropdown */
+/* Sidemenu */
+/* Modal */
+/* Shadow */
+/*--------------------------
+          Header Items
+---------------------------*/
+/* Items */
+/*@headerItemTopBottomPadding: @itemTopBottomPadding;
+@headerItemLeftRightPadding: @itemLeftRightPadding;
+@headerItemPadding: @headerItemTopBottomPadding @headerItemLeftRightPadding;*/
+/*-------------------
+      Dropdown
+--------------------*/
+/*-------------------
+      Sidemenu
+--------------------*/
+/* Open Close Animation */
+/*-------------------
+      Modal
+--------------------*/
+/*-------------------
+      Dimmer
+--------------------*/
+/* Color below page */
+/* Shadow */
+/* Layering */
+.header-section .sq-menu.is-full-height .item-child {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.header-section .sq-menu.is-full-height .item-child > ul li .item {
+  height: 100%;
+}
+.header-section .sq-menu em {
+  background: #a6a6a6;
+  color: #fff;
+  font-size: 10px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.header-section .sq-menu em:hover {
+  color: #fff;
+}
+.menu-default > ul {
+  list-style: none;
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.menu-default > ul > li:first-child {
+  padding-left: 0;
+}
+.menu-default > ul > li:last-child {
+  padding-right: 0;
+}
+.menu-default > ul li {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  height: 100%;
+  width: auto;
+  outline: none;
+}
+.menu-default > ul li:before {
+  display: none;
+}
+.menu-default > ul li .item {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 0;
+  outline: none;
+  text-decoration: none;
+}
+.menu-default > ul li .item:not(input):hover,
+.menu-default > ul li .item:not(input):focus {
+  color: #F0114C;
+}
+.menu-default > ul > li > .submenu .item {
+  width: 100%;
+}
+.menu-default > ul > li.has-submenu > a:after {
+  content: "\F140";
+  font-family: 'Material Design Icons';
+  display: block;
+  min-width: 20px;
+  min-height: 20px;
+  line-height: 20px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+.menu-default > ul > li.has-submenu > .submenu li.has-submenu > a:before {
+  display: none;
+}
+.menu-default > ul > li.flexMenu-viewMore.has-submenu > a {
+  color: transparent !important;
+  position: relative;
+}
+.menu-default > ul > li.flexMenu-viewMore.has-submenu > a:after {
+  content: "\F1D9";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  margin-left: 0;
+}
+/* Has Submenu */
+@media (min-width: 768px) {
+  .has-submenu {
+    position: relative;
+  }
+  .has-submenu > .submenu {
+    box-shadow: 0 0 3px rgba(140, 140, 140, 0.2);
+  }
+}
+.has-submenu > .submenu {
+  position: absolute;
+  display: none;
+  top: 100%;
+  left: 0;
+  height: auto;
+  min-width: 220px;
+  background: #fff;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  -ms-flex-align: flex-start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  z-index: 120;
+}
+.has-submenu > .submenu .item {
+  margin: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  transition: all 0.3s;
+  left: 0;
+}
+.has-submenu > .submenu .item:hover {
+  left: 3px;
+}
+.has-submenu > .submenu .item > .icon,
+.has-submenu > .submenu .item > img {
+  -ms-flex-item-align: start;
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+.has-submenu > .submenu .item:after {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  text-align: right;
+  -ms-flex-item-align: start;
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+.has-submenu > .submenu .item:not(.div-c) input[type="text"],
+.has-submenu > .submenu .item:not(.div-c) select,
+.has-submenu > .submenu .item:not(.div-c) .ui.dropdown.selection {
+  width: 100%;
+}
+.has-submenu.submenu-left > .submenu {
+  left: auto;
+  right: 0;
+}
+.has-submenu > .submenu .has-submenu {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.has-submenu > .submenu .has-submenu > .submenu {
+  display: none;
+  position: relative;
+}
+@media (max-width: 767px) {
+  .has-submenu > .submenu .has-submenu > .submenu {
+    padding: 0 20px;
+  }
+}
+@media (min-width: 768px) {
+  .has-submenu > .submenu .has-submenu > .submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+  }
+}
+.has-submenu:hover > .submenu {
+  display: block;
+  animation: fadeIn 0.2s;
+}
+.has-submenu:hover > .submenu .has-submenu:hover > .submenu {
+  display: block;
+  animation: fadeIn 0.2s;
+}
+@media (min-width: 768px) {
+  .has-submenu:hover > .submenu {
+    animation: fadeInUp 0.2s;
+  }
+  .has-submenu:hover > .submenu .has-submenu:hover > .submenu {
+    animation: fadeInUp 0.2s;
+  }
+}
+.menu-default.flexMenu > ul {
+  overflow: hidden;
+}
+.menu-default.flexMenu > ul:hover {
+  overflow: visible;
+}
+.menu-default.dropdown-open-right > ul > li .submenu {
+  left: inherit;
+  right: 0;
+}
+.header-section .menu-default.item {
+  height: 100%;
+}
+/* No js flexMenu*/
+.menu-style-1 > ul > li.menu-item > a {
+  position: relative;
+}
+.menu-style-1 > ul > li.menu-item > a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  transform: scale3d(0, 1, 1);
+  transition: transform 0.1s;
+}
+.menu-style-1 > ul > li.menu-item:hover > a::before,
+.menu-style-1 > ul > li.menu-item.current-menu-item > a {
+  transform: scale3d(1, 1, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+}
+.menu-style-2 > ul > li.menu-item.has-submenu:not(.current-menu-item) > a {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.menu-style-2 > ul > li.menu-item.has-submenu .submenu {
+  border-top-left-radius: 0 !important;
+}
+.menu-style-3 > ul > li.menu-item > a {
+  border-style: solid;
+  border-color: transparent;
+}
+.menu-style-4 > ul > li.menu-item > a {
+  position: relative;
+  z-index: 1;
+}
+.menu-style-4 > ul > li.menu-item > a:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 1px;
+  content: '';
+  color: transparent;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+}
+.menu-style-4 > ul > li.menu-item:hover > a:after {
+  opacity: 1;
+  visibility: visible;
+  height: 100%;
+}
+.menu-style-4 > ul > li.menu-item > a:after,
+.menu-style-4 > ul > li.menu-item > a:before {
+  transition: all .3s;
+}
+.menu-style-5 > ul > li.menu-item > a {
+  position: relative;
+}
+.menu-style-5 > ul > li.menu-item > a::before,
+.menu-style-5 > ul > li.menu-item > a::after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  content: '';
+  opacity: 0;
+  -webkit-transition: height 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: height 0.3s, opacity 0.3s, -moz-transform 0.3s;
+  transition: height 0.3s, opacity 0.3s, transform 0.3s;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);
+}
+.menu-style-5 > ul > li.menu-item > a::before {
+  top: 10px;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);
+}
+.menu-style-5 > ul > li.menu-item:hover > a::before,
+.menu-style-5 > ul > li.menu-item:hover > a::after {
+  height: 2px;
+  opacity: 1;
+}
+.menu-style-5 > ul > li.menu-item:hover > a::before {
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  transform: translateY(-10px);
+}
+.menu-style-5 > ul > li.menu-item > a::after {
+  bottom: 0;
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  transform: translateY(-10px);
+}
+.menu-style-5 > ul > li.menu-item:hover > a::after {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);
+}
+.menu-style-6 > ul > li.menu-item > a {
+  position: relative;
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+}
+.menu-style-6 > ul > li.menu-item > a::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  content: '';
+  opacity: 0;
+  -webkit-transition: height 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: height 0.3s, opacity 0.3s, -moz-transform 0.3s;
+  transition: height 0.3s, opacity 0.3s, transform 0.3s;
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  transform: translateY(-10px);
+}
+.menu-style-6 > ul > li.menu-item:hover > a {
+  -webkit-transform: translateY(-5px);
+  -moz-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+.menu-style-6 > ul > li.menu-item:hover > a::before {
+  height: 2px;
+  opacity: 1;
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  transform: translateY(5px);
+}
+.menu-style-7 > ul > li.menu-item {
+  position: relative;
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+.menu-style-7 > ul > li.menu-item > a::before {
+  width: 7px;
+  height: 7px;
+  background: transparent;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-top: 2px solid #ff3366;
+  border-left: 2px solid #ff3366;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+  opacity: 0;
+}
+.menu-style-7 > ul > li.menu-item > a::after {
+  width: 7px;
+  height: 7px;
+  background: transparent;
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-right: 2px solid #ff3366;
+  border-bottom: 2px solid #ff3366;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+  opacity: 0;
+}
+.menu-style-7 > ul > li.menu-item::before {
+  width: 7px;
+  height: 7px;
+  background: transparent;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-right: 2px solid #ff3366;
+  border-top: 2px solid #ff3366;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+  opacity: 0;
+}
+.menu-style-7 > ul > li.menu-item::after {
+  width: 7px;
+  height: 7px;
+  background: transparent;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-left: 2px solid #ff3366;
+  border-bottom: 2px solid #ff3366;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+  opacity: 0;
+}
+.menu-style-7 > ul > li.menu-item:hover::before {
+  opacity: 1;
+  right: 5px;
+  top: 5px;
+}
+.menu-style-7 > ul > li.menu-item:hover::after {
+  opacity: 1;
+  left: 5px;
+  bottom: 5px;
+}
+.menu-style-7 > ul > li.menu-item:hover > a::before {
+  opacity: 1;
+  left: 5px;
+  top: 5px;
+}
+.menu-style-7 > ul > li.menu-item:hover > a::after {
+  opacity: 1;
+  right: 5px;
+  bottom: 5px;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Icon Element
+*******************************/
+.header-section .sq-icon .item-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-section .sq-icon .item-child .mdi:before,
+.header-section .sq-icon .item-child .mdi-set {
+  line-height: initial;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Link Element
+*******************************/
+.header-section .sq-link .item-child .mdi {
+  display: inline-block;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Icon Element
+*******************************/
+.header-section .sq-search .mdi {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  display: inline-block;
+  transform: translateY(-50%);
+}
+.header-section .sq-search .mdi:before,
+.header-section .sq-search .mdi-set {
+  line-height: initial;
+}
+.header-section .sq-search form {
+  position: relative;
+}
+.header-section .sq-search .input-text {
+  width: 100%;
+  transition: all 0.3s;
+  text-overflow: ellipsis;
+}
+.header-section .sq-search .input-text:focus {
+  outline: none;
+}
+.header-section .sq-search .input-label {
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 10px;
+  opacity: 0;
+  -webkit-transform: translate3d(0, 50%, 0) scale(1);
+  transform: translate3d(0, 50%, 0) scale(1);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1), transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1), transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.header-section .sq-search .input-text:placeholder-shown + .input-label {
+  visibility: hidden;
+  z-index: -1;
+}
+.header-section .sq-search .input-text:not(:placeholder-shown) + .input-label,
+.header-section .sq-search .input-text:focus:not(:placeholder-shown) + .input-label {
+  visibility: visible;
+  z-index: 1;
+  opacity: 0.5;
+  /*-webkit-transform: translate3d(0, calc((50%) - (0.8rem * 0.8) - (2.1rem * 1.8)), 0) scale(0.8);
+      transform: translate3d(0, calc((50%) - (0.8rem * 0.8) - (2.1rem * 1.8)), 0) scale(0.8);*/
+  transform: translate3d(0, 0, 0) scale(0.8);
+  -webkit-transition: visibility 0ms, z-index 0ms, -webkit-transform 300ms;
+  transition: visibility 0ms, z-index 0ms, -webkit-transform 300ms;
+  transition: transform 300ms, visibility 0ms, z-index 0ms;
+  transition: transform 300ms, visibility 0ms, z-index 0ms, -webkit-transform 300ms;
+}
+.header-section.is-resized .input-text:not(:placeholder-shown) + .input-label,
+.header-section.is-resized .input-text:focus:not(:placeholder-shown) + .input-label {
+  opacity: 0;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Icon Element
+*******************************/
+.header-section .sq-button {
+  transition: all 0.3s;
+}
+.header-section .sq-button .item-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-section .sq-button .item-child .mdi:before,
+.header-section .sq-button .item-child .mdi-set {
+  line-height: initial;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Image Element
+*******************************/
+.header-section .sq-image img {
+  vertical-align: middle;
+  transition: all 0.2s;
+  max-width: none;
+  max-height: 100%;
+}
+.header-section.is-sticky.is-resized .sq-image img {
+  max-height: 100%;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Icon Element
+*******************************/
+.header-section .sq-text .item-child .mdi {
+  display: inline-block;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Icon Element
+*******************************/
+.header-section .sq-shortcode .item-child .mdi {
+  display: inline-block;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+          Icon Element
+*******************************/
