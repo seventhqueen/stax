@@ -95,6 +95,12 @@ Yes, you can use it on any theme. The first time you open Stax you will be promp
 
 == Changelog ==
 
+= 1.0.2 - 2018-05-10 =
+* Header replace if front-end is now disabled by default. Enable it when your header is ready to be published
+* Wordpress admin bar fix for sticky headers on mobile
+* Fix for full-width dropdown menu at mobile.
+* Network environment fix for admin to allow editing
+
 = 1.0.1 - 2018-05-04 =
 * Fix for full-width dropdown menu at mobile.
 * Wordpress admin bar fix for sticky headers on mobile.
