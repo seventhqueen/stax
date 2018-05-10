@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Plugin Name: STAX Builder
- * Description: The most advanced frontend drag & drop header builder. Create pixel perfect headers with ease. Works with any theme.
- * Plugin URI: https://staxbuilder.com/stax/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+ * Plugin Name: STAX Header Builder
+ * Description: Header builder for WordPress. The most advanced frontend drag & drop tool. Create pixel perfect headers with ease. Works with any theme.
+ * Plugin URI: https://staxbuilder.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Author: SeventhQueen.com
- * Version: 1.0
+ * Version: 1.0.2
  * Author URI: https://seventhqueen.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: stax
@@ -14,6 +14,7 @@
  * @category Core
  *
  * @fs_premium_only /assets/framework/
+ * @fs_free_only /assets/framework-base/
  *
  * Stax is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +34,7 @@ if ( !defined( 'ABSPATH' ) ) {
 
 
 if ( !function_exists( 'stax_fs' ) ) {
-    define( 'STAX_VERSION', '1.0' );
+    define( 'STAX_VERSION', '1.0.2' );
     define( 'STAX_FILE', __FILE__ );
     define( 'STAX_PLUGIN_BASE', plugin_basename( STAX_FILE ) );
     define( 'STAX_BASE_URL', plugins_url( '/', STAX_FILE ) );

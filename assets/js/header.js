@@ -573,7 +573,7 @@ var SQ = SQ || {};
                 var transparentOffset = $(this).attr('data-transparent') ? parseInt($(this).attr('data-transparent'), 10) : 0;
                 var currentHeader = $(this);
                 var currentHeaderContent = currentHeader;
-                var prevHeight = $(SQ.hb.adminBar).length ? parseInt($(SQ.hb.adminBar).height(), 10) : 0;
+                var prevHeight = ($(SQ.hb.adminBar).length && parseInt($(window).width()) > 600 ) ? parseInt($(SQ.hb.adminBar).height(), 10) : 0;
                 var topValue;
                 var topValueChange = false;
                 var resizeDif = 0;

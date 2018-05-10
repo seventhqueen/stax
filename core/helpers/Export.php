@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Export {
+class Export extends Base_Model {
 	/**
 	 * @var null
 	 */
@@ -29,84 +29,102 @@ class Export {
 	public function execute( \WP_REST_Request $request ) {
 		$data = $request->get_params();
 
-		$header = Model_ActiveHeaders::instance()->getById( $data['id'] );
+		$template = Model_Templates::instance()->getById( $data['id'] );
 
-		if ( $header ) {
-			$pack        = @json_decode( $header->pack );
-			$headersPack = $pack->headers;
+		if ( $template ) {
+			$pack = @json_decode( $template->pack );
 
-			$headers  = new \stdClass();
-			$columns  = new \stdClass();
-			$elements = new \stdClass();
-			$groups   = new \stdClass();
+			$templateItems           = new \stdClass();
+			$templateItems->headers  = new \stdClass();
+			$templateItems->columns  = new \stdClass();
+			$templateItems->elements = new \stdClass();
+			$templateItems->groups   = new \stdClass();
+			$templateItems->fonts    = new \stdClass();
+			$templateItems->general  = isset( $pack->general ) ? $pack->general : false;
 
-			foreach ( $headersPack as $uuid ) {
-				$item = Model_Headers::instance()->get( $uuid );
-				if ( $item ) {
-					$headers->$uuid = json_decode( $item->properties );
-				}
+			foreach ( $pack->headers as $header ) {
+				$templateItems->headers->{$header->uuid} = $header;
 			}
 
-			foreach ( $headers as $headerUuid => $header ) {
-				$heads = Model_GrpHeader::instance()->get( $headerUuid );
-
-				$groups->{$headerUuid} = (object) [
-					'viewport' => (object) []
-				];
-
-				foreach ( $heads as $headItem ) {
-					$groups->{$headItem->header_uuid}->viewport->{$headItem->viewport} = (object) [
-						'columns'    => (object) [],
-						'position'   => $headItem->position,
-						'visibility' => intval( $headItem->visibility )
-					];
-
-					$cols = Model_GrpHeaderItems::instance()->getByHeaderUuid( $headItem->header_uuid, $headItem->viewport );
-
-					foreach ( $cols as $colItem ) {
-						$storedColumn = Model_Columns::instance()->get( $colItem->column_uuid );
-
-						if ( $storedColumn ) {
-							$groups->{$headItem->header_uuid}->viewport->{$headItem->viewport}->columns->{$colItem->column_uuid} = (object) [
-								'elements'   => (object) [],
-								'position'   => $colItem->position,
-								'visibility' => intval( $colItem->visibility )
-							];
-
-							$columns->{$colItem->column_uuid} = json_decode( $storedColumn->properties );
-
-							$storedElements = json_decode( $colItem->elements );
-							foreach ( $storedElements as $elementUuid => $elItem ) {
-								$storedElement = Model_Elements::instance()->get( $elementUuid );
-								if ( $storedElement ) {
-									$groups->{$headItem->header_uuid}->viewport->{$headItem->viewport}->columns->{$colItem->column_uuid}->elements->{$elementUuid} = $elItem;
-
-									$elements->{$elementUuid} = json_decode( $storedElement->properties );
-								}
-							}
-						}
-					}
-				}
+			foreach ( $pack->columns as $column ) {
+				$templateItems->columns->{$column->uuid} = $column;
 			}
+
+			foreach ( $pack->elements as $element ) {
+				$templateItems->elements->{$element->uuid} = $element;
+			}
+
+			foreach ( $pack->groups as $uuid => $group ) {
+				$templateItems->groups->{$uuid} = $group;
+			}
+
+			$templateItems->fonts = $pack->fonts;
 
 			$pack = [
-				'headers'  => $headers,
-				'columns'  => $columns,
-				'elements' => $elements,
-				'groups'   => $groups,
-				'fonts'    => $pack->fonts,
+				'headers'  => $templateItems->headers,
+				'columns'  => $templateItems->columns,
+				'elements' => $templateItems->elements,
+				'groups'   => $templateItems->groups,
+				'fonts'    => $templateItems->fonts,
+				'general'  => $templateItems->general,
 				'url_root' => site_url()
 			];
 
-			$generated_at = date( 'd-m-Y' );
-
-			header( "Content-Type: application/json; charset=utf-8" );
-			header( "Content-disposition: attachment; filename=export_header_" . $data['id'] . '_' . $generated_at . ".json" );
-			header( "Expires: 0" );
-
-			echo json_encode( $pack );
-			exit;
+			return $this->response( self::STATUS_OK, [ json_encode( $pack ) ] );
 		}
+
+		return $this->response( self::STATUS_FAILED );
+	}
+
+	public function cleanExport( \WP_REST_Request $request ) {
+		$data = $request->get_params();
+
+		if ( ! isset( $data['headers'] ) ||
+		     ! isset( $data['columns'] ) ||
+		     ! isset( $data['elements'] ) ||
+		     ! isset( $data['groups'] ) ||
+		     ! isset( $data['fonts'] ) ||
+		     ! isset( $data['general'] ) ) {
+			return $this->response( self::STATUS_FAILED );
+		}
+
+		$exportData           = new \stdClass();
+		$exportData->headers  = new \stdClass();
+		$exportData->columns  = new \stdClass();
+		$exportData->elements = new \stdClass();
+		$exportData->groups   = new \stdClass();
+		$exportData->fonts    = new \stdClass();
+		$exportData->general  = ( $data['general'] ) ? true : false;
+
+		foreach ( @json_decode( $data['headers'] ) as $header ) {
+			$exportData->headers->{$header->uuid} = $this->clearTrash( $header );
+		}
+
+		foreach ( @json_decode( $data['headers'] ) as $column ) {
+			$exportData->columns->{$column->uuid} = $this->clearTrash( $column );
+		}
+
+		foreach ( @json_decode( $data['elements'] ) as $element ) {
+			$exportData->elements->{$element->uuid} = $this->clearTrash( $element );
+		}
+
+		foreach ( @json_decode( $data['groups'] ) as $uuid => $group ) {
+			$exportData->groups->{$uuid} = $group;
+		}
+
+		$exportData->fonts = @json_decode( $data['fonts'] );
+
+		$pack = [
+			'headers'  => $exportData->headers,
+			'columns'  => $exportData->columns,
+			'elements' => $exportData->elements,
+			'groups'   => $exportData->groups,
+			'fonts'    => $exportData->fonts,
+			'general'  => $exportData->general,
+			'url_root' => site_url()
+		];
+
+		return $this->response( self::STATUS_OK, [ json_encode( $pack ) ] );
 	}
 
 }

@@ -87,7 +87,7 @@ class Editor {
 		add_action( 'wp_enqueue_scripts', [ $this, 'general_style' ], 999999 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'general_script' ], 999999 );
 
-		if ( ! is_super_admin() ) {
+		if ( ! current_user_can('administrator') ) {
 			return;
 		}
 
@@ -97,7 +97,7 @@ class Editor {
 		}
 
 		/* Show the button to open editor only to admin and not while previewing */
-		if ( is_super_admin() && ! Plugin::instance()->is_preview() ) {
+		if ( current_user_can('administrator') && ! Plugin::instance()->is_preview() ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'start_edit_style' ], 999999 );
 		}
 
@@ -130,7 +130,7 @@ class Editor {
 	 *
 	 */
 	public function removeAdminBar() {
-		if ( ( Plugin::instance()->is_editor_frame() || Plugin::instance()->is_preview() || Plugin::instance()->is_editor_panel() || Plugin::instance()->is_setup() ) && is_super_admin() ) {
+		if ( ( Plugin::instance()->is_editor_frame() || Plugin::instance()->is_preview() || Plugin::instance()->is_editor_panel() || Plugin::instance()->is_setup() ) && current_user_can('administrator') ) {
 			add_filter( 'show_admin_bar', '__return_false' );
 		}
 	}

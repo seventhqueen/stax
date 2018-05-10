@@ -140,6 +140,28 @@ class Routes {
 			}
 		] );
 
+		register_rest_route( STAX_API_NAMESPACE, '/helpers/clean-export', [
+			'methods'             => 'POST',
+			'callback'            => [
+				Export::instance(),
+				'cleanExport'
+			],
+			'permission_callback' => function () {
+				return current_user_can( 'administrator' );
+			}
+		] );
+
+		register_rest_route( STAX_API_NAMESPACE, '/helpers/export', [
+			'methods'             => 'GET',
+			'callback'            => [
+				Export::instance(),
+				'execute'
+			],
+			'permission_callback' => function () {
+				return current_user_can( 'administrator' );
+			}
+		] );
+
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/menus', [
 			'methods'             => 'GET',
 			'callback'            => [

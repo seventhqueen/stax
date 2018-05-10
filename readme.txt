@@ -1,10 +1,10 @@
-=== STAX Builder ===
-Contributors: SeventhQueen, freemius
+=== STAX Header Builder ===
+Contributors: SeventhQueen
 Tags: stax, header builder, editor, landing page, drag-and-drop, visual editor, wysiwyg, design, sticky header, slide-up header, transparent header
 Requires at least: 4.6
 Tested up to: 4.9
 Requires PHP: 5.4
-Stable tag: 1.0
+Stable tag: 1.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -95,5 +95,9 @@ Yes, you can use it on any theme. The first time you open Stax you will be promp
 
 == Changelog ==
 
-= 0.1.0 - 2016-05-30 =
+= 1.0.1 - 2018-05-04 =
+* Fix for full-width dropdown menu at mobile.
+* Wordpress admin bar fix for sticky headers on mobile.
+
+= 1.0 - 2018-05-04 =
 * Initial Public  Release

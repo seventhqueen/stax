@@ -319,6 +319,7 @@ class Plugin
         include STAX_CORE_PATH . 'helpers/CompatibleTheme.php';
         include STAX_CORE_PATH . 'helpers/Compatibility.php';
         include STAX_CORE_PATH . 'helpers/Import.php';
+        include STAX_CORE_PATH . 'helpers/Export.php';
         include STAX_CORE_PATH . 'helpers/OptionsWP.php';
         include STAX_CORE_PATH . 'helpers/RenderStatus.php';
         include STAX_CORE_PATH . 'helpers/Templates.php';
@@ -371,7 +372,7 @@ class Plugin
      */
     public function is_editor_panel()
     {
-        if ( isset( $_GET['stax-editor'] ) && is_super_admin() ) {
+        if ( isset( $_GET['stax-editor'] ) && current_user_can( 'administrator' ) ) {
             return true;
         }
         return false;
@@ -1118,7 +1119,7 @@ class Plugin
      */
     public function load_open_editor()
     {
-        if ( is_super_admin() ) {
+        if ( current_user_can( 'administrator' ) ) {
             require 'ui/start-editor.php';
         }
     }

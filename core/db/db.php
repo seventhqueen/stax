@@ -76,7 +76,7 @@ class DB {
 	 */
 	public function migrate() {
 		if ( ! get_option( 'stax_migration' ) ) {
-			add_option( 'stax-render-status', true );
+			//add_option( 'stax-render-status', true );
 			$charset_collate = $this->db->get_charset_collate();
 
 			$sql[] = "CREATE TABLE IF NOT EXISTS `" . $this->tb_active_headers . "` (

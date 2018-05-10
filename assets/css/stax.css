@@ -2442,6 +2442,11 @@ html {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+.menu-default:not(.flexMenu) > ul {
+  -ms-flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
 .menu-default > ul > li:first-child {
   padding-left: 0;
 }
@@ -2529,6 +2534,7 @@ html {
   left: 0;
   height: auto;
   min-width: 220px;
+  width: 100%;
   background: #fff;
   flex-wrap: nowrap;
   flex-direction: column;
