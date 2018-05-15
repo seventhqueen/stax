@@ -1,14 +1,14 @@
-=== STAX Header Builder ===
+=== STAX Header Builder for WordPress ===
 Contributors: SeventhQueen
-Tags: stax, header builder, editor, landing page, drag-and-drop, visual editor, wysiwyg, design, sticky header, slide-up header, transparent header
+Tags: header builder, header editor, sticky header, landing page, drag-and-drop, visual editor, wysiwyg, slide-up header, transparent header, stax
 Requires at least: 4.6
-Tested up to: 4.9
+Tested up to: 4.9.5
 Requires PHP: 5.4
 Stable tag: 1.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The most advanced frontend drag & drop header builder. Create pixel perfect headers with ease. Works with any theme.
+Header builder for any WordPress theme. Replace your existing header and create pixel perfect headers with ease. All is visual and in front-end.
 
 == Description ==
 
@@ -48,7 +48,7 @@ And many more.
 - **Button**. Add a quick link
 - **Icon**. Add an icon and play with the cool options
 - **Separator**. Use it to nicely separate header elements
-- **Menu **. Add your existing Wordpress menus to the header.
+- **Menu**. Add your existing Wordpress menus to the header.
 - **And counting...**
 
 = Documentation and Support =
