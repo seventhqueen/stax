@@ -12,11 +12,11 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-body.stax-header-enabled {
+body.stax-editor-enabled {
   padding: 0 !important;
   margin: 0 !important;
 }
-body.stax-header-enabled.et_fixed_nav.et_show_nav #page-container {
+body.stax-editor-enabled.et_fixed_nav.et_show_nav #page-container {
   padding-top: 0 !important;
 }
 @-ms-viewport {
@@ -27,92 +27,91 @@ html {
   box-sizing: border-box;
   -ms-overflow-style: scrollbar;
 }
-.header-section {
+.stax-zone {
   /* HTML5 display-role reset for older browsers */
 }
-.header-section *,
-.header-section *::before,
-.header-section *::after {
+.stax-zone *,
+.stax-zone *::before,
+.stax-zone *::after {
   -webkit-box-sizing: inherit;
   box-sizing: inherit;
 }
-.header-section span,
-.header-section applet,
-.header-section object,
-.header-section h1,
-.header-section h2,
-.header-section h3,
-.header-section h4,
-.header-section h5,
-.header-section h6,
-.header-section p,
-.header-section blockquote,
-.header-section pre,
-.header-section a,
-.header-section abbr,
-.header-section acronym,
-.header-section address,
-.header-section big,
-.header-section cite,
-.header-section code,
-.header-section del,
-.header-section dfn,
-.header-section em,
-.header-section img,
-.header-section ins,
-.header-section kbd,
-.header-section q,
-.header-section s,
-.header-section samp,
-.header-section small,
-.header-section strike,
-.header-section strong,
-.header-section sub,
-.header-section sup,
-.header-section tt,
-.header-section var,
-.header-section b,
-.header-section u,
-.header-section i,
-.header-section center,
-.header-section dl,
-.header-section dt,
-.header-section dd,
-.header-section ol,
-.header-section ul,
-.header-section li,
-.header-section fieldset,
-.header-section form,
-.header-section label,
-.header-section legend,
-.header-section table,
-.header-section caption,
-.header-section tbody,
-.header-section tfoot,
-.header-section thead,
-.header-section tr,
-.header-section th,
-.header-section td,
-.header-section article,
-.header-section aside,
-.header-section canvas,
-.header-section details,
-.header-section embed,
-.header-section figure,
-.header-section figcaption,
-.header-section footer,
-.header-section header,
-.header-section hgroup,
-.header-section menu,
-.header-section nav,
-.header-section output,
-.header-section ruby,
-.header-section section,
-.header-section summary,
-.header-section time,
-.header-section mark,
-.header-section audio,
-.header-section video {
+.stax-zone span,
+.stax-zone applet,
+.stax-zone object,
+.stax-zone h1,
+.stax-zone h2,
+.stax-zone h3,
+.stax-zone h4,
+.stax-zone h5,
+.stax-zone h6,
+.stax-zone p,
+.stax-zone blockquote,
+.stax-zone pre,
+.stax-zone a,
+.stax-zone abbr,
+.stax-zone acronym,
+.stax-zone address,
+.stax-zone big,
+.stax-zone cite,
+.stax-zone code,
+.stax-zone del,
+.stax-zone dfn,
+.stax-zone em,
+.stax-zone img,
+.stax-zone ins,
+.stax-zone kbd,
+.stax-zone q,
+.stax-zone s,
+.stax-zone samp,
+.stax-zone small,
+.stax-zone strike,
+.stax-zone strong,
+.stax-zone sub,
+.stax-zone sup,
+.stax-zone tt,
+.stax-zone var,
+.stax-zone b,
+.stax-zone u,
+.stax-zone i,
+.stax-zone center,
+.stax-zone dl,
+.stax-zone dt,
+.stax-zone dd,
+.stax-zone ol,
+.stax-zone ul,
+.stax-zone li,
+.stax-zone fieldset,
+.stax-zone form,
+.stax-zone label,
+.stax-zone legend,
+.stax-zone table,
+.stax-zone caption,
+.stax-zone tbody,
+.stax-zone tfoot,
+.stax-zone thead,
+.stax-zone tr,
+.stax-zone th,
+.stax-zone td,
+.stax-zone article,
+.stax-zone aside,
+.stax-zone canvas,
+.stax-zone details,
+.stax-zone embed,
+.stax-zone figure,
+.stax-zone figcaption,
+.stax-zone footer,
+.stax-zone hgroup,
+.stax-zone menu,
+.stax-zone nav,
+.stax-zone output,
+.stax-zone ruby,
+.stax-zone section,
+.stax-zone summary,
+.stax-zone time,
+.stax-zone mark,
+.stax-zone audio,
+.stax-zone video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -120,123 +119,142 @@ html {
   font: inherit;
   vertical-align: baseline;
 }
-.header-section article,
-.header-section aside,
-.header-section details,
-.header-section figcaption,
-.header-section figure,
-.header-section footer,
-.header-section header,
-.header-section hgroup,
-.header-section menu,
-.header-section nav,
-.header-section section {
+.stax-zone header {
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+.stax-zone article,
+.stax-zone aside,
+.stax-zone details,
+.stax-zone figcaption,
+.stax-zone figure,
+.stax-zone footer,
+.stax-zone header,
+.stax-zone hgroup,
+.stax-zone menu,
+.stax-zone nav,
+.stax-zone section {
   display: block;
 }
-.header-section ol,
-.header-section ul {
+.stax-zone ol,
+.stax-zone ul {
   list-style: none;
 }
-.header-section blockquote,
-.header-section q {
+.stax-zone blockquote,
+.stax-zone q {
   quotes: none;
 }
-.header-section blockquote:before,
-.header-section blockquote:after,
-.header-section q:before,
-.header-section q:after {
+.stax-zone blockquote:before,
+.stax-zone blockquote:after,
+.stax-zone q:before,
+.stax-zone q:after {
   content: '';
-  content: none;
 }
-.header-section table {
+.stax-zone table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-.header-section p {
+.stax-zone p {
   margin-top: 0;
   margin-bottom: 0;
 }
-.header-section svg:not(:root) {
+.stax-zone svg:not(:root) {
   overflow: hidden;
 }
-.header-section a,
-.header-section area,
-.header-section button,
-.header-section [role="button"],
-.header-section input:not([type="range"]),
-.header-section label,
-.header-section select,
-.header-section summary,
-.header-section textarea {
+.stax-zone a,
+.stax-zone area,
+.stax-zone button,
+.stax-zone [role="button"],
+.stax-zone input:not([type="range"]),
+.stax-zone label,
+.stax-zone select,
+.stax-zone summary,
+.stax-zone textarea {
   touch-action: manipulation;
+  box-shadow: initial;
 }
-.header-section button {
+.stax-zone a:hover,
+.stax-zone area:hover,
+.stax-zone button:hover,
+.stax-zone [role="button"]:hover,
+.stax-zone input:not([type="range"]):hover,
+.stax-zone label:hover,
+.stax-zone select:hover,
+.stax-zone summary:hover,
+.stax-zone textarea:hover {
+  box-shadow: initial;
+}
+.stax-zone button {
   border-radius: 0;
 }
-.header-section input,
-.header-section button,
-.header-section select,
-.header-section optgroup,
-.header-section textarea {
+.stax-zone input,
+.stax-zone button,
+.stax-zone select,
+.stax-zone optgroup,
+.stax-zone textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
 }
-.header-section button,
-.header-section input {
+.stax-zone button,
+.stax-zone input {
   overflow: visible;
 }
-.header-section button,
-.header-section select {
+.stax-zone button,
+.stax-zone select {
   text-transform: none;
 }
-.header-section button,
-.header-section html [type="button"],
-.header-section [type="reset"],
-.header-section [type="submit"] {
+.stax-zone button,
+.stax-zone html [type="button"],
+.stax-zone [type="reset"],
+.stax-zone [type="submit"] {
   -webkit-appearance: button;
 }
-.header-section button::-moz-focus-inner,
-.header-section [type="button"]::-moz-focus-inner,
-.header-section [type="reset"]::-moz-focus-inner,
-.header-section [type="submit"]::-moz-focus-inner {
+.stax-zone button::-moz-focus-inner,
+.stax-zone [type="button"]::-moz-focus-inner,
+.stax-zone [type="reset"]::-moz-focus-inner,
+.stax-zone [type="submit"]::-moz-focus-inner {
   padding: 0;
   border-style: none;
 }
-.header-section input[type="radio"],
-.header-section input[type="checkbox"] {
+.stax-zone input[type="radio"],
+.stax-zone input[type="checkbox"] {
   box-sizing: border-box;
   padding: 0;
 }
-.header-section input[type="date"],
-.header-section input[type="time"],
-.header-section input[type="datetime-local"],
-.header-section input[type="month"] {
+.stax-zone input[type="date"],
+.stax-zone input[type="time"],
+.stax-zone input[type="datetime-local"],
+.stax-zone input[type="month"] {
   -webkit-appearance: listbox;
 }
-.header-section textarea {
+.stax-zone textarea {
   overflow: auto;
   resize: vertical;
 }
-.header-section input[type="text"]:focus,
-.header-section input[type="email"]:focus,
-.header-section input[type="url"]:focus,
-.header-section input[type="password"]:focus,
-.header-section input[type="search"]:focus,
-.header-section input[type="number"]:focus,
-.header-section input[type="tel"]:focus,
-.header-section input[type="range"]:focus,
-.header-section input[type="date"]:focus,
-.header-section input[type="month"]:focus,
-.header-section input[type="week"]:focus,
-.header-section input[type="time"]:focus,
-.header-section input[type="datetime"]:focus,
-.header-section input[type="datetime-local"]:focus,
-.header-section input[type="color"]:focus,
-.header-section textarea:focus {
+.stax-zone input[type="text"]:focus,
+.stax-zone input[type="email"]:focus,
+.stax-zone input[type="url"]:focus,
+.stax-zone input[type="password"]:focus,
+.stax-zone input[type="search"]:focus,
+.stax-zone input[type="number"]:focus,
+.stax-zone input[type="tel"]:focus,
+.stax-zone input[type="range"]:focus,
+.stax-zone input[type="date"]:focus,
+.stax-zone input[type="month"]:focus,
+.stax-zone input[type="week"]:focus,
+.stax-zone input[type="time"]:focus,
+.stax-zone input[type="datetime"]:focus,
+.stax-zone input[type="datetime-local"]:focus,
+.stax-zone input[type="color"]:focus,
+.stax-zone textarea:focus {
   color: inherit;
   border-color: transparent;
+  box-shadow: initial;
 }
 /*
  * # SQ FRAMEWORK - 1.0.0
@@ -917,9 +935,9 @@ html {
   }
 }
 .sq-col {
-  -webkit-flex-basis: 0;
+  /*-webkit-flex-basis: 0;
   -ms-flex-preferred-size: 0;
-  flex-basis: 0;
+  flex-basis: 0;*/
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1906,6 +1924,876 @@ html {
     .transition(~"top @{scrollupDuration} @{scrollupEasing}, height @{scrollupDuration} @{scrollupEasing}, background @{scrollupDuration} @{scrollupEasing}, box-shadow @{scrollupDuration} @{scrollupEasing}");
   }*/
 }
+/*
+* # SQ FRAMEWORK - 1.0.0
+* http://www.seventhqueen.com/
+*
+*
+* Copyright 2012 SeventhQueen
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+*/
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+.hb-item {
+  border: 1px dashed rgba(0, 0, 0, 0.16);
+  border-radius: 3px;
+  padding: 1em;
+  line-height: 100%;
+  margin-bottom: 0.5em;
+  color: #bbb;
+  transition: color 0.4s ease;
+}
+.hb-item:last-child {
+  margin-bottom: 0;
+}
+.hb-item .switch {
+  float: right;
+}
+.hb-item.active {
+  color: inherit;
+}
+.hb-section .section-content {
+  height: 100%;
+}
+.hb-section .section-content .sq-row,
+.hb-section .section-content .hb-inner-content {
+  height: 100%;
+}
+.hb-section .section-content .section-item {
+  position: relative;
+  z-index: 90;
+}
+.hb-section .section-content .section-item.is-empty {
+  min-height: 60px;
+  display: flex;
+}
+.hb-section .section-content .section-item.column-content-top {
+  display: flex;
+  -webkit-align-content: flex-start !important;
+  -ms-flex-line-pack: start !important;
+  align-items: flex-start !important;
+}
+.hb-section .section-content .section-item.column-content-middle {
+  display: flex;
+  -webkit-align-content: center !important;
+  -ms-flex-line-pack: center !important;
+  align-items: center !important;
+}
+.hb-section .section-content .section-item.column-content-bottom {
+  display: flex;
+  -webkit-align-content: flex-end !important;
+  -ms-flex-line-pack: end !important;
+  align-items: flex-end !important;
+}
+.hb-section.section-columns-content-top .section-content .sq-row .section-item {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: start;
+  align-items: flex-start;
+}
+.hb-section.section-columns-content-middle .section-content .sq-row .section-item {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-items: center;
+}
+.hb-section.section-columns-content-bottom .section-content .sq-row .section-item {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-align-content: flex-end;
+  -ms-flex-line-pack: end;
+  align-items: flex-end;
+}
+.hb-section.section-columns-top .section-content .sq-row {
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.hb-section.section-columns-middle .section-content .sq-row {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.hb-section.section-columns-bottom .section-content .sq-row {
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+.hb-section .section-content .section-item .hb-element {
+  position: relative;
+  z-index: 101;
+  width: 100%;
+  /*.delete-element,
+  .duplicate-element {
+    position: absolute;
+    background: #00bf00;
+    color: #fff;
+    top: -2px;
+    right: -2px;
+    z-index: 10000;
+    cursor: pointer;
+    opacity: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 20px;
+    padding-top: 0;
+    text-align: center;
+    transition: all 0.2s;
+    !*&:hover {
+      width: 34px;
+      height: 30px;
+      padding-top: 4px;
+      .mdi {
+        transform: scale(1);
+      }
+    }*!
+    .mdi {
+      opacity: 0.7;
+      transition: all 0.2s;
+      transform: scale(0.8);
+      display: block;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .mdi:before {
+      font-size: 18px;
+      transition: all 0s;
+    }
+  }*/
+  /*.duplicate-element {
+    right: 22px;
+    border-bottom-left-radius: 3px;
+  }*/
+  /*&:hover {
+    .delete-element,
+    .duplicate-element {
+      opacity: 1;
+    }
+  }*/
+  /*&.hb-is-editing {
+    &:hover {
+      .delete-element,
+      .duplicate-element {
+        opacity: 1;
+      }
+    }
+    .delete-element,
+    .duplicate-element {
+      &:hover {
+        background: #00a800;
+      }
+    }
+  }*/
+}
+.hb-section .section-content .section-item .hb-element .hb-element-action {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+  background: #00bf00;
+  top: calc(100% - 20px);
+  left: 50%;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  opacity: 0;
+  transition: all 0.3s;
+  transform: translateX(-50%);
+}
+.hb-section .section-content .section-item .hb-element .hb-element-action .mdi:before {
+  font-size: medium;
+}
+.hb-section .section-content .section-item .hb-element .hb-element-action .mdi {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+.hb-section .section-content .section-item .hb-element .hb-element-action .mdi:hover {
+  opacity: 1;
+}
+.hb-section .section-content .section-item .hb-element:hover .hb-element-action {
+  opacity: 1;
+}
+.hb-section-wrap .is-sticky .section-content:not(:hover) {
+  text-align: center;
+  transition: transform 0.3s ease;
+  flex: 1 0 auto;
+}
+.hb-section-wrap .is-sticky .section-content:hover {
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+.hb-zone-wrap + .hb-zone-wrap {
+  margin-top: 2px;
+}
+/*body .hb-zone-wrap~.hb-zone-wrap {
+  background: red !important;
+  border: 1px solid red !important;
+}*/
+.hb-section-wrap {
+  position: relative;
+}
+.hb-section-wrap:hover {
+  z-index: 101;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-hcontent-frame.hb-normal {
+  border: 1px solid transparent;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-hitem-frame.hb-normal,
+.hb-section-wrap .hb-section-content-wrap.hb-hitem-frame.hb-dragging {
+  border: 1px solid transparent;
+}
+.hb-section-wrap .section-item.is-hovered .hb-section-content-wrap.hb-hitem-frame .hb-inner-content {
+  border-color: transparent !important;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-hitem-frame.hb-is-editing .hb-inner-content {
+  border-color: transparent;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-hitem-frame .hb-inner-content {
+  border: 1px dashed rgba(0, 0, 0, 0.16);
+  position: relative;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-hitem-frame .hb-inner-content .add-new-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #d5dadf;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-hitem-frame .hb-inner-content .add-new-element:hover {
+  color: #acb1b6;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-item-frame.hb-normal {
+  border: 1px solid transparent;
+}
+.hb-check-header.is-hover .hb-section-content-overlay {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.hb-zone-wrap .hb-zone-content-wrap.hb-zcontent-frame .hb-section-content-overlay {
+  background: #546E7A;
+  color: #fff;
+  opacity: 0.3;
+  visibility: visible;
+  height: 20px;
+}
+.hb-zone-wrap .hb-zone-content-wrap.hb-zcontent-frame .hb-section-content-overlay .zone-label {
+  font-size: 10px;
+  color: #fafafa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.hb-zone-wrap.hb-dragging {
+  border: 1px rgba(255, 20, 147, 0.5) solid !important;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+}
+.hb-section-wrap .hb-section-content-wrap.hb-hcontent-frame .hb-section-content-overlay {
+  border-radius: 3px;
+  background: #8492a6;
+  color: #fff;
+  opacity: 0;
+  visibility: visible;
+  left: calc(50% - 20px);
+  bottom: -20px;
+  top: auto;
+}
+.hb-section-wrap.hb-dragging {
+  border: 1px rgba(31, 45, 61, 0.5) solid !important;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+}
+.hb-zone-wrap.last-zone .hb-section-wrap:last-child .hb-section-content-wrap.hb-hcontent-frame .hb-section-content-overlay {
+  left: calc(50% - 60px);
+  top: -20px !important;
+  bottom: auto !important;
+}
+.hb-zone-wrap:hover .hb-zone-content-wrap.hb-zcontent-frame.hb-normal .hb-section-content-overlay {
+  opacity: 1;
+}
+.hb-zone-wrap:hover .hb-section-wrap:hover .hb-section-content-wrap.hb-hcontent-frame.hb-normal .hb-section-content-overlay {
+  opacity: 1;
+}
+.hb-zone-wrap:before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(84, 110, 122, 0.04);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+.hb-zone-wrap:not(.zone-active):hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.hb-zone-wrap .hb-section-wrap {
+  opacity: 0.4;
+}
+.hb-zone-wrap.zone-active .hb-section-wrap {
+  opacity: 1;
+}
+.hb-zone-wrap.zone-active .hb-zone-content-wrap.hb-zcontent-frame .hb-section-content-overlay {
+  opacity: 1;
+}
+.hb-zone-wrap .editZone {
+  position: absolute;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #546E7A;
+  color: #fff;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  opacity: 0.3;
+  cursor: pointer;
+  padding: 0 8px;
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  transition: box-shadow 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hb-zone-wrap .editZone:hover {
+  -webkit-box-shadow: 2px 2px 16px rgba(172, 174, 175, 0.3);
+  -moz-box-shadow: 2px 2px 16px rgba(172, 174, 175, 0.3);
+  box-shadow: 2px 2px 16px rgba(172, 174, 175, 0.3);
+  color: #ced8dc;
+}
+.hb-zone-wrap .editZone .mdi {
+  font-size: 18px;
+}
+.hb-zone-wrap .editZone .edit-zone-button {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+.hb-zone-wrap:hover .editZone {
+  opacity: 1;
+}
+.hb-zone-wrap .orderZone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hb-zone-wrap .orderZone .move-up,
+.hb-zone-wrap .orderZone .move-down {
+  display: inline-block;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #546E7A;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+.hb-zone-wrap .orderZone .move-up:is-disabled,
+.hb-zone-wrap .orderZone .move-down:is-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.hb-zone-wrap .orderZone .move-up:hover,
+.hb-zone-wrap .orderZone .move-down:hover {
+  background: #3b5561;
+}
+.hb-zone-wrap .orderZone .move-up {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.hb-zone-wrap .orderZone .move-down {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.hb-zone-content-wrap {
+  display: inline-block;
+  margin: auto;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.hb-section-content-wrap {
+  padding: 0;
+  display: inline-block;
+  margin: auto;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.hb-section-content-wrap:hover .hb-inner-content {
+  border-color: transparent !important;
+  transition: border-color 0.3s;
+}
+.hb-section-content-wrap:hover {
+  cursor: move;
+  top: 0;
+  bottom: 0;
+}
+.hb-section-content-wrap.hb-hcontent-frame {
+  cursor: move;
+  z-index: 1;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+}
+.hb-section-content-wrap.hb-hcontent-frame.hb-normal:before {
+  content: "section";
+  position: relative;
+  top: 5px;
+  left: 5px;
+  font-size: 10px;
+  background: #8492a6;
+  color: #fafafa;
+  display: inline-block;
+  opacity: 0;
+  float: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0 4px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+.hb-section-content-wrap.hb-hcontent-frame.hb-normal:hover {
+  border: 1px #8492a6 solid !important;
+}
+.hb-section-content-wrap.hb-hcontent-frame.hb-normal:hover:before {
+  opacity: 1;
+}
+.hb-section-content-wrap.hb-hcontent-frame.hb-normal.hb-is-editing {
+  border: 1px #8492a6 solid !important;
+}
+.hb-section-content-wrap.hb-hcontent-frame.dragging-over {
+  border-style: solid !important;
+}
+.hb-zone-content-wrap.hb-zcontent-frame {
+  z-index: 1;
+  transition: all 0.2s ease;
+  border: 1px rgba(84, 110, 122, 0.3) dashed;
+  border-radius: 3px;
+}
+.hb-zone-content-wrap.hb-zcontent-frame.dragging-over {
+  border-style: solid !important;
+}
+.hb-zone-wrap.zone-active .hb-zone-content-wrap.hb-zcontent-frame {
+  border-color: transparent;
+}
+.hb-section-content-wrap.hb-hitem-frame {
+  cursor: move;
+  top: 0;
+  bottom: 0;
+  z-index: 101;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+}
+.hb-section-content-wrap.hb-hitem-frame.hb-normal:hover .hb-inner-content {
+  border: 1px #1fb6ff solid !important;
+}
+.hb-section-content-wrap.hb-hitem-frame.hb-normal.hb-is-editing {
+  /*background: rgba(31, 182, 255, 0.05);
+    border: 1px rgba(31, 182, 255, 1) solid !important;*/
+}
+.hb-section-content-wrap.hb-hitem-frame.hb-normal.hb-is-editing .hb-inner-content {
+  background: rgba(31, 182, 255, 0.05);
+  border: 1px #1fb6ff solid !important;
+}
+.hb-section-content-wrap.hb-hitem-frame.hb-dragging {
+  background: rgba(166, 171, 176, 0.05);
+  padding: 0;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+}
+.hb-section-content-wrap.hb-hitem-frame.hb-dragging .hb-inner-content {
+  border: 1px dashed rgba(0, 0, 0, 0.46);
+}
+.section-item .hb-element {
+  border: 1px transparent solid;
+  border-radius: 3px;
+}
+.section-item .hb-element.hb-is-editing {
+  border: 1px solid #00bf00;
+}
+.section-item .hb-element.hb-full-height {
+  height: 100%;
+}
+.section-item .hb-element.hb-full-width {
+  width: 100%;
+}
+.section-item:hover .hb-section-content-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+.section-item:hover .hb-element:hover {
+  border: 1px solid #00bf00;
+}
+.section-item:hover .hb-element:hover.no-hover {
+  border-color: transparent;
+}
+.section-item .hb-section-content-overlay {
+  background: #1fb6ff;
+  color: #fff;
+}
+.section-item.is-hovered .hb-section-content-wrap.hb-normal {
+  border: 1px #1fb6ff solid;
+}
+.stax-is-dragging {
+  visibility: hidden;
+  position: fixed;
+  width: 100px;
+  height: 50px;
+}
+.stax-is-dragging:before {
+  position: absolute;
+  visibility: visible;
+  width: 100%;
+  height: calc(80%);
+  padding: 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.stax-is-dragging.is-element:before {
+  content: attr(data-element-type);
+  border: 1px solid #00BF00;
+  background: rgba(0, 191, 0, 0.1);
+  color: #00BF00;
+}
+.stax-is-dragging.is-container:before {
+  content: attr(data-item-type);
+  border: 1px solid #1F2D3D;
+  background: rgba(31, 45, 61, 0.1);
+  color: #1F2D3D;
+  height: 100%;
+  z-index: 9999;
+}
+.stax-is-dragging.is-column:before {
+  content: attr(data-item-type);
+  border: 1px solid #1FB6FF;
+  background: rgba(31, 182, 255, 0.1);
+  color: #1FB6FF;
+}
+.hb-section-content-wrap.hb-item-frame {
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: all 0.3s ease;
+}
+.hb-section-content-wrap.hb-item-frame:hover {
+  border: 1px #13ce66 solid !important;
+  background: rgba(19, 206, 102, 0.05);
+}
+.hb-section-content-overlay {
+  position: absolute;
+  z-index: 102;
+  padding: 0 5px;
+  cursor: default;
+  left: 5px;
+  top: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  overflow: hidden;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+}
+.hb-section-content-overlay .mdi {
+  opacity: 0.7;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  height: 100%;
+  align-items: center;
+}
+.hb-section-content-overlay .mdi:before {
+  vertical-align: middle;
+  font-size: medium;
+}
+.hb-section-content-overlay .mdi:hover {
+  opacity: 1;
+}
+.hb-section-content-overlay .mdi:not(:first-child),
+.hb-section-content-overlay .mdi-withText span {
+  width: 0;
+  opacity: 0;
+}
+.hb-section-content-overlay:hover {
+  cursor: pointer;
+}
+.hb-section-content-overlay:hover .mdi:not(:first-child),
+.hb-section-content-overlay:hover .mdi-withText span {
+  width: 20px;
+  opacity: 0.7;
+}
+.hb-section-content-overlay:hover .mdi:not(:first-child):hover,
+.hb-section-content-overlay:hover .mdi-withText span:hover {
+  opacity: 1;
+}
+.mdi-withText {
+  white-space: nowrap;
+}
+.mdi-withText:before {
+  opacity: inherit;
+}
+.mdi-withText span {
+  font-size: 12px;
+  padding: 0 8px 0 2px;
+  opacity: inherit;
+}
+.hb-section-content-wrap.is-hovered {
+  z-index: 110;
+}
+button.add-new-header {
+  position: absolute;
+  left: 50%;
+  bottom: -190px;
+  transform: translateX(-50%);
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline-style: none;
+  box-sizing: border-box;
+  min-width: 40px;
+  padding: 0 20px;
+  letter-spacing: 1px;
+  z-index: 1;
+  border: none;
+  line-height: 34px;
+  font-size: 12px;
+  border-radius: 3px;
+  background-color: #1f2d3d;
+  color: #fff;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+button.add-new-header:hover {
+  opacity: 1;
+}
+.is-hidden {
+  display: none !important;
+}
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0;
@@ -2136,6 +3024,12 @@ html {
 /*******************************
        Logo Element
 *******************************/
+.sq-logo img {
+  vertical-align: middle;
+  transition: all 0.2s;
+  height: auto;
+  max-width: 100%;
+}
 .header-section .sq-logo {
   /* Logo Image */
 }
@@ -2422,7 +3316,7 @@ html {
 .header-section .sq-menu em:hover {
   color: #fff;
 }
-.menu-default > ul {
+.sq-menu .menu-default > ul {
   list-style: none;
   margin: 0;
   height: 100%;
@@ -2442,18 +3336,18 @@ html {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-.menu-default:not(.flexMenu) > ul {
+.header-section .sq-menu .menu-default:not(.flexMenu) > ul {
   -ms-flex-wrap: nowrap;
   -webkit-flex-wrap: nowrap;
   flex-wrap: nowrap;
 }
-.menu-default > ul > li:first-child {
+.sq-menu .menu-default > ul > li:first-child {
   padding-left: 0;
 }
-.menu-default > ul > li:last-child {
+.sq-menu .menu-default > ul > li:last-child {
   padding-right: 0;
 }
-.menu-default > ul li {
+.sq-menu .menu-default > ul li {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -2469,10 +3363,10 @@ html {
   width: auto;
   outline: none;
 }
-.menu-default > ul li:before {
+.sq-menu .menu-default > ul li:before {
   display: none;
 }
-.menu-default > ul li .item {
+.sq-menu .menu-default > ul li .item {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -2485,14 +3379,15 @@ html {
   outline: none;
   text-decoration: none;
 }
-.menu-default > ul li .item:not(input):hover,
-.menu-default > ul li .item:not(input):focus {
+.sq-menu .menu-default > ul li .item:not(input):hover,
+.sq-menu .menu-default > ul li .item:not(input):focus {
   color: #F0114C;
 }
-.menu-default > ul > li > .submenu .item {
+.sq-menu .menu-default > ul > li > .submenu .item {
   width: 100%;
+  white-space: normal;
 }
-.menu-default > ul > li.has-submenu > a:after {
+.sq-menu .menu-default > ul > li.has-submenu > a:after {
   content: "\F140";
   font-family: 'Material Design Icons';
   display: block;
@@ -2502,14 +3397,14 @@ html {
   margin-left: 5px;
   font-size: 12px;
 }
-.menu-default > ul > li.has-submenu > .submenu li.has-submenu > a:before {
+.sq-menu .menu-default > ul > li.has-submenu > .submenu li.has-submenu > a:before {
   display: none;
 }
-.menu-default > ul > li.flexMenu-viewMore.has-submenu > a {
+.sq-menu .menu-default > ul > li.flexMenu-viewMore.has-submenu > a {
   color: transparent !important;
   position: relative;
 }
-.menu-default > ul > li.flexMenu-viewMore.has-submenu > a:after {
+.sq-menu .menu-default > ul > li.flexMenu-viewMore.has-submenu > a:after {
   content: "\F1D9";
   position: absolute;
   top: 50%;
@@ -2520,14 +3415,14 @@ html {
 }
 /* Has Submenu */
 @media (min-width: 768px) {
-  .has-submenu {
+  .sq-menu .has-submenu {
     position: relative;
   }
-  .has-submenu > .submenu {
+  .sq-menu .has-submenu > .submenu {
     box-shadow: 0 0 3px rgba(140, 140, 140, 0.2);
   }
 }
-.has-submenu > .submenu {
+.sq-menu .has-submenu > .submenu {
   position: absolute;
   display: none;
   top: 100%;
@@ -2543,7 +3438,7 @@ html {
   align-items: flex-start;
   z-index: 120;
 }
-.has-submenu > .submenu .item {
+.sq-menu .has-submenu > .submenu .item {
   margin: 0;
   width: 100%;
   height: auto;
@@ -2552,16 +3447,16 @@ html {
   transition: all 0.3s;
   left: 0;
 }
-.has-submenu > .submenu .item:hover {
+.sq-menu .has-submenu > .submenu .item:hover {
   left: 3px;
 }
-.has-submenu > .submenu .item > .icon,
-.has-submenu > .submenu .item > img {
+.sq-menu .has-submenu > .submenu .item > .icon,
+.sq-menu .has-submenu > .submenu .item > img {
   -ms-flex-item-align: start;
   -webkit-align-self: flex-start;
   align-self: flex-start;
 }
-.has-submenu > .submenu .item:after {
+.sq-menu .has-submenu > .submenu .item:after {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   text-align: right;
@@ -2569,49 +3464,49 @@ html {
   -webkit-align-self: flex-start;
   align-self: flex-start;
 }
-.has-submenu > .submenu .item:not(.div-c) input[type="text"],
-.has-submenu > .submenu .item:not(.div-c) select,
-.has-submenu > .submenu .item:not(.div-c) .ui.dropdown.selection {
+.sq-menu .has-submenu > .submenu .item:not(.div-c) input[type="text"],
+.sq-menu .has-submenu > .submenu .item:not(.div-c) select,
+.sq-menu .has-submenu > .submenu .item:not(.div-c) .ui.dropdown.selection {
   width: 100%;
 }
-.has-submenu.submenu-left > .submenu {
+.sq-menu .has-submenu.submenu-left > .submenu {
   left: auto;
   right: 0;
 }
-.has-submenu > .submenu .has-submenu {
+.sq-menu .has-submenu > .submenu .has-submenu {
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-.has-submenu > .submenu .has-submenu > .submenu {
+.sq-menu .has-submenu > .submenu .has-submenu > .submenu {
   display: none;
   position: relative;
 }
 @media (max-width: 767px) {
-  .has-submenu > .submenu .has-submenu > .submenu {
+  .sq-menu .has-submenu > .submenu .has-submenu > .submenu {
     padding: 0 20px;
   }
 }
 @media (min-width: 768px) {
-  .has-submenu > .submenu .has-submenu > .submenu {
+  .sq-menu .has-submenu > .submenu .has-submenu > .submenu {
     position: absolute;
     left: 100%;
     top: 0;
   }
 }
-.has-submenu:hover > .submenu {
+.sq-menu .has-submenu:hover > .submenu {
   display: block;
   animation: fadeIn 0.2s;
 }
-.has-submenu:hover > .submenu .has-submenu:hover > .submenu {
+.sq-menu .has-submenu:hover > .submenu .has-submenu:hover > .submenu {
   display: block;
   animation: fadeIn 0.2s;
 }
 @media (min-width: 768px) {
-  .has-submenu:hover > .submenu {
+  .sq-menu .has-submenu:hover > .submenu {
     animation: fadeInUp 0.2s;
   }
-  .has-submenu:hover > .submenu .has-submenu:hover > .submenu {
+  .sq-menu .has-submenu:hover > .submenu .has-submenu:hover > .submenu {
     animation: fadeInUp 0.2s;
   }
 }
@@ -2629,6 +3524,98 @@ html {
   height: 100%;
 }
 /* No js flexMenu*/
+.sq-menu-modburger .sq-menu-modburger-toggle {
+  cursor: pointer;
+}
+.sq-menu-modburger .menu {
+  display: none;
+  padding: 10px;
+}
+.sq-menu-modburger .menu.sq-menu-modburger-show {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+.sq-menu-modburger .menu .sq-menu-modburger-close {
+  position: relative;
+  float: right;
+  padding: 10px;
+  cursor: pointer;
+}
+.sq-menu-modburger .menu .main-menu {
+  clear: both;
+  height: 100%;
+  list-style: none;
+}
+.sq-menu-modburger .menu .main-menu .menu-item .item {
+  font-size: 24px !important;
+  line-height: 42px;
+}
+.sq-menu-modburger .menu .main-menu .submenu .menu-item .item {
+  font-size: 18px !important;
+  line-height: 32px;
+}
+.sq-menu-modburger .menu .main-menu .menu-item {
+  padding-left: 20px;
+}
+.sq-menu-modburger .menu .main-menu .menu-item .menu-item {
+  padding-left: 20px;
+}
+.sq-menu-modburger .menu .main-menu .menu-item .menu-item .menu-item {
+  padding-left: 20px;
+}
+.sq-menu-modburger .menu-item {
+  display: flex;
+  flex-wrap: wrap;
+  /*&.show-submenu {
+      .submenu {
+        display: block;
+      }
+    }*/
+}
+.sq-menu-modburger .menu-item:before {
+  font: normal normal normal 18px/1 "Material Design Icons";
+  content: '';
+  width: 24px;
+  align-self: center;
+  text-align: center;
+  font-weight: 300;
+  margin-right: 10px;
+  color: #444444;
+  opacity: 0.3;
+}
+.sq-menu-modburger .menu-item.has-submenu:before {
+  content: '\F415';
+}
+.sq-menu-modburger .menu-item.has-submenu .submenu {
+  display: none;
+  flex-basis: 100%;
+}
+.sq-menu-modburger .menu-item.has-submenu:hover:before {
+  content: '\F374';
+}
+.sq-menu-modburger .menu-item.has-submenu:hover > .submenu {
+  display: block;
+  animation: fadeMenuIn 1s;
+}
+.sq-menu-modburger-visible {
+  overflow: hidden;
+}
+@keyframes fadeMenuIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
 .menu-style-1 > ul > li.menu-item > a {
   position: relative;
 }
@@ -3038,13 +4025,20 @@ html {
 /*******************************
           Icon Element
 *******************************/
-.header-section .sq-icon .item-child {
+.sq-icon .item-child {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.header-section .sq-icon .item-child .mdi:before,
-.header-section .sq-icon .item-child .mdi-set {
+.sq-icon .item-child .mdi.mdi-24px:before {
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  line-height: 26px;
+  float: left;
+}
+.sq-icon .item-child .mdi:before,
+.sq-icon .item-child .mdi-set {
   line-height: initial;
 }
 /* Importing module specific variables */
@@ -3233,7 +4227,7 @@ html {
 /*******************************
           Link Element
 *******************************/
-.header-section .sq-link .item-child .mdi {
+.sq-link .item-child .mdi {
   display: inline-block;
 }
 /* Importing module specific variables */
@@ -3422,33 +4416,33 @@ html {
 /*******************************
           Icon Element
 *******************************/
-.header-section .sq-search .mdi {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  display: inline-block;
-  transform: translateY(-50%);
+.sq-search .mdi {
+  display: flex;
 }
-.header-section .sq-search .mdi:before,
-.header-section .sq-search .mdi-set {
+.sq-search .mdi:before,
+.sq-search .mdi-set {
   line-height: initial;
 }
-.header-section .sq-search form {
+.sq-search form {
   position: relative;
 }
-.header-section .sq-search .input-text {
+.sq-search .input-text {
   width: 100%;
   transition: all 0.3s;
   text-overflow: ellipsis;
+  border: 0;
+  background: transparent;
 }
-.header-section .sq-search .input-text:focus {
+.sq-search .input-text:focus {
   outline: none;
 }
-.header-section .sq-search .input-label {
+.sq-search .input-label {
   display: block;
   position: absolute;
   bottom: 100%;
   left: 10px;
+  font-weight: normal;
+  margin: 0;
   opacity: 0;
   -webkit-transform: translate3d(0, 50%, 0) scale(1);
   transform: translate3d(0, 50%, 0) scale(1);
@@ -3459,26 +4453,31 @@ html {
   transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1), transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1), transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0ms 300ms cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-.header-section .sq-search .input-text:placeholder-shown + .input-label {
+.sq-search .input-text:placeholder-shown + .input-label {
   visibility: hidden;
   z-index: -1;
 }
-.header-section .sq-search .input-text:not(:placeholder-shown) + .input-label,
-.header-section .sq-search .input-text:focus:not(:placeholder-shown) + .input-label {
+.sq-search .input-text:not(:placeholder-shown) + .input-label,
+.sq-search .input-text:focus:not(:placeholder-shown) + .input-label {
   visibility: visible;
   z-index: 1;
   opacity: 0.5;
   /*-webkit-transform: translate3d(0, calc((50%) - (0.8rem * 0.8) - (2.1rem * 1.8)), 0) scale(0.8);
-      transform: translate3d(0, calc((50%) - (0.8rem * 0.8) - (2.1rem * 1.8)), 0) scale(0.8);*/
+    transform: translate3d(0, calc((50%) - (0.8rem * 0.8) - (2.1rem * 1.8)), 0) scale(0.8);*/
   transform: translate3d(0, 0, 0) scale(0.8);
   -webkit-transition: visibility 0ms, z-index 0ms, -webkit-transform 300ms;
   transition: visibility 0ms, z-index 0ms, -webkit-transform 300ms;
   transition: transform 300ms, visibility 0ms, z-index 0ms;
   transition: transform 300ms, visibility 0ms, z-index 0ms, -webkit-transform 300ms;
 }
-.header-section.is-resized .input-text:not(:placeholder-shown) + .input-label,
-.header-section.is-resized .input-text:focus:not(:placeholder-shown) + .input-label {
+.is-resized .input-text:not(:placeholder-shown) + .input-label,
+.is-resized .input-text:focus:not(:placeholder-shown) + .input-label {
   opacity: 0;
+}
+form.floating-placeholder {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 /* Importing module specific variables */
 /* This is the single variable that controls them all */
@@ -3664,11 +4663,8 @@ html {
 /* scroll up */
 /* recommended */
 /*******************************
-          Icon Element
+        Button Element
 *******************************/
-.header-section .sq-button {
-  transition: all 0.3s;
-}
 .header-section .sq-button .item-child {
   display: flex;
   align-items: center;
@@ -3677,6 +4673,14 @@ html {
 .header-section .sq-button .item-child .mdi:before,
 .header-section .sq-button .item-child .mdi-set {
   line-height: initial;
+}
+.hb-section .sq-button .item-child {
+  display: inline-block;
+  box-shadow: none;
+  transition: all 0.3s;
+}
+.hb-section .sq-button .item-child:hover {
+  box-shadow: none;
 }
 /* Importing module specific variables */
 /* This is the single variable that controls them all */
@@ -3864,11 +4868,29 @@ html {
 /*******************************
           Image Element
 *******************************/
-.header-section .sq-image img {
+.sq-image img {
+  vertical-align: middle;
+  transition: all 0.2s;
+  height: auto;
+  max-width: 100%;
+}
+.sq-image a img {
+  box-shadow: none;
+}
+.header-section .sq-image {
+  /* SQ Image */
+}
+.header-section .sq-image .item-child {
+  display: inline-block;
+}
+.header-section .sq-image .item-child img {
   vertical-align: middle;
   transition: all 0.2s;
   max-width: none;
+}
+.header-section .sq-image img {
   max-height: 100%;
+  border: 0;
 }
 .header-section.is-sticky.is-resized .sq-image img {
   max-height: 100%;
@@ -4057,10 +5079,13 @@ html {
 /* scroll up */
 /* recommended */
 /*******************************
-          Icon Element
+         Text Element
 *******************************/
-.header-section .sq-text .item-child .mdi {
+.sq-text .item-child .mdi {
   display: inline-block;
+}
+.sq-text p {
+  margin: initial;
 }
 /* Importing module specific variables */
 /* This is the single variable that controls them all */
@@ -4435,5 +5460,1285 @@ html {
 /* scroll up */
 /* recommended */
 /*******************************
-          Icon Element
+      Separator Element
 *******************************/
+.sq-separator {
+  margin: 0 auto;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+       Divider Element
+*******************************/
+.hb-widget-item {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.hb-widget-item .sq-divider {
+  min-width: 40px;
+  line-height: 0;
+  font-size: 0;
+}
+.hb-widget-item .sq-divider .sq-divider-separator {
+  display: inline-block;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+       Spacer Element
+*******************************/
+.hb-widget-item {
+  padding: 0;
+}
+.hb-widget-item .sq-spacer .sq-spacer-inner {
+  min-width: 50px;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+     Accordion Element
+*******************************/
+.header-section .header-item .item.sq-accordion.is-full-height {
+  width: 100%;
+  height: auto;
+}
+.sq-accordion {
+  border: 1px solid #e5e5e5;
+  display: flex;
+  flex-wrap: wrap;
+}
+.sq-accordion .sq-inner-acc {
+  width: 100%;
+  padding: 1em 0.75em;
+  border-bottom: 1px solid #e5e5e5;
+  overflow: hidden;
+  display: none;
+  font-size: initial;
+}
+.sq-accordion .sq-inner-acc:last-child {
+  border-bottom: none;
+}
+.sq-accordion .sq-toggle-acc {
+  width: 100%;
+  display: block;
+  padding: 1em 0.75em;
+  border-bottom: 1px solid #e5e5e5;
+  transition: background .3s ease;
+  cursor: pointer;
+  font-size: initial;
+}
+.sq-accordion .sq-toggle-acc ~ .sq-toggle-acc:nth-last-of-type(2) {
+  border-bottom: none;
+}
+.sq-accordion p {
+  padding: 0;
+  margin: 0;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+       Tabs Element
+*******************************/
+.hb-widget-item {
+  padding: 0;
+}
+.sq-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.sq-tabs .sq-toggle-tab {
+  font-size: initial;
+  order: 1;
+  display: block;
+  padding: 1em 0.75em;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.sq-tabs .sq-inner-tab {
+  font-size: initial;
+  opacity: 0;
+  order: 99;
+  flex-grow: 1;
+  display: none;
+  padding: 1em 0.75em;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+.sq-tabs .sq-toggle-tab.active {
+  cursor: pointer;
+  position: relative;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
+}
+.sq-tabs .sq-toggle-tab.active:before,
+.sq-tabs .sq-toggle-tab.active:after {
+  bottom: 0;
+  height: 0;
+  width: 999em;
+  display: block;
+  content: "";
+  position: absolute;
+  border-bottom: 1px solid #e5e5e5;
+}
+.sq-tabs .sq-toggle-tab.active:before {
+  right: 100%;
+}
+.sq-tabs .sq-toggle-tab.active:after {
+  left: 100%;
+}
+.sq-tabs .sq-toggle-tab.active + .sq-inner-tab {
+  display: block;
+  width: 100%;
+  opacity: 1;
+  animation: fade 0.35s;
+}
+/* Reset to accordion at lower resolution */
+@media (max-width: 45em) {
+  .sq-tabs {
+    border: 1px solid #e5e5e5;
+  }
+  .sq-tabs .sq-inner-tab,
+  .sq-tabs .sq-toggle-tab {
+    order: initial;
+  }
+  .sq-tabs .sq-inner-tab {
+    border-left: none;
+    border-right: none;
+  }
+  .sq-tabs .sq-toggle-tab.active {
+    border: none;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .sq-tabs .sq-toggle-tab {
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .sq-tabs .sq-toggle-tab ~ .sq-toggle-tab:nth-last-of-type(2) {
+    border-bottom: none;
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+         Heading Element
+*******************************/
+.sq-heading .heading-title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 1;
+  vertical-align: baseline;
+}
+/* Importing module specific variables */
+/* This is the single variable that controls them all */
+/* The size of page text  */
+/* I need this for non .ui.grid containers */
+/* Minimum Gutter is used to determine  the maximum container width for a given device */
+/* Devices */
+/*-------------------
+        Segment
+--------------------*/
+/*-------------------
+    Border Radius
+--------------------*/
+/* See Power-user section below
+   for explanation of @px variables
+*/
+/*--------------
+  Page Heading
+---------------*/
+/*-------------------
+        Sizes
+--------------------*/
+/*
+  Sizes are all expressed in terms of 14px/em (default em)
+  This ensures these "ratios" remain constant despite changes in EM
+*/
+/*-------------------
+      Paragraph
+--------------------*/
+/*-------------------
+       Links
+--------------------*/
+/*-------------------
+  Highlighted Text
+--------------------*/
+/*-------------------
+       Loader
+--------------------*/
+/*----------------------
+     Header Resize
+-----------------------*/
+/*----------------------
+      Header Menu
+-----------------------*/
+/* height when the header is resized */
+/*----------------------
+      Header Section
+-----------------------*/
+/*----------------------
+      Header Logo
+-----------------------*/
+/*----------------------
+      Header Items
+-----------------------*/
+/*----------------------
+    Header Elements
+-----------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*-------------------------------------
+     Activate older browser support
+--------------------------------------*/
+/*-------------------
+      Site Colors
+--------------------*/
+/*---   Neutrals  ---*/
+/*-------------------
+     Alpha Colors
+--------------------*/
+/*-------------------
+       Accents
+--------------------*/
+/* Differentiating Neutrals */
+/* Differentiating Layers */
+/*******************************
+           Power-User
+*******************************/
+/*-------------------
+        Paths
+--------------------*/
+/* For source only. Modified in gulp for dist */
+/*-------------------
+       Em Sizes
+--------------------*/
+/*
+  This rounds @size values to the closest pixel then expresses that value in (r)em.
+  This ensures all size values round to exact pixels
+*/
+/* em */
+/* rem */
+/*-------------------
+  Exact Pixel Values
+--------------------*/
+/*
+  These are used to specify exact pixel values in em
+  for things like borders that remain constantly
+  sized as emSize adjusts
+
+  Since there are many more sizes than names for sizes,
+  these are named by their original pixel values.
+
+*/
+/*-------------------
+       Icons
+--------------------*/
+/* Maximum Glyph Width of Icon */
+/* Icons Font Family */
+/* Custom Icons Font Family */
+/*-------------------
+     Neutral Text
+--------------------*/
+/*--------------
+   Form Input
+---------------*/
+/* This adjusts the default form input across all elements */
+/* Line Height Default For Inputs in Browser */
+/*-------------------
+    Focused Input
+--------------------*/
+/* Used on inputs, textarea etc */
+/* Used on dropdowns, other larger blocks */
+/*-------------------
+    Derived Values
+--------------------*/
+/* Loaders Position Offset */
+/* Rendered Scrollbar Width */
+/* Maximum Single Character Glyph Width, aka Capital "W" */
+/* Used to match floats with text */
+/* Header Spacing */
+/* Minimum Mobile Width */
+/*-------------------
+     Breakpoints
+--------------------*/
+/* TODO - de verificat și mutat in sqdefault */
+/* Responsive */
+/* New custom inline declaration based on existent UI variables */
+/* Columns */
+/*******************************
+             States
+*******************************/
+/*-------------------
+      Disabled
+--------------------*/
+/*-------------------
+        Hover
+--------------------*/
+/*-------------------
+        Focus
+--------------------*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*-------------------
+        Active
+--------------------*/
+/*-------------------
+    Emotive Colors
+--------------------*/
+/* Positive */
+/* Negative */
+/* Info */
+/* Warning */
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*---------------------------------
+    *** SITE COLOR VARIABLE ***
+----------------------------------*/
+/* HEADER COLOR VARIABLE */
+/* SIDEBAR COLOR VARIABLE */
+/* FOOTER COLOR VARIABLE */
+/*-------------------
+    OTHER ELEMENTS
+--------------------*/
+/*--------------------------
+          Animation
+---------------------------*/
+/* scroll down */
+/* scroll up */
+/* recommended */
+/*******************************
+      Google Maps Element
+*******************************/
+.sq-map.item {
+  line-height: 0;
+}
+.sq-map iframe {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.sq-map iframe.is-clicked {
+  pointer-events: none;
+}

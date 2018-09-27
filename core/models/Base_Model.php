@@ -21,12 +21,6 @@ class Base_Model {
 		STATUS_FAILED = 203,
 		STATUS_NOTFOUND = 204;
 
-	const
-		VIEWPORT_DESKTOP = 1,
-		VIEWPORT_TABLET = 2,
-		VIEWPORT_MOBILE = 3;
-
-
 	/**
 	 * @var string
 	 */
@@ -52,12 +46,12 @@ class Base_Model {
 	 * @var string
 	 */
 	protected
-		$table_active_headers = 'stax_active_headers',
-		$table_headers = 'stax_headers',
+		$table_zones = 'stax_zones',
+		$table_containers = 'stax_containers',
+		$table_container_viewport = 'stax_container_viewport',
+		$table_container_items = 'stax_container_items',
 		$table_columns = 'stax_columns',
 		$table_elements = 'stax_elements',
-		$table_grp_header = 'stax_grp_header',
-		$table_grp_header_items = 'stax_grp_header_items',
 		$table_templates = 'stax_templates',
 		$table_components = 'stax_components';
 
@@ -123,6 +117,10 @@ class Base_Model {
 					if ( is_array( $field->value ) ) {
 						$value = [];
 						foreach ( $field->value as $val ) {
+							if ( is_array( $val ) ) {
+								$val = (object) $val;
+							}
+
 							$stack          = [];
 							$stack['value'] = $val->value;
 

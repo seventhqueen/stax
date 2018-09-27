@@ -86,16 +86,26 @@ class Column extends ElementSpecs implements ColumnInterface {
 	/**
 	 * @var array|bool|object|string
 	 */
+	/**
+	 * @var array|bool|object|string
+	 */
+	/**
+	 * @var array|bool|object|string
+	 */
+	/**
+	 * @var array|bool|object|string
+	 */
 	public
 		$name,
 		$slug,
 		$type,
+		$parent,
 		$uuid,
 		$icon,
 		$position,
 		$template,
 		$builder,
-		$authOption,
+		$auth,
 		$visibilityDesktop,
 		$visibilityTablet,
 		$visibilityMobile,
@@ -103,6 +113,8 @@ class Column extends ElementSpecs implements ColumnInterface {
 		$customTablet,
 		$customMobile,
 		$editor,
+		$editor_header,
+		$editor_section,
 		$desktop,
 		$tablet,
 		$mobile,
@@ -117,8 +129,9 @@ class Column extends ElementSpecs implements ColumnInterface {
 	 */
 	public function __construct() {
 		$this->name              = 'Column';
-		$this->slug              = '';
+		$this->slug              = 'column';
 		$this->type              = 'column';
+		$this->parent            = '';
 		$this->uuid              = '';
 		$this->icon              = (object) [
 			'size'  => 'mdi-24px',
@@ -127,8 +140,14 @@ class Column extends ElementSpecs implements ColumnInterface {
 		];
 		$this->position          = '';
 		$this->template          = '';
+		$this->template_header   = $this->getTemplate( $this->slug . '-header' );
+		$this->template_section  = $this->getTemplate( $this->slug . '-section' );
 		$this->builder           = '';
-		$this->authOption        = '';
+		$this->auth              = [
+			'logged_in'  => false,
+			'logged_out' => false,
+			'all'        => true
+		];
 		$this->visibilityDesktop = true;
 		$this->visibilityTablet  = true;
 		$this->visibilityMobile  = true;
@@ -136,6 +155,8 @@ class Column extends ElementSpecs implements ColumnInterface {
 		$this->customTablet      = false;
 		$this->customMobile      = false;
 		$this->editor            = [];
+		$this->editor_header     = [];
+		$this->editor_section    = [];
 		$this->desktop           = [];
 		$this->tablet            = [];
 		$this->mobile            = [];
@@ -145,82 +166,166 @@ class Column extends ElementSpecs implements ColumnInterface {
 		$this->mobileCSS         = '';
 		$this->layers            = false;
 
-		$this->editor();
+		$this->editorHeader();
+		$this->editorSection();
 		$this->advancedEditor();
 	}
 
 	/**
 	 * @param EditorSection $section
 	 */
-	protected function addSection( EditorSection $section ) {
-		$this->editor[] = $section;
+	protected function addSectionSettings( $name, EditorSection $section ) {
+		if ( ! $name ) {
+			$this->editor_section[] = $section;
+		} else {
+			$this->editor_section[ $name ] = $section;
+		}
+
+	}
+
+	/**
+	 * @param EditorSection $section
+	 */
+	protected function addHeaderSettings( $name, EditorSection $section ) {
+		if ( ! $name ) {
+			$this->editor_header[] = $section;
+		} else {
+			$this->editor_header[ $name ] = $section;
+		}
 	}
 
 	/**
 	 *
 	 */
-	private function editor() {
+	private function editorSection() {
 		$section = new EditorSection( [
 			'title' => 'Layout',
-			'name'  => 'default-options',
-			'state' => false,
-			'icon'  => 'mdi-column-options'
+			'name'  => 'default-options'
 		] );
 
 		$fields = [];
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Shrink Width:',
-				'name'        => 'shrink-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_DROPDOWN,
-				'controller'  => 'column-settings',
-				'edit'        => self::EDIT_CLASS,
-				'value'       => [
+				'label'    => 'Width',
+				'name'     => 'width_field',
+				'type'     => self::FIELD_INPUT_NUMBER,
+				'value'    => '',
+				'units'    => [
 					[
-						'label'    => 'No',
+						'type'   => '%',
+						'active' => true
+					]
+				],
+				'selector' => [
+					'{{SELECTOR}}' => 'width: {{VALUE}}{{UNIT}}'
+				]
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label' => 'Content position',
+				'name'  => 'content_position_field',
+				'type'  => self::FIELD_DROPDOWN,
+				'value' => [
+					[
+						'label'    => 'Inherit',
 						'value'    => '',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
-							'field'   => [
-								'h-align-field'
-							]
+							'field'   => []
 						]
 					],
 					[
-						'label'    => 'Yes',
-						'value'    => 'sq-col-auto',
-						'extra'    => [],
+						'label'    => 'Top',
+						'value'    => 'column-content-top',
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => []
 						]
 					],
-				],
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+					[
+						'label'    => 'Middle',
+						'value'    => 'column-content-middle',
+						'selected' => false,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					],
+					[
+						'label'    => 'Bottom',
+						'value'    => 'column-content-bottom',
+						'selected' => false,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					]
+				]
+			]
+		);
+
+		foreach ( $fields as $field ) {
+			$section->addField( $field );
+		}
+
+		$this->addSectionSettings( null, $section );
+	}
+
+	/**
+	 *
+	 */
+	private function editorHeader() {
+		$section = new EditorSection( [
+			'title' => 'Layout',
+			'name'  => 'default-options'
+		] );
+
+		$fields = [];
+
+		$fields[] = new EditorSectionField(
+			[
+				'label' => 'Shrink Width',
+				'name'  => 'shrink_field',
+				'type'  => self::FIELD_DROPDOWN,
+				'value' => [
+					[
+						'label'    => 'No',
+						'value'    => '',
+						'selected' => true,
+						'trigger'  => [
+							'section' => [],
+							'field'   => [
+								'h_align_field'
+							]
+						]
+					],
+					[
+						'label'    => 'Yes',
+						'value'    => 'sq-col-auto',
+						'selected' => false,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					],
+				]
 			]
 		);
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Vertical Align:',
-				'name'        => 'v-align-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_BUTTON_GROUP,
-				'controller'  => 'column-settings',
-				'edit'        => self::EDIT_CLASS,
-				'value'       => [
+				'label' => 'Vertical Align',
+				'name'  => 'v_align_field',
+				'type'  => self::FIELD_BUTTON_GROUP,
+				'value' => [
 					[
 						'label'    => '<span class="mdi mdi-format-vertical-align-top mdi-18px"></span>',
 						'value'    => 'align-items-start',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -230,7 +335,6 @@ class Column extends ElementSpecs implements ColumnInterface {
 					[
 						'label'    => '<span class="mdi mdi-format-vertical-align-center mdi-18px"></span>',
 						'value'    => 'align-items-center',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
@@ -240,33 +344,25 @@ class Column extends ElementSpecs implements ColumnInterface {
 					[
 						'label'    => '<span class="mdi mdi-format-vertical-align-bottom mdi-18px"></span>',
 						'value'    => 'align-items-end',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => []
 						]
 					]
-				],
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
+
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Horizontal Align:',
-				'name'        => 'h-align-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_BUTTON_GROUP,
-				'controller'  => 'column-settings',
-				'edit'        => self::EDIT_CLASS,
-				'value'       => [
+				'label' => 'Horizontal Align',
+				'name'  => 'h_align_field',
+				'type'  => self::FIELD_BUTTON_GROUP,
+				'value' => [
 					[
 						'label'    => '<span class="mdi mdi-format-horizontal-align-left mdi-18px"></span>',
 						'value'    => 'justify-content-start',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -276,7 +372,6 @@ class Column extends ElementSpecs implements ColumnInterface {
 					[
 						'label'    => '<span class="mdi mdi-format-horizontal-align-center mdi-18px"></span>',
 						'value'    => 'justify-content-center',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
@@ -286,18 +381,13 @@ class Column extends ElementSpecs implements ColumnInterface {
 					[
 						'label'    => '<span class="mdi mdi-format-horizontal-align-right mdi-18px"></span>',
 						'value'    => 'justify-content-end',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => []
 						]
 					]
-				],
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
@@ -306,7 +396,7 @@ class Column extends ElementSpecs implements ColumnInterface {
 			$section->addField( $field );
 		}
 
-		$this->editor[] = $section;
+		$this->addHeaderSettings( null, $section );
 	}
 
 	/**
@@ -315,22 +405,17 @@ class Column extends ElementSpecs implements ColumnInterface {
 	private function advancedEditor() {
 		$section_1 = new EditorSection( [
 			'title' => 'Layout',
-			'name'  => 'layout-advanced',
-			'state' => false,
-			'icon'  => 'mdi-advanced'
+			'name'  => 'layout-advanced'
 		] );
 
 		$fields_1 = [];
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Padding:',
-				'name'        => 'padding-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_SPACING,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Padding',
+				'name'     => self::ADVANCED_PADDING,
+				'type'     => self::FIELD_SPACING,
+				'value'    => [
 					[
 						'position' => 'Top',
 						'value'    => ''
@@ -348,7 +433,7 @@ class Column extends ElementSpecs implements ColumnInterface {
 						'value'    => '',
 					]
 				],
-				'units'       => [
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -362,28 +447,23 @@ class Column extends ElementSpecs implements ColumnInterface {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => [
 						'padding-top: {{VALUE_1}}{{UNIT}}',
 						'padding-right: {{VALUE_2}}{{UNIT}}',
 						'padding-bottom: {{VALUE_3}}{{UNIT}}',
 						'padding-left: {{VALUE_4}}{{UNIT}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Margin:',
-				'name'        => 'margin-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_SPACING,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Margin',
+				'name'     => self::ADVANCED_MARGIN,
+				'type'     => self::FIELD_SPACING,
+				'value'    => [
 					[
 						'position' => 'Top',
 						'value'    => ''
@@ -401,7 +481,7 @@ class Column extends ElementSpecs implements ColumnInterface {
 						'value'    => ''
 					]
 				],
-				'units'       => [
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -415,28 +495,23 @@ class Column extends ElementSpecs implements ColumnInterface {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => [
 						'margin-top: {{VALUE_1}}{{UNIT}}',
 						'margin-right: {{VALUE_2}}{{UNIT}}',
 						'margin-bottom: {{VALUE_3}}{{UNIT}}',
 						'margin-left: {{VALUE_4}}{{UNIT}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Border radius:',
-				'name'        => 'border-normal-radius-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_BORDER_RADIUS,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Border radius',
+				'name'     => self::ADVANCED_BORDER_RADIUS,
+				'type'     => self::FIELD_BORDER_RADIUS,
+				'value'    => [
 					[
 						'value'    => '',
 						'position' => 'Top left'
@@ -454,7 +529,7 @@ class Column extends ElementSpecs implements ColumnInterface {
 						'position' => 'Bottom left'
 					]
 				],
-				'units'       => [
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -468,59 +543,45 @@ class Column extends ElementSpecs implements ColumnInterface {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => [
 						'border-top-left-radius: {{VALUE_1}}{{UNIT}}',
 						'border-top-right-radius: {{VALUE_2}}{{UNIT}}',
 						'border-bottom-right-radius: {{VALUE_3}}{{UNIT}}',
 						'border-bottom-left-radius: {{VALUE_4}}{{UNIT}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$section_2 = new EditorSection( [
 			'title' => 'Style',
-			'name'  => 'normal-style-advanced',
-			'state' => false,
-			'icon'  => 'mdi-advanced'
+			'name'  => 'normal-style-advanced'
 		] );
 
 		$fields_2 = [];
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Background:',
-				'name'        => 'bg-color-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_COLOR_PICKER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'    => 'Background',
+				'name'     => self::ADVANCED_BG_NORMAL,
+				'type'     => self::FIELD_COLOR_PICKER,
+				'value'    => '',
+				'selector' => [
 					'{{SELECTOR}}' => 'background-color: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Border type:',
-				'name'        => 'border-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_DROPDOWN,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Border type',
+				'name'     => self::ADVANCED_BORDER_TYPE_NORMAL,
+				'type'     => self::FIELD_DROPDOWN,
+				'value'    => [
 					[
 						'label'    => 'None',
 						'value'    => '',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
@@ -530,74 +591,65 @@ class Column extends ElementSpecs implements ColumnInterface {
 					[
 						'label'    => 'Solid',
 						'value'    => 'solid',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-field-advanced',
-								'border-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					],
 					[
 						'label'    => 'Double',
 						'value'    => 'double',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-field-advanced',
-								'border-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					],
 					[
 						'label'    => 'Dotted',
 						'value'    => 'dotted',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-field-advanced',
-								'border-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					],
 					[
 						'label'    => 'Dashed',
 						'value'    => 'dashed',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-field-advanced',
-								'border-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					]
 				],
-				'units'       => [],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => 'border-style: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Border width:',
-				'name'        => 'border-width-field-advanced',
-				'visibility'  => false,
-				'type'        => self::FIELD_SPACING,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'      => 'Border width',
+				'name'       => self::ADVANCED_BORDER_WIDTH_NORMAL,
+				'visibility' => false,
+				'type'       => self::FIELD_SPACING,
+				'value'      => [
 					[
 						'position' => 'Top',
 						'value'    => '0'
@@ -615,81 +667,58 @@ class Column extends ElementSpecs implements ColumnInterface {
 						'value'    => '0'
 					]
 				],
-				'units'       => [
+				'units'      => [
 					[
 						'type'   => 'px',
 						'active' => true
 					]
 				],
-				'selector'    => [
+				'selector'   => [
 					'{{SELECTOR}}' => [
 						'border-top-width: {{VALUE_1}}{{UNIT}}',
 						'border-right-width: {{VALUE_2}}{{UNIT}}',
 						'border-bottom-width: {{VALUE_3}}{{UNIT}}',
 						'border-left-width: {{VALUE_4}}{{UNIT}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Border color:',
-				'name'        => 'border-color-field-advanced',
-				'visibility'  => false,
-				'type'        => self::FIELD_COLOR_PICKER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'      => 'Border color',
+				'name'       => self::ADVANCED_BORDER_COLOR_NORMAL,
+				'visibility' => false,
+				'type'       => self::FIELD_COLOR_PICKER,
+				'value'      => '',
+				'selector'   => [
 					'{{SELECTOR}}' => 'border-color: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$section_4 = new EditorSection( [
 			'title' => 'Customization',
-			'name'  => 'customization-advanced',
-			'state' => false,
-			'icon'  => 'mdi-advanced'
+			'name'  => 'customization-advanced'
 		] );
 
 		$fields_4 = [];
 
 		$fields_4[] = new EditorSectionField(
 			[
-				'label'       => 'ID:',
-				'name'        => 'css-id-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_TEXT,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_ID,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'label' => 'ID',
+				'name'  => self::ADVANCED_CSS_ID,
+				'type'  => self::FIELD_INPUT_TEXT,
+				'value' => ''
 			]
 		);
 
 		$fields_4[] = new EditorSectionField(
 			[
-				'label'       => 'Class:',
-				'name'        => 'css-class-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_TEXT,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_CLASS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'label' => 'Class',
+				'name'  => self::ADVANCED_CSS_CLASS,
+				'type'  => self::FIELD_INPUT_TEXT,
+				'value' => ''
 			]
 		);
 
@@ -705,9 +734,12 @@ class Column extends ElementSpecs implements ColumnInterface {
 			$section_4->addField( $field );
 		}
 
+		$this->addHeaderSettings( 'tab_advanced_layout', $section_1 );
+		$this->addHeaderSettings( 'tab_advanced_normal_style', $section_2 );
+		$this->addHeaderSettings( 'tab_advanced_customization', $section_4 );
 
-		$this->editor['advanced_layout']        = $section_1;
-		$this->editor['advanced_normal_style']  = $section_2;
-		$this->editor['advanced_customization'] = $section_4;
+		$this->addSectionSettings( 'tab_advanced_layout', $section_1 );
+		$this->addSectionSettings( 'tab_advanced_normal_style', $section_2 );
+		$this->addSectionSettings( 'tab_advanced_customization', $section_4 );
 	}
 }

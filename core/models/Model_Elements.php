@@ -32,6 +32,15 @@ class Model_Elements extends Base_Model {
 	}
 
 	/**
+	 * @return array|null|object
+	 */
+	public function getAll() {
+		$result = $this->db->get_results( "SELECT * FROM `" . $this->db->prefix . $this->table_elements . "` WHERE `deleted_at` IS NULL" );
+
+		return $result;
+	}
+
+	/**
 	 * @param $uuid
 	 *
 	 * @return array|null|object|void

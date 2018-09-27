@@ -29,6 +29,11 @@
          * @since 1.1.8.1
          */
         private $_update_details;
+        /**
+         * @var array
+         * @since 2.1.2
+         */
+        private $_translation_updates;
 
         #--------------------------------------------------------------------------------
         #region Singleton
@@ -104,8 +109,14 @@
                 ), 10, 3 );
             }
 
-            if ( $this->_fs->is_premium() && $this->is_correct_folder_name() ) {
-                add_filter( 'upgrader_post_install', array( &$this, '_maybe_update_folder_name' ), 10, 3 );
+            if ( $this->_fs->is_premium() ) {
+                if ( $this->is_correct_folder_name() ) {
+                    add_filter( 'upgrader_post_install', array( &$this, '_maybe_update_folder_name' ), 10, 3 );
+                }
+
+                if ( ! $this->_fs->has_active_valid_license() ) {
+                    add_filter( 'wp_prepare_themes_for_js', array( &$this, 'change_theme_update_info_html' ), 10, 1 );
+                }
             }
         }
 
@@ -175,7 +186,7 @@
             $plugin_update_row = preg_replace(
                 '/(\<div.+>)(.+)(\<a.+\<a.+)\<\/div\>/is',
                 '$1 $2 ' . sprintf(
-                    $this->_fs->get_text_inline( '%sRenew your license now%s to access version %s features and support.', 'renew-license-now' ),
+                    $this->_fs->get_text_inline( '%sRenew your license now%s to access version %s security & feature updates, and support.', 'renew-license-now' ),
                     '<a href="' . $this->_fs->pricing_url() . '">', '</a>',
                     $r->new_version ) .
                 '$4',
@@ -183,6 +194,44 @@
             );
 
             echo $plugin_update_row;
+        }
+
+        /**
+         * @author Leo Fajardo (@leorw)
+         * @since  2.0.2
+         *
+         * @param array $prepared_themes
+         *
+         * @return array
+         */
+        function change_theme_update_info_html( $prepared_themes ) {
+            $theme_basename = $this->_fs->get_plugin_basename();
+
+            if ( ! isset( $prepared_themes[ $theme_basename ] ) ) {
+                return $prepared_themes;
+            }
+
+            $themes_update = get_site_transient( 'update_themes' );
+            if ( ! isset( $themes_update->response[ $theme_basename ] ) ||
+                empty( $themes_update->response[ $theme_basename ]['package'] )
+            ) {
+                return $prepared_themes;
+            }
+
+            $prepared_themes[ $theme_basename ]['update'] = preg_replace(
+                '/(\<p.+>)(.+)(\<a.+\<a.+)\.(.+\<\/p\>)/is',
+                '$1 $2 ' . sprintf(
+                    $this->_fs->get_text_inline( '%sRenew your license now%s to access version %s security & feature updates, and support.', 'renew-license-now' ),
+                    '<a href="' . $this->_fs->pricing_url() . '">', '</a>',
+                    $themes_update->response[ $theme_basename ]['new_version'] ) .
+                '$4',
+                $prepared_themes[ $theme_basename ]['update']
+            );
+
+            // Set to false to prevent the "Update now" link for the context theme from being shown on the "Themes" page.
+            $prepared_themes[ $theme_basename ]['hasPackage'] = false;
+
+            return $prepared_themes;
         }
 
         /**
@@ -278,6 +327,46 @@
                 $transient_data->response[ $this->_fs->get_plugin_basename() ] = $this->_fs->is_plugin() ?
                     $this->_update_details :
                     (array) $this->_update_details;
+            }
+
+            $slug = $this->_fs->get_slug();
+
+            if ( $this->_fs->is_org_repo_compliant() && $this->_fs->is_freemium() ) {
+                if ( ! isset( $this->_translation_updates ) ) {
+                    $this->_translation_updates = array();
+
+                    if ( current_user_can( 'update_languages' ) ) {
+                        $translation_updates = $this->fetch_wp_org_module_translation_updates( $module_type, $slug );
+                        if ( ! empty( $translation_updates ) ) {
+                            $this->_translation_updates = $translation_updates;
+                        }
+                    }
+                }
+
+                if ( ! empty( $this->_translation_updates ) ) {
+                    $all_translation_updates = ( isset( $transient_data->translations ) && is_array( $transient_data->translations ) ) ?
+                        $transient_data->translations :
+                        array();
+
+                    $current_plugin_translation_updates_map = array();
+                    foreach ( $all_translation_updates as $key => $translation_update ) {
+                        if ( $module_type === ( $translation_update['type'] . 's' ) && $slug === $translation_update['slug'] ) {
+                            $current_plugin_translation_updates_map[ $translation_update['language'] ] = $translation_update;
+                            unset( $all_translation_updates[ $key ] );
+                        }
+                    }
+
+                    foreach ( $this->_translation_updates as $translation_update ) {
+                        $lang = $translation_update['language'];
+                        if ( ! isset( $current_plugin_translation_updates_map[ $lang ] ) ||
+                            version_compare( $translation_update['version'], $current_plugin_translation_updates_map[ $lang ]['version'], '>' )
+                        ) {
+                            $current_plugin_translation_updates_map[ $lang ] = $translation_update;
+                        }
+                    }
+
+                    $transient_data->translations = array_merge( $all_translation_updates, array_values( $current_plugin_translation_updates_map ) );
+                }
             }
 
             return $transient_data;
@@ -393,6 +482,38 @@
         }
 
         /**
+         * @author Leo Fajardo (@leorw)
+         * @since 2.0.2
+         */
+        function delete_update_data() {
+            $this->_logger->entrance();
+
+            $transient_key = "update_{$this->_fs->get_module_type()}s";
+
+            $transient_data = get_site_transient( $transient_key );
+
+            // Alias
+            $basename = $this->_fs->get_plugin_basename();
+
+            if ( ! is_object( $transient_data ) ||
+                ! isset( $transient_data->response ) ||
+                 ! is_array( $transient_data->response ) ||
+                empty( $transient_data->response[ $basename ] )
+            ) {
+                return;
+            }
+
+            unset( $transient_data->response[ $basename ] );
+
+            // Remove the added filters.
+            $this->remove_transient_filters();
+
+            set_site_transient( $transient_key, $transient_data );
+
+            $this->add_transient_filters();
+        }
+
+        /**
          * Try to fetch plugin's info from .org repository.
          *
          * @author Vova Feldman (@svovaf)
@@ -430,6 +551,138 @@
             }
 
             return $res;
+        }
+
+        /**
+         * Fetches module translation updates from wordpress.org.
+         *
+         * @author Leo Fajardo (@leorw)
+         * @since  2.1.2
+         *
+         * @param string $module_type
+         * @param string $slug
+         *
+         * @return array|null
+         */
+        private function fetch_wp_org_module_translation_updates( $module_type, $slug ) {
+            $plugin_data = $this->_fs->get_plugin_data();
+
+            $locales = array_values( get_available_languages() );
+            $locales = apply_filters( "{$module_type}_update_check_locales", $locales );
+            $locales = array_unique( $locales );
+
+            $plugin_basename = $this->_fs->get_plugin_basename();
+            if ( 'themes' === $module_type ) {
+                $plugin_basename = str_replace( '-premium', '', $plugin_basename );
+            }
+
+            global $wp_version;
+
+            $request_args = array(
+                'timeout' => 15,
+                'body'    => array(
+                    "{$module_type}" => json_encode(
+                        array(
+                            "{$module_type}" => array(
+                                $plugin_basename => array(
+                                    'Name'   => trim( str_replace( '(Premium)', '', $plugin_data['Name'] ) ),
+                                    'Author' => $plugin_data['Author'],
+                                )
+                            )
+                        )
+                    ),
+                    'translations'    => json_encode( $this->get_installed_translations( $module_type, $slug ) ),
+                    'locale'          => json_encode( $locales )
+                ),
+                'user-agent' => ( 'WordPress/' . $wp_version . '; ' . home_url( '/' ) )
+            );
+
+            $url = "http://api.wordpress.org/{$module_type}/update-check/1.1/";
+            if ( $ssl = wp_http_supports( array( 'ssl' ) ) ) {
+                $url = set_url_scheme( $url, 'https' );
+            }
+
+            $raw_response = Freemius::safe_remote_post(
+                $url,
+                $request_args,
+                WP_FS__TIME_24_HOURS_IN_SEC,
+                WP_FS__TIME_12_HOURS_IN_SEC,
+                false
+            );
+
+            if ( is_wp_error( $raw_response ) ) {
+                return null;
+            }
+
+            $response = json_decode( wp_remote_retrieve_body( $raw_response ), true );
+
+            if ( ! is_array( $response ) ) {
+                return null;
+            }
+
+            if ( ! isset( $response['translations'] ) || empty( $response['translations'] ) ) {
+                return null;
+            }
+
+            return $response['translations'];
+        }
+
+        /**
+         * @author Leo Fajardo (@leorw)
+         * @since 2.1.2
+         *
+         * @param string $module_type
+         * @param string $slug
+         *
+         * @return array
+         */
+        private function get_installed_translations( $module_type, $slug ) {
+            if ( function_exists( 'wp_get_installed_translations' ) ) {
+                return wp_get_installed_translations( $module_type );
+            }
+
+            $dir = "/{$module_type}";
+
+            if ( ! is_dir( WP_LANG_DIR . $dir ) )
+                return array();
+
+            $files = scandir( WP_LANG_DIR . $dir );
+            if ( ! $files )
+                return array();
+
+            $language_data = array();
+
+            foreach ( $files as $file ) {
+                if ( 0 !== strpos( $file, $slug ) ) {
+                    continue;
+                }
+
+                if ( '.' === $file[0] || is_dir( WP_LANG_DIR . "{$dir}/{$file}" ) ) {
+                    continue;
+                }
+
+                if ( substr( $file, -3 ) !== '.po' ) {
+                    continue;
+                }
+
+                if ( ! preg_match( '/(?:(.+)-)?([a-z]{2,3}(?:_[A-Z]{2})?(?:_[a-z0-9]+)?).po/', $file, $match ) ) {
+                    continue;
+                }
+
+                if ( ! in_array( substr( $file, 0, -3 ) . '.mo', $files ) )  {
+                    continue;
+                }
+
+                list( , $textdomain, $language ) = $match;
+
+                if ( '' === $textdomain ) {
+                    $textdomain = 'default';
+                }
+
+                $language_data[ $textdomain ][ $language ] = wp_get_pomo_file_data( WP_LANG_DIR . "{$dir}/{$file}" );
+            }
+
+            return $language_data;
         }
 
         /**

@@ -1,6 +1,7 @@
 /**
  * Front-end JS logic
  */
+
 "use strict";
 
 var startEditor = startEditor || {};
@@ -10,25 +11,50 @@ var startEditor = startEditor || {};
     startEditor = $.extend(startEditor, {
         settings: {
             body: null,
-            hElements: '*:not(a):not(p):not(em):not(form):not(input):not(strong):not(li):not(ul):not(h1):not(span):not(time):not(small)',
+            hElements: '*:not(a):not(p):not(em):not(form)' +
+            ':not(input):not(strong):not(li):not(ul)' +
+            ':not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)' +
+            ':not(textarea):not(span):not(time):not(small)',
             hoverElements: null
         },
         onClickDisableLinks: function (e) {
-            console.log(startEditor.settings.body.hasClass('sq-element-selecting'));
             if (startEditor.settings.body.hasClass('sq-element-selecting')) {
                 e.preventDefault();
                 return false;
             }
         },
         start: function () {
+            startEditor.settings.hElements += ':not(.before-zone-exist):not(.zone-exist-wrap):not(.after-zone-exist)';
             startEditor.settings.body = $('body');
             startEditor.settings.hoverElements = $(startEditor.settings.hElements);
             startEditor.settings.hoverElements.on('click', startEditor.onClickAll);
+
+            startEditor.settings.body.on('click', '.zone-before-action', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var zoneUuid = this.getAttribute('data-zone-id');
+
+                if (zoneUuid) {
+                    var event = new CustomEvent('add-zone-before', {detail: zoneUuid});
+                    document.dispatchEvent(event);
+                }
+            });
+
+            startEditor.settings.body.on('click', '.zone-after-action', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var zoneUuid = this.getAttribute('data-zone-id');
+
+                if (zoneUuid) {
+                    var event = new CustomEvent('add-zone-after', {detail: zoneUuid});
+                    document.dispatchEvent(event);
+                }
+            });
         },
         init: function () {
             startEditor.settings.body.addClass('sq-element-selecting');
-
-            //add the events
             startEditor.settings.body.on('click', '*', startEditor.onClickDisableLinks);
             startEditor.settings.hoverElements.on({
                 mouseover: startEditor.onMouseEnter,
@@ -58,17 +84,16 @@ var startEditor = startEditor || {};
             }
             e.stopPropagation();
 
-
-            var event; // The custom event that will be created
+            var event;
             if (document.createEvent) {
                 event = document.createEvent("HTMLEvents");
-                event.initEvent("clickxpath", true, true);
+                event.initEvent("select-zone-xpath", true, true);
             } else {
                 event = document.createEventObject();
-                event.eventType = "clickxpath";
+                event.eventType = "select-zone-xpath";
             }
 
-            event.eventName = "clickxpath";
+            event.eventName = "select-zone-xpath";
 
             if (document.createEvent) {
                 e.target.dispatchEvent(event);
@@ -86,11 +111,9 @@ var startEditor = startEditor || {};
         isHoverEl: function (e) {
             if (!startEditor.settings.body.hasClass('sq-element-selecting')) {
                 return false;
-            }
-            if ($(e).height() < 30 || $(e).width() < 200) {
+            } else if ($(e).width() < 200) {
                 return false;
-            }
-            if ($(e).parents('.sq-popup').length) {
+            } else if ($(e).parents('.sq-popup').length) {
                 return false;
             }
 
@@ -105,11 +128,14 @@ var startEditor = startEditor || {};
             if (typeof el === "string") {
                 return document.evaluate(el, document, null, 0, null)
             }
+
             if (!el || el.nodeType !== 1) return '';
             if (el.id) return "//*[@id='" + el.id + "']";
+
             var sames = [].filter.call(el.parentNode.children, function (x) {
                 return x.tagName === el.tagName
             });
+
             return startEditor.xpath(el.parentNode) + '/' + el.tagName.toLowerCase() + (sames.length > 1 ? '[' + ([].indexOf.call(sames, el) + 1) + ']' : '')
         }
     });

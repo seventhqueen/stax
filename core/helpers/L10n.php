@@ -55,34 +55,36 @@ class L10n {
 				'titleStart'            => __( 'Editing ', 'stax' ),
 				'titleLayers'           => __( 'Layers', 'stax' ),
 				'titleTemplates'        => __( 'Templates', 'stax' ),
-				'titleSaveTemplates'    => __( 'Save current headers as template', 'stax' ),
-				'titleSavedTemplates'   => __( 'Saved header templates', 'stax' ),
+				'titleZones'            => __( 'Zones', 'stax' ),
+				'titleOrderZones'       => __( 'Order zones', 'stax' ),
+				'titleDefaultZones'     => __( 'Default zones', 'stax' ),
+				'titleZonesCurrent'     => __( 'Zones on this page', 'stax' ),
+				'titleAddZone'          => __( 'Add zones', 'stax' ),
+				'titleZonesOther'       => __( 'Zones on other pages', 'stax' ),
+				'titleSaveTemplates'    => __( 'Save current zone as template', 'stax' ),
+				'titleSavedTemplates'   => __( 'Saved templates', 'stax' ),
 				'titleDefaultTemplates' => __( 'Default templates', 'stax' ),
 				'titleDeletedElements'  => __( 'Deleted Elements', 'stax' ),
 				'titleLayoutElements'   => __( 'Layout Elements', 'stax' ),
 				'titleContentElements'  => __( 'Content Elements', 'stax' ),
 				'titleSavedElements'    => __( 'Saved elements', 'stax' ),
 				'titleSettings'         => __( 'Settings', 'stax' ),
-				'titleSettingsRender'   => __( 'Header render', 'stax' ),
 				'titleSettingsTheme'    => __( 'Editor theme', 'stax' ),
 				'titleSettingsColors'   => __( 'Preset colors', 'stax' ),
 				'settingsColorsInfo'    => __( 'Useful preset colors that you can use them on the entire builder.', 'stax' ),
-				'settingsRenderInfo'    => __( 'Change the area where the header will be rendered.', 'stax' ),
 				'selectRenderArea'      => __( 'SELECT RENDER AREA', 'stax' ),
 				'selectTheme'           => __( 'Select theme', 'stax' ),
-				'settingsExport'        => __( 'Header export', 'stax' ),
-				'settingsImport'        => __( 'Header import', 'stax' ),
-				'saveAsTemplate'        => __( 'Save header as template', 'stax' ),
+				'settingsExport'        => __( 'Export zones', 'stax' ),
+				'settingsImport'        => __( 'Import zones', 'stax' ),
+				'saveAsTemplate'        => __( 'Save zones as template', 'stax' ),
 				'saveAsComponent'       => __( 'Save element as template', 'stax' ),
 				'searchNoTemplates'     => __( 'No templates found.', 'stax' ),
 				'searchNoElements'      => __( 'No elements found. Please try again.', 'stax' ),
 				'resolutionSettings'    => __( 'Apply settings for %s only', 'stax' ),
 				'saveTemplateInfo'      => __( 'You can use this layout later if you save it as template.', 'stax' ),
-				'templatesAllPage'      => __( 'All page headers', 'stax' ),
-				'templatesIndividual'   => __( 'Individual headers', 'stax' ),
 				'saveTemplateSingle'    => __( 'You can save this %s for later use.', 'stax' ),
-				'settingsExportInfo'    => __( 'Export your current header to file.', 'stax' ),
-				'settingsImportInfo'    => __( 'Import header to templates from file.', 'stax' ),
+				'settingsExportInfo'    => __( 'Export zones from this page to file.', 'stax' ),
+				'settingsImportInfo'    => __( 'Import zones from file.', 'stax' ),
 				'actionExport'          => __( 'Export', 'stax' ),
 				'actionImport'          => __( 'Import', 'stax' )
 			],
@@ -92,39 +94,32 @@ class L10n {
 					'no'                   => __( 'No', 'stax' ),
 					'save'                 => __( 'Save', 'stax' ),
 					'cancel'               => __( 'Cancel', 'stax' ),
-					'continueConfirmation' => __( 'Are you sure you want to continue?', 'stax' )
+					'continueConfirmation' => __( 'Are you sure you want to continue?', 'stax' ),
+					'add'                  => __( 'Add', 'stax' )
 				],
 				'frame' => [
-					'deleteElement' => __( 'Are you sure you want to move this element to trash?', 'stax' ),
-					'deleteColumn'  => __( 'Are you sure you want to delete this column and all of it\'s content?', 'stax' ),
-					'deleteHeader'  => __( 'Are you sure you want to delete this header and all of it\'s content?', 'stax' )
+					'deleteElement'   => __( 'Are you sure you want to move this element to trash?', 'stax' ),
+					'deleteColumn'    => __( 'Are you sure you want to delete this column and all of it\'s content?', 'stax' ),
+					'deleteContainer' => __( 'Are you sure you want to delete this container and all of it\'s content?', 'stax' )
 				],
 				'panel' => [
-					'editPage'           => [
-						'singleTitle'    => __( 'Go to general mode', 'stax' ),
-						'masterTitle'    => __( 'Go to page mode', 'stax' ),
-						'singleSubtitle' => __( 'You are switching back to general mode. The current changes will be lost and the header will be replaced with the general one.', 'stax' ),
-						'masterSubtitle' => __( 'You are switching to page mode. From now on changes will be applied only to the current page.', 'stax' ),
-						'btnFromCurrent' => __( 'Yes, start from current header', 'stax' ),
-						'btnFromScratch' => __( 'Yes, start from scratch', 'stax' )
-					],
 					'individualSettings' => [
 						'singleTitle' => __( 'This item\'s settings will be set to individual for this resolution. Don\'t worry, you can switch back anytime you want.', 'stax' ),
 						'masterTitle' => __( 'This item\'s settings will be set to general for this resolution. Your changes for this resolution will be lost.', 'stax' )
 					],
 					'template'           => [
 						'saveTitle'   => __( 'You are about to save this item as template, but first you have to name your template.', 'stax' ),
-						'useTitle'    => __( 'You are about to append this template to your current content.', 'stax' ),
+						'useTitle'    => __( 'You are about to append this template to your current zone.', 'stax' ),
 						'deleteTitle' => __( 'This template will be deleted.', 'stax' )
 					],
 					'element'            => [
 						'deleteTitle' => __( 'This saved element will be deleted.', 'stax' )
 					],
-					'header'             => [
-						'renderNewTitle'    => __( 'Switch to Stax Header?', 'stax' ),
-						'renderOldTitle'    => __( 'Switch to the default header?', 'stax' ),
-						'renderNewSubtitle' => __( 'You are about to replace your default header with the new Stax Header. You can always switch back to your old header using this option!', 'stax' ),
-						'renderOldSubtitle' => __( 'You are about to replace your Stax Header with the default header. You can always switch back to your Stax Header using this option!', 'stax' )
+					'render'             => [
+						'renderNewTitle'    => __( 'Turning on Stax', 'stax' ),
+						'renderOldTitle'    => __( 'Turning off Stax', 'stax' ),
+						'renderNewSubtitle' => __( 'Your Stax content will be rendered in frontend.', 'stax' ),
+						'renderOldSubtitle' => __( 'Your Stax content won\'t be rendered in frontend. Your website will be back to its original layout.', 'stax' )
 					],
 					'goPro'              => [
 						'getMore'   => __( 'Get More with', 'stax' ),
@@ -132,17 +127,37 @@ class L10n {
 						'subtitle'  => __( 'More challenges, Unlimited Fun.', 'stax' ),
 						'btnAction' => __( 'Go Pro', 'stax' )
 					],
-					'defineArea'         => [
-						'title'        => __( 'Define header area.', 'stax' ),
-						'subtitle'     => __( 'In order to use the builder, you need to choose your existing header area:', 'stax' ),
-						'selectOption' => __( 'Using your mouse, select your current header', 'stax' ),
-						'inputOption'  => __( 'Let me enter a CSS selector', 'stax' )
+					'newZone'            => [
+						'title'        => __( 'Add a new zone', 'stax' ),
+						'subtitle'     => __( 'To add a new zone you have to use one of the following options:', 'stax' ),
+						'selectOption' => __( 'Select a zone using your mouse (recommended)', 'stax' ),
+						'inputOption'  => __( 'Enter a CSS selector', 'stax' )
+					],
+					'zone'               => [
+						'title'    => __( 'Save zone?', 'stax' ),
+						'subtitle' => __( 'You need to save the current zone before switching to another zone.', 'stax' )
 					]
 				]
 			],
-			'error'       => [
-				'noSelection' => __( 'Please select your section to edit.', 'stax' ),
-				'noSelector'  => __( 'Please enter your CSS selector', 'stax' )
+			'conditions'  => [
+				'include'    => __( 'Include', 'stax' ),
+				'exclude'    => __( 'Exclude', 'stax' ),
+				'general'    => __( 'Entire site', 'stax' ),
+				'archive'    => __( 'Archives', 'stax' ),
+				'single'     => __( 'Single', 'stax' ),
+				'all'        => __( 'All', 'stax' ),
+				'author'     => __( 'Author page', 'stax' ),
+				'date'       => __( 'Date page', 'stax' ),
+				'search'     => __( 'Search results', 'stax' ),
+				'posts'      => __( 'Posts', 'stax' ),
+				'categories' => __( 'Categories', 'stax' ),
+				'tags'       => __( 'Tag', 'stax' ),
+				'format'     => __( 'Format', 'stax' ),
+				'homepage'   => __( 'Front page', 'stax' ),
+				'page'       => __( 'Page', 'stax' ),
+				'media'      => __( 'Media', 'stax' ),
+				'error'      => __( '404 page', 'stax' )
+
 			],
 			'select'      => [
 				'menuPlaceholder'  => __( 'Select menu', 'stax' ),

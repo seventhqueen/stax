@@ -7,6 +7,10 @@
 
 namespace Stax;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class NewdateCompat implements CompatibleTheme {
 
 	/**

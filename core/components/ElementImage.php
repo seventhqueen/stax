@@ -19,46 +19,49 @@ class ElementImage extends Element implements ElementInterface {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->name        = 'Image';
-		$this->slug        = 'image';
-		$this->icon->size  = 'mdi-24px';
-		$this->icon->type  = 'mdi-image';
-		$this->icon->color = 'sq-imageItem';
-		$this->template    = '<div class="item sq-image" data-controller="container">' .
-		                     '<a class="item-child" href="" data-controller="url"><img src="#" class="item-image" data-controller="img"></a>' .
-		                     '</div>';
+		$this->name       = 'Image';
+		$this->slug       = 'image';
+		$this->icon->type = 'mdi-image';
+		$this->template   = $this->getTemplate( $this->slug );
 
 		$fields = [];
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Link:',
-				'name'        => 'url-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_URL,
-				'controller'  => 'url',
-				'edit'        => self::EDIT_HREF,
-				'value'       => '#',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'label' => 'Image',
+				'name'  => 'image_source_field',
+				'type'  => self::FIELD_IMAGE,
+				'value' => STAX_ASSETS_URL . 'images/choose_your_image.png'
 			]
 		);
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Link target:',
-				'name'        => 'url-target-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_DROPDOWN,
-				'controller'  => 'url',
-				'edit'        => 'target',
-				'value'       => [
+				'label' => 'Caption',
+				'name'  => 'image_alt_field',
+				'type'  => self::FIELD_INPUT_TEXT,
+				'value' => ''
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label' => 'Link',
+				'name'  => 'url_field',
+				'type'  => self::FIELD_INPUT_URL,
+				'value' => '#'
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label' => 'Link target',
+				'name'  => 'url_target_field',
+				'type'  => self::FIELD_DROPDOWN,
+				'value' => [
 					[
 						'label'    => 'Self',
 						'value'    => '_self',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
@@ -68,62 +71,145 @@ class ElementImage extends Element implements ElementInterface {
 					[
 						'label'    => 'Blank',
 						'value'    => '_blank',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [],
 						]
 					]
-				],
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Image',
-				'name'        => 'img-upload-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_IMAGE,
-				'controller'  => 'img',
-				'edit'        => self::EDIT_SRC,
-				'value'       => STAX_ASSETS_URL . 'images/choose_your_image.png',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
-			]
-		);
-
-		$fields[] = new EditorSectionField(
-			[
-				'label'       => 'Caption:',
-				'name'        => 'img-caption-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_TEXT,
-				'controller'  => 'img',
-				'edit'        => 'alt',
+				'label'       => 'Image on default header',
+				'name'        => 'image_normal_separator',
+				'only'        => 'header',
+				'type'        => self::FIELD_SEPARATOR,
 				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'editorClass' => [
+					'padding-m'
+				]
 			]
 		);
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Border radius:',
-				'name'        => 'image-border-radius',
-				'visibility'  => true,
-				'type'        => self::FIELD_BORDER_RADIUS,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Image height',
+				'name'     => 'image_height_n_field',
+				'only'     => 'header',
+				'type'     => self::FIELD_INPUT_NUMBER,
+				'value'    => '',
+				'units'    => [
+					[
+						'type'   => 'px',
+						'active' => true,
+					],
+				],
+				'selector' => [
+					'.header-section {{SELECTOR}} img' => [
+						'height: {{VALUE}}{{UNIT}}',
+						'max-height: initial !important'
+					],
+				]
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label'       => 'Image on resized header',
+				'name'        => 'image_resize_separator',
+				'only'        => 'header',
+				'type'        => self::FIELD_SEPARATOR,
+				'value'       => '',
+				'editorClass' => [
+					'padding-m'
+				]
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label'    => 'Image height',
+				'name'     => 'image_resize_height_field',
+				'only'     => 'header',
+				'type'     => self::FIELD_INPUT_NUMBER,
+				'value'    => '',
+				'units'    => [
+					[
+						'type'   => 'px',
+						'active' => true,
+					],
+				],
+				'selector' => [
+					'.header-section.is-sticky.is-resized {{SELECTOR}} img' => [
+						'height: {{VALUE}}{{UNIT}}',
+						'max-height: initial !important'
+					],
+				]
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label'       => 'Style',
+				'name'        => 'image_style_separator',
+				'type'        => self::FIELD_SEPARATOR,
+				'value'       => '',
+				'editorClass' => [
+					'padding-m'
+				]
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label'    => 'Alignment',
+				'name'     => 'align_field',
+				'only'     => 'section',
+				'type'     => self::FIELD_BUTTON_GROUP,
+				'value'    => [
+					[
+						'label'    => '<span class="mdi mdi-format-align-left mdi-18px"></span>',
+						'value'    => 'left',
+						'selected' => true,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					],
+					[
+						'label'    => '<span class="mdi mdi-format-align-center mdi-18px"></span>',
+						'value'    => 'center',
+						'selected' => false,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					],
+					[
+						'label'    => '<span class="mdi mdi-format-align-right mdi-18px"></span>',
+						'value'    => 'right',
+						'selected' => false,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					]
+				],
+				'selector' => [
+					'{{SELECTOR}}' => 'text-align: {{VALUE}}'
+				],
+			]
+		);
+
+		$fields[] = new EditorSectionField(
+			[
+				'label'    => 'Border radius',
+				'name'     => 'image_border_radius',
+				'type'     => self::FIELD_BORDER_RADIUS,
+				'value'    => [
 					[
 						'position' => 'Top left',
 						'value'    => '',
@@ -141,7 +227,7 @@ class ElementImage extends Element implements ElementInterface {
 						'value'    => '',
 					]
 				],
-				'units'       => [
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true,
@@ -155,99 +241,9 @@ class ElementImage extends Element implements ElementInterface {
 						'active' => false,
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}} .item-image' => 'border-radius: {{VALUE_1}}{{UNIT}} {{VALUE_2}}{{UNIT}} {{VALUE_3}}{{UNIT}} {{VALUE_4}}{{UNIT}}',
-				],
-				'tooltip'     => '',
-				'editorClass' => []
-			]
-		);
-
-		$fields[] = new EditorSectionField(
-			[
-				'label'       => 'Image on default header',
-				'name'        => 'image-normal-separator',
-				'visibility'  => true,
-				'type'        => self::FIELD_SEPARATOR,
-				'controller'  => '',
-				'edit'        => '',
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => [
-					'padding-m'
 				]
-			]
-		);
-
-		$fields[] = new EditorSectionField(
-			[
-				'label'       => 'Image height:',
-				'name'        => 'image-normal-height-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_NUMBER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [
-					[
-						'type'   => 'px',
-						'active' => true,
-					],
-				],
-				'selector'    => [
-					'.header-section {{SELECTOR}} img' => [
-						'height: {{VALUE}}{{UNIT}}',
-						'max-height: initial !important'
-					],
-				],
-				'tooltip'     => '',
-				'editorClass' => []
-			]
-		);
-
-		$fields[] = new EditorSectionField(
-			[
-				'label'       => 'Image on resized header',
-				'name'        => 'image-resize-separator',
-				'visibility'  => true,
-				'type'        => self::FIELD_SEPARATOR,
-				'controller'  => '',
-				'edit'        => '',
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => [
-					'padding-m'
-				]
-			]
-		);
-
-		$fields[] = new EditorSectionField(
-			[
-				'label'       => 'Image height:',
-				'name'        => 'image-resize-height-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_NUMBER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [
-					[
-						'type'   => 'px',
-						'active' => true,
-					],
-				],
-				'selector'    => [
-					'.header-section.is-sticky.is-resized {{SELECTOR}} img' => [
-						'height: {{VALUE}}{{UNIT}}',
-						'max-height: initial !important'
-					],
-				],
-				'tooltip'     => '',
-				'editorClass' => []
 			]
 		);
 
@@ -257,8 +253,8 @@ class ElementImage extends Element implements ElementInterface {
 		] ), $fields );
 
 		$this->setBoxDefaults( [
-			self::ADVANCED_MARGIN => [
-				'value' => [ 0, 2, 0, 2 ]
+			self::ADVANCED_FULL_HEIGHT => [
+				'value' => 'is-full-height'
 			]
 		] );
 

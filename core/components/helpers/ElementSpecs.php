@@ -36,19 +36,32 @@ class ElementSpecs {
 		FIELD_SHADOW = 'shadow',
 		FIELD_DOUBLE_INPUT = 'inputduo',
 		FIELD_TABS = 'tabs',
+		FIELD_VERTICAL_TABS = 'verticaltabs',
 		FIELD_SEPARATOR = 'separator',
 		FIELD_GO_PRO = 'gopro',
 
-		EDIT_HREF = 'href',
-		EDIT_SRC = 'src',
-		EDIT_INNER = 'inner',
-		EDIT_STYLE = 'style',
-		EDIT_CSS = 'css',
-		EDIT_FONT = 'font',
-		EDIT_CLASS = 'class',
-		EDIT_ID = 'id',
-		EDIT_AFTER_BEGIN = 'afterbegin',
-		EDIT_BEFORE_END = 'beforeend',
-		EDIT_AFTER_END = 'afterend',
-		EDIT_SHORTCODE = 'shortcode';
+		ADVANCED_FULL_WIDTH = 'full_width_advanced',
+		ADVANCED_FULL_HEIGHT = 'full_height_advanced',
+		ADVANCED_PADDING = 'padding_advanced',
+		ADVANCED_MARGIN = 'margin_advanced',
+		ADVANCED_BORDER_RADIUS = 'border_radius_advanced',
+		ADVANCED_CSS_ID = 'css_id_advanced',
+		ADVANCED_CSS_CLASS = 'css_class_advanced',
+		ADVANCED_BG_NORMAL = 'bg_color_n_advanced',
+		ADVANCED_BORDER_TYPE_NORMAL = 'border_n_advanced',
+		ADVANCED_BORDER_WIDTH_NORMAL = 'border_width_n_advanced',
+		ADVANCED_BORDER_COLOR_NORMAL = 'border_color_n_advanced',
+		ADVANCED_BG_HOVER = 'bg_color_h_advanced',
+		ADVANCED_BORDER_TYPE_HOVER = 'border_h_advanced',
+		ADVANCED_BORDER_WIDTH_HOVER = 'border_width_h_advanced',
+		ADVANCED_BORDER_COLOR_HOVER = 'border_color_h_advanced',
+		ADVANCED_SHADOW = 'shadow_advanced';
+
+	protected function getTemplate( $slug ) {
+		if ( file_exists( STAX_CORE_PATH . 'components/templates/' . $slug . '.tpl' ) ) {
+			return file_get_contents( STAX_CORE_PATH . 'components/templates/' . $slug . '.tpl' );
+		}
+
+		return '';
+	}
 }

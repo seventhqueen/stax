@@ -14,21 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Element extends ElementSpecs {
-	const
-		ADVANCED_FULL_WIDTH = 'advanced-full-width-field',
-		ADVANCED_FULL_HEIGHT = 'advanced-full-height-field',
-		ADVANCED_PADDING = 'padding-field-advanced',
-		ADVANCED_MARGIN = 'margin-field-advanced',
-		ADVANCED_BORDER_RADIUS = 'border-radius-field-advanced',
-		ADVANCED_CSS_ID = 'css-id-field-advanced',
-		ADVANCED_BG_NORMAL = 'bg-color-normal-field-advanced',
-		ADVANCED_BORDER_TYPE_NORMAL = 'border-normal-field-advanced',
-		ADVANCED_BORDER_WIDTH_NORMAL = 'border-normal-width-field-advanced',
-		ADVANCED_BORDER_COLOR_NORMAL = 'border-normal-color-field-advanced',
-		ADVANCED_BG_HOVER = 'bg-color-hover-field-advanced',
-		ADVANCED_BORDER_TYPE_HOVER = 'border-hover-field-advanced',
-		ADVANCED_BORDER_WIDTH_HOVER = 'border-width-hover-field-advanced',
-		ADVANCED_BORDER_COLOR_HOVER = 'border-hover-color-field-advanced';
 
 	/**
 	 * @var string
@@ -116,7 +101,7 @@ class Element extends ElementSpecs {
 		$frontend,
 		$css,
 		$js,
-		$authOption,
+		$auth,
 		$visibilityDesktop,
 		$visibilityTablet,
 		$visibilityMobile,
@@ -141,16 +126,20 @@ class Element extends ElementSpecs {
 		$this->type              = 'element';
 		$this->uuid              = '';
 		$this->icon              = (object) [
-			'size'  => '',
+			'size'  => 'mdi-24px',
 			'type'  => '',
-			'color' => ''
+			'color' => 'sq-textItem'
 		];
 		$this->template          = '';
 		$this->builder           = '';
 		$this->frontend          = '';
 		$this->css               = '';
 		$this->js                = '';
-		$this->authOption        = '';
+		$this->auth              = [
+			'logged_in'  => false,
+			'logged_out' => false,
+			'all'        => true
+		];
 		$this->visibilityDesktop = true;
 		$this->visibilityTablet  = true;
 		$this->visibilityMobile  = true;
@@ -173,12 +162,16 @@ class Element extends ElementSpecs {
 	 * @param EditorSection $section
 	 * @param array $fields
 	 */
-	protected function addSection( EditorSection $section, array $fields ) {
+	protected function addSection( EditorSection $section, array $fields, $arrayName = null ) {
 		foreach ( $fields as $field ) {
 			$section->addField( $field );
 		}
 
-		$this->editor[] = $section;
+		if ( $arrayName ) {
+			$this->editor[ $arrayName ] = $section;
+		} else {
+			$this->editor[] = $section;
+		}
 	}
 
 	/**
@@ -234,26 +227,21 @@ class Element extends ElementSpecs {
 	private function advancedEditor() {
 		$section_1 = new EditorSection( [
 			'title' => 'Layout',
-			'name'  => 'layout-advanced',
-			'state' => false,
-			'icon'  => 'mdi-advanced'
+			'name'  => 'layout-advanced'
 		] );
 
 		$fields_1 = [];
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Height:',
-				'name'        => 'advanced-full-height-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_RADIO,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_CLASS,
-				'value'       => [
+				'label' => 'Height',
+				'name'  => self::ADVANCED_FULL_HEIGHT,
+				'only'  => 'header',
+				'type'  => self::FIELD_RADIO,
+				'value' => [
 					[
 						'label'   => 'Auto',
 						'value'   => '',
-						'extra'   => [],
 						'checked' => true,
 						'trigger' => [
 							'section' => [],
@@ -263,34 +251,26 @@ class Element extends ElementSpecs {
 					[
 						'label'   => 'Full',
 						'value'   => 'is-full-height',
-						'extra'   => [],
 						'checked' => false,
 						'trigger' => [
 							'section' => [],
 							'field'   => []
 						]
 					]
-				],
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Width:',
-				'name'        => 'advanced-full-width-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_RADIO,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_CLASS,
-				'value'       => [
+				'label' => 'Width',
+				'name'  => self::ADVANCED_FULL_WIDTH,
+				'only'  => 'header',
+				'type'  => self::FIELD_RADIO,
+				'value' => [
 					[
 						'label'   => 'Auto',
 						'value'   => '',
-						'extra'   => [],
 						'checked' => true,
 						'trigger' => [
 							'section' => [],
@@ -300,30 +280,22 @@ class Element extends ElementSpecs {
 					[
 						'label'   => 'Full',
 						'value'   => 'is-full-width',
-						'extra'   => [],
 						'checked' => false,
 						'trigger' => [
 							'section' => [],
 							'field'   => []
 						]
 					]
-				],
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Padding:',
-				'name'        => 'padding-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_SPACING,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Padding',
+				'name'     => self::ADVANCED_PADDING,
+				'type'     => self::FIELD_SPACING,
+				'value'    => [
 					[
 						'position' => 'Top',
 						'value'    => ''
@@ -341,7 +313,7 @@ class Element extends ElementSpecs {
 						'value'    => '',
 					]
 				],
-				'units'       => [
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -355,28 +327,23 @@ class Element extends ElementSpecs {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => [
 						'padding-top: {{VALUE_1}}{{UNIT}}',
 						'padding-right: {{VALUE_2}}{{UNIT}}',
 						'padding-bottom: {{VALUE_3}}{{UNIT}}',
 						'padding-left: {{VALUE_4}}{{UNIT}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Margin:',
-				'name'        => 'margin-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_SPACING,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Margin',
+				'name'     => self::ADVANCED_MARGIN,
+				'type'     => self::FIELD_SPACING,
+				'value'    => [
 					[
 						'position' => 'Top',
 						'value'    => ''
@@ -394,7 +361,7 @@ class Element extends ElementSpecs {
 						'value'    => ''
 					]
 				],
-				'units'       => [
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -408,28 +375,23 @@ class Element extends ElementSpecs {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => [
 						'margin-top: {{VALUE_1}}{{UNIT}}',
 						'margin-right: {{VALUE_2}}{{UNIT}}',
 						'margin-bottom: {{VALUE_3}}{{UNIT}}',
 						'margin-left: {{VALUE_4}}{{UNIT}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Border radius:',
-				'name'        => 'border-normal-radius-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_BORDER_RADIUS,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Border radius',
+				'name'     => self::ADVANCED_BORDER_RADIUS,
+				'type'     => self::FIELD_BORDER_RADIUS,
+				'value'    => [
 					[
 						'value'    => '',
 						'position' => 'Top left'
@@ -447,7 +409,7 @@ class Element extends ElementSpecs {
 						'position' => 'Bottom left'
 					]
 				],
-				'units'       => [
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -461,37 +423,30 @@ class Element extends ElementSpecs {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => [
 						'border-top-left-radius: {{VALUE_1}}{{UNIT}}',
 						'border-top-right-radius: {{VALUE_2}}{{UNIT}}',
 						'border-bottom-right-radius: {{VALUE_3}}{{UNIT}}',
 						'border-bottom-left-radius: {{VALUE_4}}{{UNIT}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$section_2 = new EditorSection( [
 			'title' => 'Normal style',
-			'name'  => 'normal-style-advanced',
-			'state' => false,
-			'icon'  => 'mdi-advanced'
+			'name'  => 'normal-style-advanced'
 		] );
 
 		$fields_2 = [];
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Shadow:',
-				'name'        => 'shadow-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_SHADOW,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Shadow',
+				'name'     => self::ADVANCED_SHADOW,
+				'type'     => self::FIELD_SHADOW,
+				'value'    => [
 					[
 						'position' => 'Color',
 						'value'    => ''
@@ -513,50 +468,37 @@ class Element extends ElementSpecs {
 						'value'    => '',
 					]
 				],
-				'units'       => [],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => [
 						'-webkit-box-shadow: {{X}}{{UNIT}} {{Y}}{{UNIT}} {{BLUR}}{{UNIT}} {{SPREAD}}{{UNIT}} {{COLOR}}',
 						'-moz-box-shadow: {{X}}{{UNIT}} {{Y}}{{UNIT}} {{BLUR}}{{UNIT}} {{SPREAD}}{{UNIT}} {{COLOR}}',
 						'box-shadow: {{X}}{{UNIT}} {{Y}}{{UNIT}} {{BLUR}}{{UNIT}} {{SPREAD}}{{UNIT}} {{COLOR}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Background:',
-				'name'        => 'bg-color-normal-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_COLOR_PICKER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'    => 'Background',
+				'name'     => self::ADVANCED_BG_NORMAL,
+				'type'     => self::FIELD_COLOR_PICKER,
+				'value'    => '',
+				'selector' => [
 					'{{SELECTOR}}' => 'background-color: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Border type:',
-				'name'        => 'border-normal-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_DROPDOWN,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Border type',
+				'name'     => self::ADVANCED_BORDER_TYPE_NORMAL,
+				'type'     => self::FIELD_DROPDOWN,
+				'value'    => [
 					[
 						'label'    => 'None',
 						'value'    => '',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
@@ -566,124 +508,103 @@ class Element extends ElementSpecs {
 					[
 						'label'    => 'Solid',
 						'value'    => 'solid',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-normal-width-field-advanced',
-								'border-normal-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					],
 					[
 						'label'    => 'Double',
 						'value'    => 'double',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-normal-width-field-advanced',
-								'border-normal-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					],
 					[
 						'label'    => 'Dotted',
 						'value'    => 'dotted',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-normal-width-field-advanced',
-								'border-normal-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					],
 					[
 						'label'    => 'Dashed',
 						'value'    => 'dashed',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-normal-width-field-advanced',
-								'border-normal-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_NORMAL,
+								self::ADVANCED_BORDER_COLOR_NORMAL
 							]
 						]
 					]
 				],
-				'units'       => [],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => 'border-style: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Border width:',
-				'name'        => 'border-normal-width-field-advanced',
-				'visibility'  => false,
-				'type'        => self::FIELD_INPUT_NUMBER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '1',
-				'units'       => [
+				'label'      => 'Border width',
+				'name'       => self::ADVANCED_BORDER_WIDTH_NORMAL,
+				'visibility' => false,
+				'type'       => self::FIELD_INPUT_NUMBER,
+				'value'      => '1',
+				'units'      => [
 					[
 						'type'   => 'px',
 						'active' => true
 					]
 				],
-				'selector'    => [
+				'selector'   => [
 					'{{SELECTOR}}' => 'border-width: {{VALUE}}{{UNIT}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_2[] = new EditorSectionField(
 			[
-				'label'       => 'Border color:',
-				'name'        => 'border-normal-color-field-advanced',
-				'visibility'  => false,
-				'type'        => self::FIELD_COLOR_PICKER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'      => 'Border color',
+				'name'       => self::ADVANCED_BORDER_COLOR_NORMAL,
+				'visibility' => false,
+				'type'       => self::FIELD_COLOR_PICKER,
+				'value'      => '',
+				'selector'   => [
 					'{{SELECTOR}}' => 'border-color: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$section_3 = new EditorSection( [
 			'title' => 'Hover style',
-			'name'  => 'hover-style-advanced',
-			'state' => false,
-			'icon'  => 'mdi-advanced'
+			'name'  => 'hover-style-advanced'
 		] );
 
 		$fields_3 = [];
 
 		$fields_3[] = new EditorSectionField(
 			[
-				'label'       => 'Shadow:',
-				'name'        => 'shadow-hover-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_SHADOW,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Shadow',
+				'name'     => self::ADVANCED_SHADOW,
+				'type'     => self::FIELD_SHADOW,
+				'value'    => [
 					[
 						'position' => 'Color',
 						'value'    => ''
@@ -705,50 +626,37 @@ class Element extends ElementSpecs {
 						'value'    => '',
 					]
 				],
-				'units'       => [],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}:hover' => [
 						'-webkit-box-shadow: {{X}}{{UNIT}} {{Y}}{{UNIT}} {{BLUR}}{{UNIT}} {{SPREAD}}{{UNIT}} {{COLOR}}',
 						'-moz-box-shadow: {{X}}{{UNIT}} {{Y}}{{UNIT}} {{BLUR}}{{UNIT}} {{SPREAD}}{{UNIT}} {{COLOR}}',
 						'box-shadow: {{X}}{{UNIT}} {{Y}}{{UNIT}} {{BLUR}}{{UNIT}} {{SPREAD}}{{UNIT}} {{COLOR}}'
 					]
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_3[] = new EditorSectionField(
 			[
-				'label'       => 'Background:',
-				'name'        => 'bg-color-hover-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_COLOR_PICKER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'    => 'Background',
+				'name'     => self::ADVANCED_BG_HOVER,
+				'type'     => self::FIELD_COLOR_PICKER,
+				'value'    => '',
+				'selector' => [
 					'{{SELECTOR}}:hover' => 'background-color: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_3[] = new EditorSectionField(
 			[
-				'label'       => 'Border type:',
-				'name'        => 'border-hover-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_DROPDOWN,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Border type',
+				'name'     => self::ADVANCED_BORDER_TYPE_HOVER,
+				'type'     => self::FIELD_DROPDOWN,
+				'value'    => [
 					[
 						'label'    => 'None',
 						'value'    => '',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
@@ -758,144 +666,112 @@ class Element extends ElementSpecs {
 					[
 						'label'    => 'Solid',
 						'value'    => 'solid',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-hover-field-advanced',
-								'border-hover-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_HOVER,
+								self::ADVANCED_BORDER_COLOR_HOVER
 							]
 						]
 					],
 					[
 						'label'    => 'Double',
 						'value'    => 'double',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-hover-field-advanced',
-								'border-hover-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_HOVER,
+								self::ADVANCED_BORDER_COLOR_HOVER
 							]
 						]
 					],
 					[
 						'label'    => 'Dotted',
 						'value'    => 'dotted',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-hover-field-advanced',
-								'border-hover-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_HOVER,
+								self::ADVANCED_BORDER_COLOR_HOVER
 							]
 						]
 					],
 					[
 						'label'    => 'Dashed',
 						'value'    => 'dashed',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
 							'field'   => [
-								'border-width-hover-field-advanced',
-								'border-hover-color-field-advanced'
+								self::ADVANCED_BORDER_WIDTH_HOVER,
+								self::ADVANCED_BORDER_COLOR_HOVER
 							]
 						]
 					]
 				],
-				'units'       => [],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}:hover' => 'border-style: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_3[] = new EditorSectionField(
 			[
-				'label'       => 'Border width:',
-				'name'        => 'border-width-hover-field-advanced',
-				'visibility'  => false,
-				'type'        => self::FIELD_INPUT_NUMBER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '1',
-				'units'       => [
+				'label'      => 'Border width',
+				'name'       => self::ADVANCED_BORDER_WIDTH_HOVER,
+				'visibility' => false,
+				'type'       => self::FIELD_INPUT_NUMBER,
+				'value'      => '1',
+				'units'      => [
 					[
 						'type'   => 'px',
 						'active' => true
 					]
 				],
-				'selector'    => [
+				'selector'   => [
 					'{{SELECTOR}}:hover' => 'border-width: {{VALUE}}{{UNIT}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$fields_3[] = new EditorSectionField(
 			[
-				'label'       => 'Border color:',
-				'name'        => 'border-hover-color-field-advanced',
-				'visibility'  => false,
-				'type'        => self::FIELD_COLOR_PICKER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'      => 'Border color',
+				'name'       => self::ADVANCED_BORDER_COLOR_HOVER,
+				'visibility' => false,
+				'type'       => self::FIELD_COLOR_PICKER,
+				'value'      => '',
+				'selector'   => [
 					'{{SELECTOR}}:hover' => 'border-color: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
 		$section_4 = new EditorSection( [
 			'title' => 'Customization',
-			'name'  => 'customization-advanced',
-			'state' => false,
-			'icon'  => 'mdi-advanced'
+			'name'  => 'customization-advanced'
 		] );
 
 		$fields_4 = [];
 
 		$fields_4[] = new EditorSectionField(
 			[
-				'label'       => 'ID:',
-				'name'        => 'css-id-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_TEXT,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_ID,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'label' => 'ID',
+				'name'  => self::ADVANCED_CSS_ID,
+				'type'  => self::FIELD_INPUT_TEXT,
+				'value' => ''
 			]
 		);
 
 		$fields_4[] = new EditorSectionField(
 			[
-				'label'       => 'Class:',
-				'name'        => 'css-class-field-advanced',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_TEXT,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_CLASS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'label' => 'Class',
+				'name'  => self::ADVANCED_CSS_CLASS,
+				'type'  => self::FIELD_INPUT_TEXT,
+				'value' => ''
 			]
 		);
 
@@ -914,10 +790,9 @@ class Element extends ElementSpecs {
 			$section_4->addField( $field );
 		}
 
-
-		$this->editor['advanced_layout']        = $section_1;
-		$this->editor['advanced_normal_style']  = $section_2;
-		$this->editor['advanced_hover_style']   = $section_3;
-		$this->editor['advanced_customization'] = $section_4;
+		$this->editor['tab_advanced_layout']        = $section_1;
+		$this->editor['tab_advanced_normal_style']  = $section_2;
+		$this->editor['tab_advanced_hover_style']   = $section_3;
+		$this->editor['tab_advanced_customization'] = $section_4;
 	}
 }

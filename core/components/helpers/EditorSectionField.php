@@ -13,57 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Stax\Exception\FieldValueException;
-use Stax\Exception\MissingException;
-use Stax\Exception\FatalException;
-
 class EditorSectionField extends ElementSpecs {
-	/**
-	 * @var bool|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var array|bool|mixed|string
-	 */
+
 	public
 		$id,
 		$name,
 		$visibility,
 		$label,
+		$only,
 		$type,
-		$controller,
-		$edit,
 		$selector,
 		$value,
+		$cachedValue,
 		$units,
 		$tooltip,
 		$editorClass;
@@ -71,20 +32,20 @@ class EditorSectionField extends ElementSpecs {
 	/**
 	 * EditorSectionField constructor.
 	 *
-	 * @param array $props
+	 * @param array $property
 	 */
-	public function __construct( array $props ) {
+	public function __construct( array $property ) {
 		$this->id          = substr( number_format( time() * rand(), 0, '', '' ), 0, 6 );
-		$this->name        = $props['name'];
-		$this->visibility  = $props['visibility'];
-		$this->label       = $props['label'];
-		$this->type        = $props['type'];
-		$this->controller  = $props['controller'];
-		$this->edit        = $props['edit'];
-		$this->selector    = $props['selector'];
-		$this->value       = $props['value'];
-		$this->units       = $props['units'];
-		$this->tooltip     = $props['tooltip'];
-		$this->editorClass = isset( $props['editorClass'] ) ? $props['editorClass'] : [];
+		$this->label       = $property['label'];
+		$this->only        = isset( $property['only'] ) ? $property['only'] : '';
+		$this->name        = $property['name'];
+		$this->visibility  = isset( $property['visibility'] ) ? $property['visibility'] : true;
+		$this->type        = $property['type'];
+		$this->value       = $property['value'];
+		$this->cachedValue = '';
+		$this->selector    = isset( $property['selector'] ) ? $property['selector'] : [];
+		$this->units       = isset( $property['units'] ) ? $property['units'] : [];
+		$this->tooltip     = isset( $property['tooltip'] ) ? $property['tooltip'] : '';
+		$this->editorClass = isset( $property['editorClass'] ) ? $property['editorClass'] : [];
 	}
 }

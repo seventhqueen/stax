@@ -1,6 +1,6 @@
 <?php
 /**
- * GrpHeaderItems Model.
+ * ContainerItems Model.
  *
  * @package Stax
  * @author SeventhQueen <themesupport@seventhqueen.com>
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Model_GrpHeaderItems extends Base_Model {
+class Model_ContainerItems extends Base_Model {
 
 	/**
 	 * @var null
@@ -21,7 +21,7 @@ class Model_GrpHeaderItems extends Base_Model {
 	public static $instance = null;
 
 	/**
-	 * @return null|Model_GrpHeaderItems
+	 * @return null|Model_ContainerItems
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -37,11 +37,11 @@ class Model_GrpHeaderItems extends Base_Model {
 	 *
 	 * @return array|null|object
 	 */
-	public function getByHeaderUuid( $uuid, $viewport = null ) {
+	public function getByContainerUuid( $uuid, $viewport = null ) {
 		if ( $viewport ) {
 			$result = $this->db->get_results(
 				$this->db->prepare(
-					"SELECT * FROM `" . $this->db->prefix . $this->table_grp_header_items . "` WHERE `header_uuid` = %s AND `viewport` = %s ORDER BY `position`",
+					"SELECT * FROM `" . $this->db->prefix . $this->table_container_items . "` WHERE `container_uuid` = %s AND `viewport` = %s ORDER BY `position`",
 					$uuid,
 					$viewport
 				)
@@ -49,7 +49,7 @@ class Model_GrpHeaderItems extends Base_Model {
 		} else {
 			$result = $this->db->get_results(
 				$this->db->prepare(
-					"SELECT * FROM `" . $this->db->prefix . $this->table_grp_header_items . "` WHERE `header_uuid` = %s ORDER BY `position`",
+					"SELECT * FROM `" . $this->db->prefix . $this->table_container_items . "` WHERE `container_uuid` = %s ORDER BY `position`",
 					$uuid
 				)
 			);
@@ -67,7 +67,7 @@ class Model_GrpHeaderItems extends Base_Model {
 	public function getByColumnUuid( $uuid ) {
 		$result = $this->db->get_results(
 			$this->db->prepare(
-				"SELECT * FROM `" . $this->db->prefix . $this->table_grp_header_items . "` WHERE `column_uuid` = %s ORDER BY `position`",
+				"SELECT * FROM `" . $this->db->prefix . $this->table_container_items . "` WHERE `column_uuid` = %s ORDER BY `position`",
 				$uuid
 			)
 		);
@@ -76,16 +76,16 @@ class Model_GrpHeaderItems extends Base_Model {
 	}
 
 	/**
-	 * @param $header_uuid
+	 * @param $container_uuid
 	 * @param $column_uuid
 	 * @param $columnProps
 	 * @param $viewport
 	 */
-	public function create( $header_uuid, $column_uuid, $columnProps, $viewport ) {
+	public function create( $container_uuid, $column_uuid, $columnProps, $viewport ) {
 		$this->db->replace(
-			$this->db->prefix . $this->table_grp_header_items,
+			$this->db->prefix . $this->table_container_items,
 			[
-				'header_uuid' => $header_uuid,
+				'container_uuid' => $container_uuid,
 				'column_uuid' => $column_uuid,
 				'elements'    => json_encode( $columnProps->elements ),
 				'viewport'    => $viewport,
@@ -99,11 +99,11 @@ class Model_GrpHeaderItems extends Base_Model {
 	/**
 	 * @param $uuid
 	 */
-	public function deleteByHeaderUuid( $uuid ) {
+	public function deleteByContainerUuid( $uuid ) {
 		$this->db->delete(
-			$this->db->prefix . $this->table_grp_header_items,
+			$this->db->prefix . $this->table_container_items,
 			[
-				'header_uuid' => $uuid
+				'container_uuid' => $uuid
 			]
 		);
 	}
@@ -113,7 +113,7 @@ class Model_GrpHeaderItems extends Base_Model {
 	 */
 	public function deleteByColumnUuid( $uuid ) {
 		$this->db->delete(
-			$this->db->prefix . $this->table_grp_header_items,
+			$this->db->prefix . $this->table_container_items,
 			[
 				'column_uuid' => $uuid
 			]

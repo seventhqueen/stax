@@ -49,6 +49,136 @@ class Import extends Base_Model {
 	}
 
 	/**
+	 * @param string $content
+	 * @param boolean $import_images
+	 *
+	 * @return array|bool
+	 */
+	public function process_content( $content, $import_images = false ) {
+
+		if ( ! $content ) {
+			return false;
+		}
+
+		$decoded = json_decode( $content );
+		if ( ! is_object( $decoded ) ) {
+			return false;
+		}
+
+		if ( $import_images ) {
+			$upload_dir = wp_upload_dir();
+			if ( is_ssl() ) {
+				if ( strpos( $upload_dir['baseurl'], 'https://' ) === false ) {
+					$upload_dir['baseurl'] = str_ireplace( 'http', 'https', $upload_dir['baseurl'] );
+				}
+			}
+			$this->local_url_base  = trailingslashit( $upload_dir['baseurl'] );
+			$this->remote_url_base = @json_decode( $content )->url_root;
+			$import_images         = $this->get_images( $content );
+
+			$imported_images = [];
+
+			foreach ( $import_images as $img ) {
+				$img = wp_unslash( $img );
+				if ( '' !== $img && '#' !== $img ) {
+					$new_image = $this->import_image( $img );
+					if ( ! empty( $new_image ) && isset( $new_image['url'] ) ) {
+						$imported_images[] = $new_image['url'];
+					}
+				}
+			}
+			if ( ! empty( $imported_images ) ) {
+				$content = str_replace( $import_images, wp_slash( $imported_images ), $content );
+			}
+
+			if ( ! empty( $this->image_history ) ) {
+				update_option( $this->image_history_option, $this->image_history );
+			}
+		}
+
+		$content = str_replace( wp_slash( $this->remote_url_base ), wp_slash( $this->local_url_base ), $content );
+
+		$content = @json_decode( $content );
+
+		if ( ! is_object( $content ) ) {
+			return false;
+		}
+
+		$return_data = [];
+
+		foreach ( $content->groups as $zoneUuid => $group ) {
+			$save = [];
+			$zone = $content->zones->{$zoneUuid};
+			if ( ! $zone ) {
+				continue;
+			}
+
+			$save['zone']  = $zone;
+			$save['group'] = $group;
+
+			foreach ( $group->containers as $containerUuid => $groupContainer ) {
+				$container = $content->containers->{$containerUuid};
+
+				if ( ! $container ) {
+					continue;
+				}
+
+				$save['containers'][ $container->uuid ] = $this->clearTrash( $container );
+
+				foreach ( $groupContainer->viewport as $viewport ) {
+					foreach ( $viewport->columns as $columnUuid => $groupColumn ) {
+						$column = $content->columns->{$columnUuid};
+
+						if ( ! $column ) {
+							continue;
+						}
+
+						$save['columns'][ $column->uuid ] = $this->clearTrash( $column );
+
+						foreach ( $groupColumn->elements as $elementUuid => $groupElement ) {
+							$element = $content->elements->{$elementUuid};
+
+							if ( ! $element ) {
+								continue;
+							}
+
+							$save['elements'][ $element->uuid ] = $this->clearTrash( $element );
+						}
+					}
+				}
+			}
+
+			$return_data[ $zone->name ] = $save;
+		}
+
+		return $return_data;
+	}
+
+	public function import_data( $content ) {
+
+		/* prepare date for import */
+		$processed_data = $this->process_content( $content );
+		$items = [];
+
+		/* Actually save the data as templates */
+		if ( ! empty( $processed_data ) ) {
+			foreach ( $processed_data as $zone_name => $save ) {
+				$id = Model_Templates::instance()->createOrUpdate( $zone_name, $save );
+
+				$items[] = [
+					'id'      => $id,
+					'name'    => $zone_name,
+					'changed' => false,
+					'pack'    => $save,
+				];
+			}
+		}
+
+		return $items;
+
+	}
+
+	/**
 	 * @param \WP_REST_Request $request
 	 *
 	 * @return mixed|\WP_REST_Response
@@ -67,71 +197,30 @@ class Import extends Base_Model {
 
 		$content = $this->fs_get_contents( $file['tmp_name'] );
 
-		if ( $content ) {
-			$upload_dir = wp_upload_dir();
-			if ( is_ssl() ) {
-				if ( strpos( $upload_dir['baseurl'], 'https://' ) === false ) {
-					$upload_dir['baseurl'] = str_ireplace( 'http', 'https', $upload_dir['baseurl'] );
-				}
-			}
-			$this->local_url_base  = trailingslashit( $upload_dir['baseurl'] );
-			$this->remote_url_base = @json_decode( $content )->url_root;
-			$import_images         = $this->get_images( $content );
+		$items = $this->import_data( $content );
+		if( $items && ! empty( $items ) ) {
 
-			foreach ( $import_images as $img ) {
-				if ( '' !== $img && '#' !== $img ) {
-					$new_image = $this->import_image( $img );
-					if ( ! empty( $new_image ) && isset( $new_image['url'] ) ) {
-						$content = str_replace( $img, $new_image['url'], $content );
+			foreach ( $items as $i => $item ) {
+				if ( isset( $item['pack']['containers'] ) ) {
+					foreach ( $item['pack']['containers'] as $uuid => $container ) {
+						$items[ $i ]['pack']['containers'][ $uuid ] = $this->matchAndMergeFields( $container );
+					}
+				}
+
+				if ( isset( $item['pack']['columns'] ) ) {
+					foreach ( $item['pack']['columns'] as $uuid => $column ) {
+						$items[ $i ]['pack']['columns'][ $uuid ] = $this->matchAndMergeFields( $column );
+					}
+				}
+
+				if ( isset( $item['pack']['elements'] ) ) {
+					foreach ( $item['pack']['elements'] as $uuid => $element ) {
+						$items[ $i ]['pack']['elements'][ $uuid ] = $this->matchAndMergeFields( $element );
 					}
 				}
 			}
 
-			// replace home url.
-			$content = str_replace( $this->remote_url_base, $this->local_url_base, $content );
-
-			$content = @json_decode( $content );
-
-			foreach ( $content->headers as $header ) {
-				$content->headers->{$header->uuid} = $this->clearTrash( $header );
-			}
-
-			foreach ( $content->columns as $column ) {
-				$content->columns->{$column->uuid} = $this->clearTrash( $column );
-			}
-
-			foreach ( $content->elements as $element ) {
-				$content->elements->{$element->uuid} = $this->clearTrash( $element );
-			}
-
-			$id = Model_Templates::instance()->createOrUpdate( $file['name'], $content );
-
-			foreach ( $content->headers as $header ) {
-				$content->headers->{$header->uuid} = $this->matchAndMergeFields( $header );
-			}
-
-			foreach ( $content->columns as $column ) {
-				$content->columns->{$column->uuid} = $this->matchAndMergeFields( $column );
-			}
-
-			foreach ( $content->elements as $element ) {
-				$content->elements->{$element->uuid} = $this->matchAndMergeFields( $element );
-			}
-
-			if ( $id ) {
-				$data = [
-					'id'      => $id,
-					'name'    => $file['name'],
-					'changed' => false,
-					'pack'    => $content,
-				];
-
-				return $this->response( self::STATUS_OK, $data );
-			}
-		}
-
-		if ( ! empty( $this->image_history ) ) {
-			update_option( $this->image_history_option, $this->image_history );
+			return $this->response( self::STATUS_OK, $items );
 		}
 
 		return $this->response( self::STATUS_FAILED );
@@ -343,10 +432,11 @@ class Import extends Base_Model {
 	 * @return array
 	 */
 	private function get_images( $string ) {
-		$regex = '/<img(.*?)src=([\\\"]+)(.*?)([\\\"]+)(.*?)>/si';
+		//$regex = '/<img(.*?)src=([\\\"]+)(.*?)([\\\"]+)(.*?)>/si';
+		$regex = '/https.*?(jpg|png|gif|jpeg)/si';
 		preg_match_all( $regex, $string, $matches );
 
-		return ( $matches[3] );
+		return $matches[0];
 	}
 
 }

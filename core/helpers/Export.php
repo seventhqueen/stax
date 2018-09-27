@@ -34,40 +34,47 @@ class Export extends Base_Model {
 		if ( $template ) {
 			$pack = @json_decode( $template->pack );
 
-			$templateItems           = new \stdClass();
-			$templateItems->headers  = new \stdClass();
-			$templateItems->columns  = new \stdClass();
-			$templateItems->elements = new \stdClass();
-			$templateItems->groups   = new \stdClass();
-			$templateItems->fonts    = new \stdClass();
-			$templateItems->general  = isset( $pack->general ) ? $pack->general : false;
+			$templateItems             = new \stdClass();
+			$templateItems->zone       = new \stdClass();
+			$templateItems->containers = new \stdClass();
+			$templateItems->columns    = new \stdClass();
+			$templateItems->elements   = new \stdClass();
+			$templateItems->group      = new \stdClass();
+			$templateItems->fonts      = new \stdClass();
 
-			foreach ( $pack->headers as $header ) {
-				$templateItems->headers->{$header->uuid} = $header;
+			if ( isset( $pack->containers ) ) {
+				foreach ( $pack->containers as $container ) {
+					$templateItems->containers->{$container->uuid} = $container;
+				}
 			}
 
-			foreach ( $pack->columns as $column ) {
-				$templateItems->columns->{$column->uuid} = $column;
+			if ( isset( $pack->columns ) ) {
+				foreach ( $pack->columns as $column ) {
+					$templateItems->columns->{$column->uuid} = $column;
+				}
 			}
 
-			foreach ( $pack->elements as $element ) {
-				$templateItems->elements->{$element->uuid} = $element;
+			if ( isset( $pack->elements ) ) {
+				foreach ( $pack->elements as $element ) {
+					$templateItems->elements->{$element->uuid} = $element;
+				}
 			}
 
-			foreach ( $pack->groups as $uuid => $group ) {
-				$templateItems->groups->{$uuid} = $group;
-			}
+			$templateItems->zone->{$pack->zone->uuid}  = $pack->zone;
+			$templateItems->group->{$pack->zone->uuid} = $pack->group;
 
-			$templateItems->fonts = $pack->fonts;
+			if ( isset( $pack->fonts ) ) {
+				$templateItems->fonts = $pack->fonts;
+			}
 
 			$pack = [
-				'headers'  => $templateItems->headers,
-				'columns'  => $templateItems->columns,
-				'elements' => $templateItems->elements,
-				'groups'   => $templateItems->groups,
-				'fonts'    => $templateItems->fonts,
-				'general'  => $templateItems->general,
-				'url_root' => site_url()
+				'zones'      => $templateItems->zone,
+				'containers' => $templateItems->containers,
+				'columns'    => $templateItems->columns,
+				'elements'   => $templateItems->elements,
+				'groups'     => $templateItems->group,
+				'fonts'      => $templateItems->fonts,
+				'url_root'   => site_url()
 			];
 
 			return $this->response( self::STATUS_OK, [ json_encode( $pack ) ] );
@@ -79,28 +86,32 @@ class Export extends Base_Model {
 	public function cleanExport( \WP_REST_Request $request ) {
 		$data = $request->get_params();
 
-		if ( ! isset( $data['headers'] ) ||
+		if ( ! isset( $data['zones'] ) ||
+		     ! isset( $data['containers'] ) ||
 		     ! isset( $data['columns'] ) ||
 		     ! isset( $data['elements'] ) ||
 		     ! isset( $data['groups'] ) ||
-		     ! isset( $data['fonts'] ) ||
-		     ! isset( $data['general'] ) ) {
+		     ! isset( $data['fonts'] ) ) {
 			return $this->response( self::STATUS_FAILED );
 		}
 
-		$exportData           = new \stdClass();
-		$exportData->headers  = new \stdClass();
-		$exportData->columns  = new \stdClass();
-		$exportData->elements = new \stdClass();
-		$exportData->groups   = new \stdClass();
-		$exportData->fonts    = new \stdClass();
-		$exportData->general  = ( $data['general'] ) ? true : false;
+		$exportData             = new \stdClass();
+		$exportData->zones      = new \stdClass();
+		$exportData->containers = new \stdClass();
+		$exportData->columns    = new \stdClass();
+		$exportData->elements   = new \stdClass();
+		$exportData->groups     = new \stdClass();
+		$exportData->fonts      = new \stdClass();
 
-		foreach ( @json_decode( $data['headers'] ) as $header ) {
-			$exportData->headers->{$header->uuid} = $this->clearTrash( $header );
+		foreach ( @json_decode( $data['zones'] ) as $zone ) {
+			$exportData->zones->{$zone->uuid} = $zone;
 		}
 
-		foreach ( @json_decode( $data['headers'] ) as $column ) {
+		foreach ( @json_decode( $data['containers'] ) as $container ) {
+			$exportData->containers->{$container->uuid} = $this->clearTrash( $container );
+		}
+
+		foreach ( @json_decode( $data['columns'] ) as $column ) {
 			$exportData->columns->{$column->uuid} = $this->clearTrash( $column );
 		}
 
@@ -115,13 +126,13 @@ class Export extends Base_Model {
 		$exportData->fonts = @json_decode( $data['fonts'] );
 
 		$pack = [
-			'headers'  => $exportData->headers,
-			'columns'  => $exportData->columns,
-			'elements' => $exportData->elements,
-			'groups'   => $exportData->groups,
-			'fonts'    => $exportData->fonts,
-			'general'  => $exportData->general,
-			'url_root' => site_url()
+			'zones'      => $exportData->zones,
+			'containers' => $exportData->containers,
+			'columns'    => $exportData->columns,
+			'elements'   => $exportData->elements,
+			'groups'     => $exportData->groups,
+			'fonts'      => $exportData->fonts,
+			'url_root'   => site_url()
 		];
 
 		return $this->response( self::STATUS_OK, [ json_encode( $pack ) ] );

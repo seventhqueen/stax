@@ -61,7 +61,7 @@
         $plan                       = $fs_addon->get_plan();
         $is_active_subscription     = ( is_object( $subscription ) && $subscription->is_active() );
         $is_paid_trial              = $fs_addon->is_paid_trial();
-        $show_upgrade               = ( ! $is_paying && ! $is_paid_trial && ! $fs_addon->_has_premium_license() );
+        $show_upgrade               = ( $fs_addon->has_paid_plan() && ! $is_paying && ! $is_paid_trial && ! $fs_addon->_has_premium_license() );
         $is_current_license_expired = is_object( $license ) && $license->is_expired();
     }
 ?>
@@ -220,20 +220,22 @@
             }
 
             if ( 0 == count( $buttons ) ) {
-                $fs_addon->_add_license_activation_dialog_box();
+                if ( $show_upgrade && $fs_addon->is_premium() ) {
+                    $fs_addon->_add_license_activation_dialog_box();
 
-                $buttons[] = fs_ui_get_action_button(
-                    $fs->get_id(),
-                    'account',
-                    'activate_license',
-                    fs_esc_html_inline( 'Activate License', 'activate-license', $slug ),
-                    'activate-license-trigger ' . $fs_addon->get_unique_affix(),
-                    array(
-                        'plugin_id' => $addon_id,
-                    ),
-                    false,
-                    true
-                );
+                    $buttons[] = fs_ui_get_action_button(
+                        $fs->get_id(),
+                        'account',
+                        'activate_license',
+                        fs_esc_html_inline( 'Activate License', 'activate-license', $slug ),
+                        'activate-license-trigger ' . $fs_addon->get_unique_affix(),
+                        array(
+                            'plugin_id' => $addon_id,
+                        ),
+                        false,
+                        true
+                    );
+                }
 
                 // Add sync license only if non of the other CTAs are visible.
                 $buttons[] = fs_ui_get_action_button(

@@ -32,6 +32,17 @@ class Model_Components extends Base_Model {
 	}
 
 	/**
+	 * @return array|null|object
+	 */
+	public function get() {
+		$components = $this->db->get_results(
+			"SELECT * FROM `" . $this->db->prefix . $this->table_components . "` WHERE `deleted_at` IS NULL ORDER BY `created_at` DESC"
+		);
+
+		return $components;
+	}
+
+	/**
 	 * @param \WP_REST_Request $request
 	 *
 	 * @return mixed|\WP_REST_Response
@@ -55,7 +66,7 @@ class Model_Components extends Base_Model {
 	 * @return int
 	 */
 	public function create( $name, $properties ) {
-		$properties = json_decode( $properties );
+		$properties = @json_decode( $properties );
 		$properties = $this->clearTrash( $properties );
 
 		$this->db->insert(
@@ -94,46 +105,4 @@ class Model_Components extends Base_Model {
 		return $this->response( self::STATUS_OK );
 	}
 
-	/**
-	 * @return array|null|object
-	 */
-	public function get() {
-		$components = $this->db->get_results(
-			"SELECT * FROM `" . $this->db->prefix . $this->table_components . "` WHERE `deleted_at` IS NULL ORDER BY `created_at` DESC"
-		);
-
-		return $components;
-	}
-
-	/**
-	 * Save settings
-	 *
-	 * @param \WP_REST_Request $request
-	 *
-	 * @return mixed|\WP_REST_Response
-	 */
-	public function save_settings( \WP_REST_Request $request ) {
-		$data = $request->get_params();
-		if ( isset( $data['tag'] ) && isset( $data['tagType'] ) ) {
-
-			$current_data = get_option( STAX_OPTION_NAME );
-			if ( ! $current_data ) {
-				$current_data = [];
-			}
-
-			$theme = strtolower( wp_get_theme( get_template() )->display( 'Name' ) );
-
-			$current_data[ $theme ] = array(
-				'tag'     => $data['tag'],
-				'tagType' => $data['tagType'],
-			);
-
-			if ( update_option( STAX_OPTION_NAME, $current_data ) ) {
-				return $this->response( self::STATUS_OK, $current_data );
-			}
-
-		}
-
-		return $this->response( self::STATUS_FAILED );
-	}
 }

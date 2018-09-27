@@ -19,28 +19,19 @@ class ElementShortcode extends Element implements ElementInterface {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->name        = 'Shortcode';
-		$this->slug        = 'shortcode';
-		$this->icon->size  = 'mdi-24px';
-		$this->icon->type  = 'mdi-code-braces';
-		$this->icon->color = 'sq-shortcodeItem';
-		$this->template    = '<div class="item sq-shortcode" data-controller="container"><div class="item-child"></div></div>';
+		$this->name       = 'Shortcode';
+		$this->slug       = 'shortcode';
+		$this->icon->type = 'mdi-code-braces';
+		$this->template   = $this->getTemplate( $this->slug );
 
 		$fields = [];
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Shortcode:',
-				'name'        => 'shortcode-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_TEXT_AREA,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_SHORTCODE,
-				'value'       => '[stax-demo-shortcode]',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'label' => 'Shortcode',
+				'name'  => 'shortcode_field',
+				'type'  => self::FIELD_TEXT_AREA,
+				'value' => '[stax-demo-shortcode]'
 			]
 		);
 
@@ -50,7 +41,7 @@ class ElementShortcode extends Element implements ElementInterface {
 		] ), $fields );
 
 		$this->setBoxDefaults( [
-			self::ADVANCED_MARGIN  => [
+			self::ADVANCED_MARGIN => [
 				'value' => [ 0, 2, 0, 2 ]
 			]
 		] );

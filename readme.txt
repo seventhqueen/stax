@@ -1,18 +1,22 @@
-=== STAX Header Builder for WordPress ===
+=== STAX Header Builder ===
 Contributors: SeventhQueen
-Tags: header builder, header editor, sticky header, landing page, drag-and-drop, visual editor, wysiwyg, slide-up header, transparent header, stax
+Tags: stax, header builder, frontend editor, landing page, drag-and-drop, visual editor, wysiwyg, design, sticky header, slide-up header, transparent header
 Requires at least: 4.6
-Tested up to: 4.9.5
-Requires PHP: 5.4
-Stable tag: 1.0.2
+Tested up to: 4.9.8
+Requires PHP: 5.6
+Stable tag: 1.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Header builder for any WordPress theme. Replace your existing header and create pixel perfect headers with ease. All is visual and in front-end.
+The most advanced frontend drag & drop header builder. Create pixel perfect headers with ease. Works with any theme.
 
 == Description ==
 
-Stax is a drag & drop visual header builder plugin for WordPress enabling the creation of page headers in a live, visual way. This lets you focus on the look and design of your page headers, instead of tripping over the behind-the-scenes mechanics of building headers.
+### Version 1.0.3 notes
+- Multi zone editing added. Customize footer, header or content.
+- Please be advised that when updating, old elements will loose their settings and you will need to adjust them.
+
+Stax is a front-end drag & drop visual header builder plugin for WordPress enabling the creation of page headers in a live, visual way. This lets you focus on the look and design of your page headers, instead of tripping over the behind-the-scenes mechanics of building headers.
 Check out **[Stax Builder](https://staxbuilder.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)**.
 
 = Works with any theme =
@@ -48,7 +52,7 @@ And many more.
 - **Button**. Add a quick link
 - **Icon**. Add an icon and play with the cool options
 - **Separator**. Use it to nicely separate header elements
-- **Menu**. Add your existing Wordpress menus to the header.
+- **Menu **. Add your existing Wordpress menus to the header.
 - **And counting...**
 
 = Documentation and Support =
@@ -70,7 +74,7 @@ And many more.
 
 = We recommend your host supports: =
 
-* PHP version 7.0 or greater
+* PHP version 7.1 or greater
 * MySQL version 5.6 or greater
 * WordPress Memory limit of 64 MB or greater (128 MB or higher is preferred)
 
@@ -93,13 +97,24 @@ You can use STAX to design and build your site header on any theme, all in front
 
 Yes, you can use it on any theme. The first time you open Stax you will be prompted to select your current header area to replace.
 
+== Upgrade Notice ==
+
+= 1.0.4 =
+Updating to 1.0.4 will result in element settings be lost on update. Starting with version 1.0.3 there were some big changes to the plugin and could not keep backward compatible settings.
+
+= 1.0.3 =
+Be advised that element settings will be lost on update. We made some big changes to this version, one of them is the ability to edit multiple zones on your site
+
 == Changelog ==
 
+= 1.0.4 - 2018-09-27 =
+- Applied a Safari browser fix on load.
+
+= 1.0.3 - 2018-09-14 =
+- Multi zone support. You can now add multiple zones to edit on your site. By default Stax defines Header & Footer to build but you can add unlimited zones
+
 = 1.0.2 - 2018-05-10 =
-* Header replace if front-end is now disabled by default. Enable it when your header is ready to be published
-* Wordpress admin bar fix for sticky headers on mobile
-* Fix for full-width dropdown menu at mobile.
-* Network environment fix for admin to allow editing
+- Header replace if front-end is now disabled by default.
 
 = 1.0.1 - 2018-05-04 =
 * Fix for full-width dropdown menu at mobile.

@@ -41,10 +41,10 @@ class Routes {
 	 *
 	 */
 	public function load() {
-		register_rest_route( STAX_API_NAMESPACE, '/save-header', [
+		register_rest_route( STAX_API_NAMESPACE, '/save-data', [
 			'methods'             => 'POST',
 			'callback'            => [
-				Model_ActiveHeaders::instance(),
+				Model_Zones::instance(),
 				'save'
 			],
 			'permission_callback' => function () {
@@ -96,17 +96,6 @@ class Routes {
 			}
 		] );
 
-		register_rest_route( STAX_API_NAMESPACE, '/save-settings', [
-			'methods'             => 'POST',
-			'callback'            => [
-				Model_Components::instance(),
-				'save_settings'
-			],
-			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
-			}
-		] );
-
 		register_rest_route( STAX_API_NAMESPACE, '/update-editor-theme', [
 			'methods'             => 'POST',
 			'callback'            => [
@@ -145,6 +134,17 @@ class Routes {
 			'callback'            => [
 				Export::instance(),
 				'cleanExport'
+			],
+			'permission_callback' => function () {
+				return current_user_can( 'administrator' );
+			}
+		] );
+
+		register_rest_route( STAX_API_NAMESPACE, '/helpers/rebuild-element', [
+			'methods'             => 'POST',
+			'callback'            => [
+				Composer::instance(),
+				'buildTemplate'
 			],
 			'permission_callback' => function () {
 				return current_user_can( 'administrator' );
@@ -206,6 +206,17 @@ class Routes {
 			}
 		] );
 
+		register_rest_route( STAX_API_NAMESPACE, '/helpers/find-page-for-zone', [
+			'methods'             => 'GET',
+			'callback'            => [
+				PageSeeker::instance(),
+				'find'
+			],
+			'permission_callback' => function () {
+				return current_user_can( 'administrator' );
+			}
+		] );
+
 		register_rest_route( STAX_API_NAMESPACE, '/delete-template/(?P<id>\d+)', [
 			'methods'             => 'DELETE',
 			'callback'            => [
@@ -221,6 +232,17 @@ class Routes {
 			'methods'             => 'DELETE',
 			'callback'            => [
 				Model_Components::instance(),
+				'delete'
+			],
+			'permission_callback' => function () {
+				return current_user_can( 'administrator' );
+			}
+		] );
+
+		register_rest_route( STAX_API_NAMESPACE, '/delete-zone/(?P<uuid>[a-zA-Z0-9]+)', [
+			'methods'             => 'DELETE',
+			'callback'            => [
+				Model_Zones::instance(),
 				'delete'
 			],
 			'permission_callback' => function () {

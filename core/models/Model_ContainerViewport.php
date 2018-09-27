@@ -1,6 +1,6 @@
 <?php
 /**
- * Model_GrpHeader Model.
+ * ContainerViewport Model.
  *
  * @package Stax
  * @author SeventhQueen <themesupport@seventhqueen.com>
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Model_GrpHeader extends Base_Model {
+class Model_ContainerViewport extends Base_Model {
 
 	/**
 	 * @var null
@@ -21,7 +21,7 @@ class Model_GrpHeader extends Base_Model {
 	public static $instance = null;
 
 	/**
-	 * @return null|Model_GrpHeader
+	 * @return null|Model_ContainerViewport
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -39,7 +39,7 @@ class Model_GrpHeader extends Base_Model {
 	public function get( $uuid ) {
 		$result = $this->db->get_results(
 			$this->db->prepare(
-				"SELECT * FROM `" . $this->db->prefix . $this->table_grp_header . "` WHERE `header_uuid` = %s",
+				"SELECT * FROM `" . $this->db->prefix . $this->table_container_viewport . "` WHERE `container_uuid` = %s",
 				$uuid
 			)
 		);
@@ -48,18 +48,18 @@ class Model_GrpHeader extends Base_Model {
 	}
 
 	/**
-	 * @param $header_uuid
+	 * @param $container_uuid
 	 * @param $viewport
-	 * @param $headerProps
+	 * @param $props
 	 */
-	public function create( $header_uuid, $viewport, $headerProps ) {
+	public function create( $container_uuid, $viewport, $props ) {
 		$this->db->replace(
-			$this->db->prefix . $this->table_grp_header,
+			$this->db->prefix . $this->table_container_viewport,
 			[
-				'header_uuid' => $header_uuid,
-				'viewport'    => $viewport,
-				'visibility'  => $headerProps->visibility,
-				'position'    => $headerProps->position
+				'container_uuid' => $container_uuid,
+				'viewport'       => $viewport,
+				'visibility'     => $props->visibility,
+				'position'       => $props->position
 			]
 		);
 	}
@@ -69,9 +69,9 @@ class Model_GrpHeader extends Base_Model {
 	 */
 	public function delete( $uuid ) {
 		$this->db->delete(
-			$this->db->prefix . $this->table_grp_header,
+			$this->db->prefix . $this->table_container_viewport,
 			[
-				'header_uuid' => $uuid
+				'container_uuid' => $uuid
 			]
 		);
 	}

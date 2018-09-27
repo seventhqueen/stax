@@ -304,7 +304,7 @@ msgstr ""
 
 #: core/helpers/L10n.php:112
 msgid ""
-"This item's settings will be set to individual for this resolution. Don't "
+"Apply this item's settings to this resolution only? Don't "
 "worry, you can switch back anytime you want."
 msgstr ""
 

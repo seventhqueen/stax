@@ -1,6 +1,6 @@
 <?php
 /**
- * Header component.
+ * Container component.
  *
  * @package Stax
  * @author SeventhQueen <themesupport@seventhqueen.com>
@@ -13,9 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-interface HeaderInterface {
+interface ContainerInterface {
 	/**
-	 * HeaderInterface constructor.
+	 * ContainerInterface constructor.
 	 */
 	public function __construct();
 }

@@ -32,6 +32,15 @@ class Model_Columns extends Base_Model {
 	}
 
 	/**
+	 * @return array|null|object
+	 */
+	public function getAll() {
+		$result = $this->db->get_results( "SELECT * FROM `" . $this->db->prefix . $this->table_columns . "` WHERE `deleted_at` IS NULL" );
+
+		return $result;
+	}
+
+	/**
 	 * @param $uuid
 	 *
 	 * @return array|null|object|void
@@ -39,7 +48,7 @@ class Model_Columns extends Base_Model {
 	public function get( $uuid ) {
 		$result = $this->db->get_row(
 			$this->db->prepare(
-				"SELECT * FROM `" . $this->db->prefix . $this->table_columns . "` WHERE `uuid` = %s",
+				"SELECT * FROM `" . $this->db->prefix . $this->table_columns . "` WHERE `deleted_at` IS NULL AND `uuid` = %s",
 				$uuid
 			)
 		);

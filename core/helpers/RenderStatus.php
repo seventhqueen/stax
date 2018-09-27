@@ -35,9 +35,9 @@ class RenderStatus {
 	 */
 	public function toggleStatus() {
 		if ( $this->getStatus() ) {
-			delete_option( 'stax-render-status' );
+			update_option( 'stax-render-status', false );
 		} else {
-			add_option( 'stax-render-status', true );
+			update_option( 'stax-render-status', true );
 		}
 
 		return $this->getStatus();

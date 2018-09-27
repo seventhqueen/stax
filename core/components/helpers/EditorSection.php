@@ -14,31 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class EditorSection extends ElementSpecs {
-	/**
-	 * @var mixed
-	 */
-	/**
-	 * @var mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var bool|mixed|string
-	 */
-	/**
-	 * @var array|bool|mixed|string
-	 */
-	/**
-	 * @var array|bool|mixed|string
-	 */
+
 	public
 		$name,
 		$title,
 		$visibility,
+		$only,
 		$type,
 		$state,
 		$fields,
@@ -53,11 +34,12 @@ class EditorSection extends ElementSpecs {
 	public function __construct( array $property ) {
 		$this->title      = isset( $property['title'] ) ? $property['title'] : 'Options';
 		$this->name       = $property['name'];
+		$this->only       = isset( $property['only'] ) ? $property['only'] : '';
 		$this->type       = isset( $property['type'] ) ? $property['type'] : 'default';
 		$this->visibility = isset( $property['visibility'] ) ? $property['visibility'] : true;
 		$this->state      = isset( $property['state'] ) ? $property['state'] : false;
 		$this->fields     = [];
-		$this->icon       = 'mdi-options';
+		$this->icon       = isset( $property['icon'] ) ? $property['icon'] : '';
 		$this->free       = isset( $property['free'] ) ? $property['free'] : true;
 	}
 

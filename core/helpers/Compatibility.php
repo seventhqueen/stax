@@ -104,13 +104,14 @@ class Compatibility {
 		$compatibility = new $class_name();
 
 		$this->tag = $compatibility->get_tag();
-		if ( $compatibility->is_front_compatible() && RenderStatus::instance()->getStatus() ) {
+		if ( !is_admin() && $compatibility->is_front_compatible() && RenderStatus::instance()->getStatus() ) {
 			$this->compatible = true;
 
+			// Todo: fix compatibility
 			/* If we are in front area and not editing */
-			if ( Plugin::instance()->is_front() && Plugin::instance()->get_header_data()->html ) {
+			/*if ( Plugin::instance()->is_front() && Plugin::instance()->get_header_data()->html ) {
 				$compatibility->front_actions();
-			}
+			}*/
 		}
 
 		$this->compatibility_registered = true;

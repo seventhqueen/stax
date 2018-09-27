@@ -26,14 +26,10 @@ class Editor {
 	 */
 	public static $instance = null;
 
-	/**
-	 * @var Composer
-	 */
-	public $composer;
-
 	const TYPE_ELEMENT = 'element',
 		TYPE_COLUMN = 'column',
-		TYPE_HEADER = 'header';
+		TYPE_HEADER = 'header',
+		TYPE_SECTION = 'section';
 
 	/**
 	 * Editor constructor.
@@ -41,8 +37,6 @@ class Editor {
 	public function __construct() {
 		add_action( 'template_redirect', [ $this, 'init' ] );
 		add_action( 'init', [ $this, 'removeAdminBar' ] );
-
-		$this->composer = new Composer();
 	}
 
 	/**
@@ -84,11 +78,17 @@ class Editor {
 			return;
 		}
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'general_style' ], 999999 );
-		add_action( 'wp_enqueue_scripts', [ $this, 'general_script' ], 999999 );
+		if ( ( ! Plugin::instance()->is_front() || RenderStatus::instance()->getStatus() ) ) {
+			add_action( 'wp_enqueue_scripts', [ $this, 'general_style' ], 999999 );
+			add_action( 'wp_enqueue_scripts', [ $this, 'general_script' ], 999999 );
+		}
 
-		if ( ! current_user_can('administrator') ) {
+		if ( ! current_user_can( 'administrator' ) ) {
 			return;
+		}
+
+		if ( ! Plugin::instance()->is_preview() ) {
+			add_action( 'wp_enqueue_scripts', [ $this, 'start_edit_style' ], 999999 );
 		}
 
 		if ( Plugin::instance()->is_editor_frame() ) {
@@ -96,12 +96,6 @@ class Editor {
 			add_action( 'wp_enqueue_scripts', [ $this, 'editor_frame_scripts' ], 999999 );
 		}
 
-		/* Show the button to open editor only to admin and not while previewing */
-		if ( current_user_can('administrator') && ! Plugin::instance()->is_preview() ) {
-			add_action( 'wp_enqueue_scripts', [ $this, 'start_edit_style' ], 999999 );
-		}
-
-		/* For initial setup only */
 		if ( Plugin::instance()->is_setup() ) {
 			add_action( 'wp_head', [ $this, 'start_inline_script' ], 1 );
 			add_action( 'wp_enqueue_scripts', [ $this, 'start_edit_script' ], 999999 );
@@ -130,7 +124,11 @@ class Editor {
 	 *
 	 */
 	public function removeAdminBar() {
-		if ( ( Plugin::instance()->is_editor_frame() || Plugin::instance()->is_preview() || Plugin::instance()->is_editor_panel() || Plugin::instance()->is_setup() ) && current_user_can('administrator') ) {
+		if ( ( Plugin::instance()->is_editor_frame() ||
+		       Plugin::instance()->is_preview() ||
+		       Plugin::instance()->is_editor_panel() ||
+		       Plugin::instance()->is_setup() ) &&
+		     current_user_can( 'administrator' ) ) {
 			add_filter( 'show_admin_bar', '__return_false' );
 		}
 	}
@@ -259,6 +257,7 @@ class Editor {
 			true
 		);
 
+		wp_localize_script( 'start-editor', 'activeZones', [] );
 		wp_enqueue_script( 'start-editor' );
 	}
 
@@ -294,7 +293,7 @@ class Editor {
 	public function general_script() {
 		wp_register_script(
 			'stax-script',
-			STAX_ASSETS_URL . 'js/header.js',
+			STAX_ASSETS_URL . 'js/stax.js',
 			[
 				'jquery',
 			],
@@ -363,60 +362,74 @@ class Editor {
 		wp_enqueue_script( 'link-disabled' );
 	}
 
-	/**
-	 * @return array
-	 */
+
 	public function websiteData() {
 		global $wp;
-		$pageId = get_the_ID();
 
 		$page_url = home_url( $wp->request );
 		if ( ! $page_url ) {
 			$page_url = home_url();
 		}
 
-		$generalEdit = true;
-		if ( isset( $_GET['individual'] ) ) {
-			$generalEdit = false;
-		}
+		$type          = 0;
+		$zones         = Model_Zones::instance()->getByType( $type );
+		$eligibleZones = [];
+		$otherZones    = [];
 
-		$singleID = 0;
-		if ( $pageId && ! is_home() ) {
-			$itemMeta = get_option( 'stax_item_' . $pageId );
-			if ( $itemMeta ) {
-				$generalEdit = false;
-				$singleID    = $itemMeta;
+		foreach ( $zones as $zone ) {
+			$conditions = @json_decode( $zone->condition );
+			if ( ! empty( $conditions ) ) {
+				$condition_stack = [];
+				foreach ( $conditions as $condition ) {
+					if ( $condition->category === "general" ) {
+						$condition_stack[] = "general";
+					} else if ( $condition->category === "archive" ) {
+						foreach ( Plugin::instance()->display_conditions_archive() as $archCondition ) {
+							if ( $archCondition['tag'] === $condition->subcategory ) {
+								$condition_stack[] = $archCondition['callback'];
+							}
+						}
+
+					} else if ( $condition->category === "single" ) {
+						foreach ( Plugin::instance()->display_conditions_single() as $sglCondition ) {
+							if ( $sglCondition['tag'] === $condition->subcategory ) {
+								$condition_stack[] = $sglCondition['callback'];
+							}
+						}
+
+					}
+				}
+
+				$eligible = false;
+
+
+				foreach ( $condition_stack as $callback ) {
+					if ( $callback === "general" ) {
+						$eligible = true;
+						continue;
+					}
+
+					if ( $callback() ) {
+						$eligible = true;
+					}
+				}
+
+				if ( $eligible ) {
+					$eligibleZones[] = $zone;
+				} else {
+					$otherZones[] = $zone;
+				}
 			}
-		} else {
-			$pageId = 0;
 		}
-
-		$hasActive = false;
-		if ( $generalEdit ) {
-			$theHeader = Model_ActiveHeaders::instance()->getGeneral();
-			$hasActive = true;
-		} else {
-			$theHeader = Model_ActiveHeaders::instance()->getById( $singleID );
-		}
-
 
 		$defaultElements = $this->getDefaultElements();
 		$customElements  = $this->getCustomElements();
-		$packData        = $this->getItemsPack( $theHeader );
+		$packData        = $this->getItemsPack( $eligibleZones );
+		$baseSection     = new Section();
 		$baseHeader      = new Header();
 		$baseColumn      = new Column();
 		$components      = [];
 		$templates       = [];
-		$tag             = '';
-		$tagType         = '';
-
-		if ( $hasActive ) {
-			$generalData = $packData;
-		} else {
-			$tempHeader  = Model_ActiveHeaders::instance()->getGeneral();
-			$generalData = $this->getItemsPack( $tempHeader );
-		}
-
 
 		do_action( 'stax_custom_elements' );
 
@@ -429,31 +442,43 @@ class Editor {
 				continue;
 			}
 
-			$templateItems           = new \stdClass();
-			$templateItems->headers  = new \stdClass();
-			$templateItems->columns  = new \stdClass();
-			$templateItems->elements = new \stdClass();
-			$templateItems->groups   = new \stdClass();
-			$templateItems->fonts    = new \stdClass();
-			$templateItems->general  = isset( $pack->general ) ? $pack->general : [];
+			$templateItems             = new \stdClass();
+			$templateItems->zone       = new \stdClass();
+			$templateItems->containers = new \stdClass();
+			$templateItems->columns    = new \stdClass();
+			$templateItems->elements   = new \stdClass();
+			$templateItems->group      = new \stdClass();
+			$templateItems->fonts      = new \stdClass();
 
-			foreach ( $pack->headers as $header ) {
-				$templateItems->headers->{$header->uuid} = $this->matchAndMergeFields( $header );
+			$templateItems->zone  = $pack->zone;
+			$templateItems->group = $pack->group;
+
+			if ( isset( $pack->fonts ) ) {
+				$templateItems->fonts = $pack->fonts;
+			}
+
+			foreach ( $pack->containers as $container ) {
+				if ( ! $container instanceof \stdClass ) {
+					continue;
+				}
+				$templateItems->containers->{$container->uuid} = $this->matchAndMergeFields( $container );
 			}
 
 			foreach ( $pack->columns as $column ) {
+				if ( ! $column instanceof \stdClass ) {
+					continue;
+				}
 				$templateItems->columns->{$column->uuid} = $this->matchAndMergeFields( $column );
 			}
 
-			foreach ( $pack->elements as $element ) {
-				$templateItems->elements->{$element->uuid} = $this->matchAndMergeFields( $element );
+			if ( isset( $pack->elements ) ) {
+				foreach ( $pack->elements as $element ) {
+					if ( ! $element instanceof \stdClass ) {
+						continue;
+					}
+					$templateItems->elements->{$element->uuid} = $this->matchAndMergeFields( $element );
+				}
 			}
-
-			foreach ( $pack->groups as $uuid => $group ) {
-				$templateItems->groups->{$uuid} = $group;
-			}
-
-			$templateItems->fonts = $pack->fonts;
 
 			$templates[] = [
 				'id'      => $template->id,
@@ -466,6 +491,11 @@ class Editor {
 		$componentsPack = Model_Components::instance()->get();
 		foreach ( $componentsPack as $component ) {
 			$properties = @json_decode( $component->properties );
+
+			if ( ! $properties instanceof \stdClass ) {
+				continue;
+			}
+
 			$properties = $this->matchAndMergeFields( $properties );
 
 			if ( ! $properties ) {
@@ -478,13 +508,6 @@ class Editor {
 				'properties' => $properties
 			];
 		}
-
-		$current_settings = Model_Settings::instance()->get_current_tag();
-		if ( ! empty( $current_settings ) ) {
-			$tag     = $current_settings['tag'];
-			$tagType = $current_settings['tagType'];
-		}
-
 
 		$theme = get_option( 'stax_editor_theme' );
 		if ( ! $theme ) {
@@ -531,29 +554,31 @@ class Editor {
 			],
 			'editor' => [
 				'base'             => [
+					'section'         => $baseSection,
 					'header'          => $baseHeader,
 					'column'          => $baseColumn,
 					'defaultElements' => $defaultElements,
 					'customElements'  => $customElements,
 					'fonts'           => Fonts::instance()->get()
 				],
-				'generalItems'     => [
-					'headers'  => $generalData->headers,
-					'columns'  => $generalData->columns,
-					'elements' => $generalData->elements,
-					'groups'   => $generalData->groups,
-					'fonts'    => $generalData->fonts
-				],
 				'settings'         => [
-					'tag'          => $tag,
-					'tagType'      => $tagType,
-					'theme'        => $theme,
-					'themes'       => $themes,
-					'colors'       => $colors,
-					'headerActive' => RenderStatus::instance()->getStatus()
+					'theme'      => $theme,
+					'themes'     => $themes,
+					'colors'     => $colors,
+					'status'     => RenderStatus::instance()->getStatus(),
+					'conditions' => [
+						'general' => [],
+						'single'  => Plugin::instance()->display_conditions_single(),
+						'archive' => Plugin::instance()->display_conditions_archive()
+					]
 				],
 				'viewport'         => '',
-				'headers'          => $packData->headers,
+				'currentZone'      => '',
+				'wpTheme'          => strtolower( wp_get_theme( get_template() )->display( 'Name' ) ),
+				'zones'            => $packData->zones,
+				'otherZones'       => $otherZones,
+				'defaultZones'     => $packData->defaultZones,
+				'containers'       => $packData->containers,
 				'columns'          => $packData->columns,
 				'elements'         => $packData->elements,
 				'groups'           => $packData->groups,
@@ -567,8 +592,6 @@ class Editor {
 				'layerDrop'        => new \stdClass(),
 				'layers'           => [],
 				'icons'            => Icons::instance()->get(),
-				'page'             => $pageId,
-				'general'          => $generalEdit,
 				'l10n'             => L10n::instance()->strings()
 			]
 		];
@@ -577,69 +600,187 @@ class Editor {
 	}
 
 	/**
-	 * @param $item
+	 * @param $zones
 	 *
 	 * @return \stdClass
 	 */
-	protected function getItemsPack( $item ) {
-		$result           = new \stdClass();
-		$result->headers  = new \stdClass();
-		$result->columns  = new \stdClass();
-		$result->elements = new \stdClass();
-		$result->groups   = new \stdClass();
-		$result->fonts    = new \stdClass();
+	protected function getItemsPack( $zones ) {
+		$theme_name = strtolower( wp_get_theme( get_template() )->display( 'Name' ) );
 
-		if ( $item ) {
-			$pack        = @json_decode( $item->pack );
-			$headersPack = $pack->headers;
+		$result               = new \stdClass();
+		$result->zones        = new \stdClass();
+		$result->defaultZones = new \stdClass();
+		$result->containers   = new \stdClass();
+		$result->columns      = new \stdClass();
+		$result->elements     = new \stdClass();
+		$result->groups       = new \stdClass();
+		$result->fonts        = new \stdClass();
 
-			foreach ( $headersPack as $uuid ) {
-				$header = Model_Headers::instance()->get( $uuid );
-				if ( $header ) {
-					$result->headers->$uuid = $this->matchAndMergeFields( @json_decode( $header->properties ) );
-				}
+		$missingZones = $defaultZones = [
+			'header',
+			'content',
+			'footer'
+		];
+
+		foreach ( $zones as $zone ) {
+			if ( ( $key = array_search( $zone->slug, $missingZones ) ) !== false ) {
+				unset( $missingZones[ $key ] );
 			}
-		}
 
-		foreach ( $result->headers as $headerUuid => $header ) {
-			$heads = Model_GrpHeader::instance()->get( $headerUuid );
-
-			$result->groups->{$headerUuid} = (object) [
-				'viewport' => (object) []
+			$result->zones->{$zone->uuid} = (object) [
+				'name'      => $zone->name,
+				'uuid'      => $zone->uuid,
+				'slug'      => $zone->slug,
+				'builder'   => '',
+				'condition' => json_decode( $zone->condition ),
+				'selector'  => json_decode( $zone->selector ),
+				'enabled'   => ( $zone->enabled == 0 ) ? false : true
 			];
 
-			foreach ( $heads as $headItem ) {
-				$result->groups->{$headItem->header_uuid}->viewport->{$headItem->viewport} = (object) [
-					'columns'    => (object) [],
-					'position'   => $headItem->position,
-					'visibility' => intval( $headItem->visibility )
+			$selector = @json_decode( $zone->selector );
+
+			if ( isset( $selector->{$theme_name} ) ) {
+				$result->groups->{$zone->uuid} = (object) [
+					'containers' => (object) [],
+					'position'   => $selector->{$theme_name}->position,
+					'visibility' => intval( $selector->{$theme_name}->visibility )
 				];
+			} else {
+				$result->groups->{$zone->uuid} = (object) [
+					'containers' => (object) [],
+					'position'   => 1,
+					'visibility' => 1
+				];
+			}
 
-				$cols = Model_GrpHeaderItems::instance()->getByHeaderUuid( $headItem->header_uuid, $headItem->viewport );
+			$pack = @json_decode( $zone->pack );
 
-				foreach ( $cols as $colItem ) {
-					$storedColumn = Model_Columns::instance()->get( $colItem->column_uuid );
+			foreach ( $pack as $uuid ) {
+				$container = Model_Container::instance()->get( $uuid );
+				if ( $container ) {
+					if ( ! @json_decode( $container->properties ) instanceof \stdClass ) {
+						continue;
+					}
 
-					if ( $storedColumn ) {
-						$result->groups->{$headItem->header_uuid}->viewport->{$headItem->viewport}->columns->{$colItem->column_uuid} = (object) [
-							'elements'   => (object) [],
-							'position'   => $colItem->position,
-							'visibility' => intval( $colItem->visibility )
+					$result->containers->{$uuid} = $this->matchAndMergeFields( @json_decode( $container->properties ) );
+
+					$viewports = Model_ContainerViewport::instance()->get( $container->uuid );
+
+					$result->groups->{$zone->uuid}->containers->{$container->uuid} = (object) [
+						'viewport' => (object) []
+					];
+
+					foreach ( $viewports as $containerItem ) {
+						$result->groups->{$zone->uuid}->containers->{$containerItem->container_uuid}->viewport->{$containerItem->viewport} = (object) [
+							'columns'    => (object) [],
+							'position'   => $containerItem->position,
+							'visibility' => intval( $containerItem->visibility )
 						];
 
-						$result->columns->{$colItem->column_uuid} = $this->matchAndMergeFields( @json_decode( $storedColumn->properties ) );
+						$cols = Model_ContainerItems::instance()->getByContainerUuid( $containerItem->container_uuid, $containerItem->viewport );
 
-						$storedElements = json_decode( $colItem->elements );
-						foreach ( $storedElements as $elementUuid => $elItem ) {
-							$storedElement = Model_Elements::instance()->get( $elementUuid );
-							if ( $storedElement ) {
-								$result->groups->{$headItem->header_uuid}->viewport->{$headItem->viewport}->columns->{$colItem->column_uuid}->elements->{$elementUuid} = $elItem;
+						foreach ( $cols as $colItem ) {
+							$storedColumn = Model_Columns::instance()->get( $colItem->column_uuid );
 
-								$result->elements->{$elementUuid} = $this->matchAndMergeFields( @json_decode( $storedElement->properties ) );
+							if ( $storedColumn ) {
+								$result->groups->{$zone->uuid}->containers->{$containerItem->container_uuid}->viewport->{$containerItem->viewport}->columns->{$colItem->column_uuid} = (object) [
+									'elements'   => (object) [],
+									'position'   => $colItem->position,
+									'visibility' => intval( $colItem->visibility )
+								];
+
+								if ( ! @json_decode( $storedColumn->properties ) instanceof \stdClass ) {
+									continue;
+								}
+
+								$result->columns->{$colItem->column_uuid} = $this->matchAndMergeFields( @json_decode( $storedColumn->properties ) );
+
+								$storedElements = json_decode( $colItem->elements );
+								foreach ( $storedElements as $elementUuid => $elItem ) {
+									$storedElement = Model_Elements::instance()->get( $elementUuid );
+									if ( $storedElement ) {
+										$result->groups->{$zone->uuid}->containers->{$containerItem->container_uuid}->viewport->{$containerItem->viewport}->columns->{$colItem->column_uuid}->elements->{$elementUuid} = $elItem;
+
+										if ( ! @json_decode( $storedElement->properties ) instanceof \stdClass ) {
+											continue;
+										}
+
+										$result->elements->{$elementUuid} = $this->matchAndMergeFields( @json_decode( $storedElement->properties ) );
+									}
+								}
 							}
 						}
 					}
 				}
+			}
+		}
+
+		foreach ( $missingZones as $type ) {
+			if ( ! is_single() && $type === 'content' ) {
+				continue;
+			}
+
+			$path  = '';
+			$xpath = true;
+
+			if ( $type === 'content' ) {
+				$xpath = false;
+				$path  = '#stax-content';
+			} else if ( $type === 'footer' ) {
+				$xpath = false;
+				$path  = '#stax-footer';
+			}
+
+			$selectors                = [];
+			$selectors[ $theme_name ] = [
+				'xpath'      => $xpath,
+				'position'   => 1,
+				'visibility' => 1,
+				'path'       => $path
+			];
+
+			$result->defaultZones->{$type} = (object) [
+				'name'      => ucfirst( $type ),
+				'uuid'      => '',
+				'slug'      => $type,
+				'builder'   => '',
+				'condition' => [],
+				'selector'  => (object) $selectors,
+				'enabled'   => true
+			];
+		}
+
+		foreach ( $result->zones as $zone ) {
+			if ( ! in_array( $zone->slug, $defaultZones ) ) {
+				continue;
+			}
+
+			if ( ! is_single() && $zone->slug === 'content' ) {
+				continue;
+			}
+
+			if ( $zone->slug === 'header' ) {
+				continue;
+			}
+
+			if ( ! isset( $zone->selector->{$theme_name} ) ) {
+				$path  = '';
+				$xpath = true;
+
+				if ( $zone->slug === 'content' ) {
+					$xpath = false;
+					$path  = '#stax-content';
+				} else if ( $zone->slug === 'footer' ) {
+					$xpath = false;
+					$path  = '#stax-footer';
+				}
+
+				$zone->selector->{$theme_name} = [
+					'xpath'      => $xpath,
+					'position'   => 1,
+					'visibility' => 1,
+					'path'       => $path
+				];
 			}
 		}
 
@@ -648,7 +789,6 @@ class Editor {
 
 	/**
 	 * @return array
-	 * @throws FatalException
 	 */
 	protected function getDefaultElements() {
 		$elements = [];
@@ -663,6 +803,13 @@ class Editor {
 		$icon      = new ElementIcon();
 		$separator = new ElementSeparator();
 
+		$accordion  = new ElementAccordion();
+		$divider    = new ElementDivider();
+		$googlemaps = new ElementGoogleMaps();
+		$heading    = new ElementHeading();
+		$spacer     = new ElementSpacer();
+		$tabs       = new ElementTabs();
+
 		$elements[ $logo->slug ]      = $logo;
 		$elements[ $menu->slug ]      = $menu;
 		$elements[ $search->slug ]    = $search;
@@ -673,10 +820,12 @@ class Editor {
 		$elements[ $link->slug ]      = $link;
 		$elements[ $separator->slug ] = $separator;
 
-		foreach ( $elements as $el ) {
-			$sanitizer = new Sanitizer( $el );
-			$sanitizer->check();
-		}
+		$elements[ $accordion->slug ]  = $accordion;
+		$elements[ $divider->slug ]    = $divider;
+		$elements[ $googlemaps->slug ] = $googlemaps;
+		$elements[ $heading->slug ]    = $heading;
+		$elements[ $spacer->slug ]     = $spacer;
+		$elements[ $tabs->slug ]       = $tabs;
 
 		return $elements;
 	}
@@ -685,23 +834,13 @@ class Editor {
 	 * @return array
 	 */
 	protected function getCustomElements() {
-		$elements = [];
-
-		foreach ( $this->composer->elements as $customElement ) {
-			if ( ! $customElement->slug ) {
-				continue;
-			}
-			$elements[ $customElement->slug ] = $customElement;
-		}
-
-		return $elements;
+		return [];
 	}
 
 	/**
 	 * @param $save
 	 *
 	 * @return mixed
-	 * @throws FatalException
 	 */
 	public function matchAndMergeFields( $save ) {
 		$views = [
@@ -713,6 +852,7 @@ class Editor {
 
 		foreach ( $views as $view ) {
 			$native = null;
+
 			switch ( $save->type ) {
 				case self::TYPE_ELEMENT:
 					$defaultElements = $this->getDefaultElements();
@@ -726,9 +866,21 @@ class Editor {
 					break;
 				case self::TYPE_COLUMN:
 					$native = new Column();
+					if ( ! isset( $save->parent ) ) {
+						$save->parent = self::TYPE_HEADER;
+					}
+
+					if ( $save->parent === self::TYPE_HEADER ) {
+						$native->editor = $native->editor_header;
+					} elseif ( $save->parent === self::TYPE_SECTION ) {
+						$native->editor = $native->editor_section;
+					}
 					break;
 				case self::TYPE_HEADER:
 					$native = new Header();
+					break;
+				case self::TYPE_SECTION:
+					$native = new Section();
 					break;
 				default:
 			}
@@ -749,7 +901,8 @@ class Editor {
 									foreach ( $saveField->value as $sKey => $savedFieldVal ) {
 										foreach ( $nativeField->value as $nKey => $nativeFieldVal ) {
 											if ( $nKey === $sKey ) {
-												$saved_value                                                 = isset( $savedFieldVal->value ) ? $savedFieldVal->value : null;
+												$saved_value = isset( $savedFieldVal->value ) ? $savedFieldVal->value : null;
+
 												$native->editor[ $k ]->fields[ $i ]->value[ $nKey ]['value'] = $saved_value;
 
 												if ( isset( $savedFieldVal->extra ) && isset( $nativeFieldVal['extra'] ) ) {

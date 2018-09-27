@@ -1,52 +1,8 @@
-/*! jRespond.js v 0.10 | Author: Jeremy Fields [jeremy.fields@viget.com], 2013 | License: MIT */
-!function (a, b, c) {
-    "object" == typeof module && module && "object" == typeof module.exports ? module.exports = c : (a[b] = c, "function" == typeof define && define.amd && define(b, [], function () {
-        return c
-    }))
-}(this, "jRespond", function (a, b, c) {
-    "use strict";
-    return function (a) {
-        var b = [], d = [], e = a, f = "", g = "", i = 0, j = 100, k = 500, l = k, m = function () {
-            var a = 0;
-            return a = "number" != typeof window.innerWidth ? 0 !== document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth : window.innerWidth
-        }, n = function (a) {
-            if (a.length === c) o(a); else for (var b = 0; b < a.length; b++) o(a[b])
-        }, o = function (a) {
-            var e = a.breakpoint, h = a.enter || c;
-            b.push(a), d.push(!1), r(e) && (h !== c && h.call(null, {entering: f, exiting: g}), d[b.length - 1] = !0)
-        }, p = function () {
-            for (var a = [], e = [], h = 0; h < b.length; h++) {
-                var i = b[h].breakpoint, j = b[h].enter || c, k = b[h].exit || c;
-                "*" === i ? (j !== c && a.push(j), k !== c && e.push(k)) : r(i) ? (j === c || d[h] || a.push(j), d[h] = !0) : (k !== c && d[h] && e.push(k), d[h] = !1)
-            }
-            for (var l = {entering: f, exiting: g}, m = 0; m < e.length; m++) e[m].call(null, l);
-            for (var n = 0; n < a.length; n++) a[n].call(null, l)
-        }, q = function (a) {
-            for (var b = !1, c = 0; c < e.length; c++) if (a >= e[c].enter && a <= e[c].exit) {
-                b = !0;
-                break
-            }
-            b && f !== e[c].label ? (g = f, f = e[c].label, p()) : b || "" === f || (f = "", p())
-        }, r = function (a) {
-            if ("object" == typeof a) {
-                if (a.join().indexOf(f) >= 0) return !0
-            } else {
-                if ("*" === a) return !0;
-                if ("string" == typeof a && f === a) return !0
-            }
-        }, s = function () {
-            var a = m();
-            a !== i ? (l = j, q(a)) : l = k, i = a, setTimeout(s, l)
-        };
-        return s(), {
-            addFunc: function (a) {
-                n(a)
-            }, getBreakpoint: function () {
-                return f
-            }
-        }
-    }
-}(this, this.document));
+/**
+ * Stax WordPress Header Builder plugin
+ * Javascript logic
+ */
+
 
 // requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
 !function () {
@@ -85,155 +41,162 @@
  Dependencies: jQuery, Modernizr (optional). Without Modernizr, the menu can only be shown on click (not hover). */
 
 (function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(['jquery'], factory);
-	} else {
-		// Browser globals
-		factory(jQuery);
-	}
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
 }(function ($) {
-	var windowWidth = $(window).width(); // Store the window width
-	var windowHeight = $(window).height(); // Store the window height
-	var flexObjects = [], // Array of all flexMenu objects
-		resizeTimeout;
-	// When the page is resized, adjust the flexMenus.
-	function adjustFlexMenu() {
-		if ($(window).width() !== windowWidth || $(window).height() !== windowHeight) {
-			$(flexObjects).each(function () {
-				$(this).flexMenu({
-					'undo' : true
-				}).flexMenu(this.options);
-			});
-			windowWidth = $(window).width(); // Store the window width if it changed
-			windowHeight = $(window).height(); // Store the window height if it changed
-		}
-	}
-	function collapseAllExcept($menuToAvoid) {
-		var $activeMenus,
-			$menusToCollapse;
-		$activeMenus = $('li.flexMenu-viewMore.active');
-		$menusToCollapse = $activeMenus.not($menuToAvoid);
-		$menusToCollapse.removeClass('active').find('> ul').hide();
-	}
-	$(window).resize(function () {
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(function () {
-			adjustFlexMenu();
-		}, 200);
-	});
-	$.fn.flexMenu = function (options) {
-		var checkFlexObject,
-			s = $.extend({
-				'threshold' : 2, // [integer] If there are this many items or fewer in the list, we will not display a "View More" link and will instead let the list break to the next line. This is useful in cases where adding a "view more" link would actually cause more things to break  to the next line.
-				'cutoff' : 2, // [integer] If there is space for this many or fewer items outside our "more" popup, just move everything into the more menu. In that case, also use linkTextAll and linkTitleAll instead of linkText and linkTitle. To disable this feature, just set this value to 0.
-				'linkText' : 'More', // [string] What text should we display on the "view more" link?
-				'linkTitle' : 'View More', // [string] What should the title of the "view more" button be?
-				'linkTextAll' : 'Menu', // [string] If we hit the cutoff, what text should we display on the "view more" link?
-				'linkTitleAll' : 'Open/Close Menu', // [string] If we hit the cutoff, what should the title of the "view more" button be?
-				'shouldApply' : function() { return true; }, // [function] Function called before applying flexMenu. If it returns false, it will not be applied.
-				'showOnHover' : true, // [boolean] Should we we show the menu on hover? If not, we'll require a click. If we're on a touch device - or if Modernizr is not available - we'll ignore this setting and only show the menu on click. The reason for this is that touch devices emulate hover events in unpredictable ways, causing some taps to do nothing.
-				'popupAbsolute' : true, // [boolean] Should we absolutely position the popup? Usually this is a good idea. That way, the popup can appear over other content and spill outside a parent that has overflow: hidden set. If you want to do something different from this in CSS, just set this option to false.
-				'popupClass' : '', // [string] If this is set, this class will be added to the popup
-				'undo' : false // [boolean] Move the list items back to where they were before, and remove the "View More" link.
-			}, options);
-		this.options = s; // Set options on object
-		checkFlexObject = $.inArray(this, flexObjects); // Checks if this object is already in the flexObjects array
-		if (checkFlexObject >= 0) {
-			flexObjects.splice(checkFlexObject, 1); // Remove this object if found
-		} else {
-			flexObjects.push(this); // Add this object to the flexObjects array
-		}
-		return this.each(function () {
-			var $this = $(this),
-				$items = $this.find('> li'),
-				$firstItem = $items.first(),
-				$lastItem = $items.last(),
-				numItems = $items.length,
-				firstItemTop = Math.floor($firstItem.offset().top),
-				firstItemHeight = Math.floor($firstItem.outerHeight(true)),
-				$lastChild,
-				keepLooking,
-				$moreItem,
-				$moreLink,
-				numToRemove,
-				allInPopup = false,
-				$menu,
-				i;
-			function needsMenu($itemOfInterest) {
-				var result = (Math.ceil($itemOfInterest.offset().top) >= (firstItemTop + firstItemHeight)) ? true : false;
-				// Values may be calculated from em and give us something other than round numbers. Browsers may round these inconsistently. So, let's round numbers to make it easier to trigger flexMenu.
-				return result;
-			}
-			if (needsMenu($lastItem) && numItems > s.threshold && !s.undo && $this.is(':visible')
-				&& (s.shouldApply())) {
-				var $popup = $('<ul class="flexMenu-popup submenu"></ul>');
-				// Add class if popupClass option is set
-				$popup.addClass(s.popupClass);
-				// Move all list items after the first to this new popup ul
-				for (i = numItems; i > 1; i--) {
-					// Find all of the list items that have been pushed below the first item. Put those items into the popup menu. Put one additional item into the popup menu to cover situations where the last item is shorter than the "more" text.
-					$lastChild = $this.find('> li:last-child');
-					keepLooking = (needsMenu($lastChild));
-					// If there only a few items left in the navigation bar, move them all to the popup menu.
-					if ((i - 1) <= s.cutoff) { // We've removed the ith item, so i - 1 gives us the number of items remaining.
-						$($this.children().get().reverse()).appendTo($popup);
-						allInPopup = true;
-						break;
-					}
-					if (!keepLooking) {
-						break;
-					} else {
-						$lastChild.appendTo($popup);
-					}
-				}
-				if (allInPopup) {
+    var windowWidth = $(window).width(); // Store the window width
+    var windowHeight = $(window).height(); // Store the window height
+    var flexObjects = [], // Array of all flexMenu objects
+        resizeTimeout;
+
+    // When the page is resized, adjust the flexMenus.
+    function adjustFlexMenu() {
+        if ($(window).width() !== windowWidth || $(window).height() !== windowHeight) {
+            $(flexObjects).each(function () {
+                $(this).flexMenu({
+                    'undo': true
+                }).flexMenu(this.options);
+            });
+            windowWidth = $(window).width(); // Store the window width if it changed
+            windowHeight = $(window).height(); // Store the window height if it changed
+        }
+    }
+
+    function collapseAllExcept($menuToAvoid) {
+        var $activeMenus,
+            $menusToCollapse;
+        $activeMenus = $('li.flexMenu-viewMore.active');
+        $menusToCollapse = $activeMenus.not($menuToAvoid);
+        $menusToCollapse.removeClass('active').find('> ul').hide();
+    }
+
+    $(window).resize(function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function () {
+            adjustFlexMenu();
+        }, 200);
+    });
+    $.fn.flexMenu = function (options) {
+        var checkFlexObject,
+            s = $.extend({
+                'threshold': 2, // [integer] If there are this many items or fewer in the list, we will not display a "View More" link and will instead let the list break to the next line. This is useful in cases where adding a "view more" link would actually cause more things to break  to the next line.
+                'cutoff': 2, // [integer] If there is space for this many or fewer items outside our "more" popup, just move everything into the more menu. In that case, also use linkTextAll and linkTitleAll instead of linkText and linkTitle. To disable this feature, just set this value to 0.
+                'linkText': 'More', // [string] What text should we display on the "view more" link?
+                'linkTitle': 'View More', // [string] What should the title of the "view more" button be?
+                'linkTextAll': 'Menu', // [string] If we hit the cutoff, what text should we display on the "view more" link?
+                'linkTitleAll': 'Open/Close Menu', // [string] If we hit the cutoff, what should the title of the "view more" button be?
+                'shouldApply': function () {
+                    return true;
+                }, // [function] Function called before applying flexMenu. If it returns false, it will not be applied.
+                'showOnHover': true, // [boolean] Should we we show the menu on hover? If not, we'll require a click. If we're on a touch device - or if Modernizr is not available - we'll ignore this setting and only show the menu on click. The reason for this is that touch devices emulate hover events in unpredictable ways, causing some taps to do nothing.
+                'popupAbsolute': true, // [boolean] Should we absolutely position the popup? Usually this is a good idea. That way, the popup can appear over other content and spill outside a parent that has overflow: hidden set. If you want to do something different from this in CSS, just set this option to false.
+                'popupClass': '', // [string] If this is set, this class will be added to the popup
+                'undo': false // [boolean] Move the list items back to where they were before, and remove the "View More" link.
+            }, options);
+        this.options = s; // Set options on object
+        checkFlexObject = $.inArray(this, flexObjects); // Checks if this object is already in the flexObjects array
+        if (checkFlexObject >= 0) {
+            flexObjects.splice(checkFlexObject, 1); // Remove this object if found
+        } else {
+            flexObjects.push(this); // Add this object to the flexObjects array
+        }
+        return this.each(function () {
+            var $this = $(this),
+                $items = $this.find('> li'),
+                $firstItem = $items.first(),
+                $lastItem = $items.last(),
+                numItems = $items.length,
+                firstItemTop = Math.floor($firstItem.offset().top),
+                firstItemHeight = Math.floor($firstItem.outerHeight(true)),
+                $lastChild,
+                keepLooking,
+                $moreItem,
+                $moreLink,
+                numToRemove,
+                allInPopup = false,
+                $menu,
+                i;
+
+            function needsMenu($itemOfInterest) {
+                var result = (Math.ceil($itemOfInterest.offset().top) >= (firstItemTop + firstItemHeight)) ? true : false;
+                // Values may be calculated from em and give us something other than round numbers. Browsers may round these inconsistently. So, let's round numbers to make it easier to trigger flexMenu.
+                return result;
+            }
+
+            if (needsMenu($lastItem) && numItems > s.threshold && !s.undo && $this.is(':visible')
+                && (s.shouldApply())) {
+                var $popup = $('<ul class="flexMenu-popup submenu"></ul>');
+                // Add class if popupClass option is set
+                $popup.addClass(s.popupClass);
+                // Move all list items after the first to this new popup ul
+                for (i = numItems; i > 1; i--) {
+                    // Find all of the list items that have been pushed below the first item. Put those items into the popup menu. Put one additional item into the popup menu to cover situations where the last item is shorter than the "more" text.
+                    $lastChild = $this.find('> li:last-child');
+                    keepLooking = (needsMenu($lastChild));
+                    // If there only a few items left in the navigation bar, move them all to the popup menu.
+                    if ((i - 1) <= s.cutoff) { // We've removed the ith item, so i - 1 gives us the number of items remaining.
+                        $($this.children().get().reverse()).appendTo($popup);
+                        allInPopup = true;
+                        break;
+                    }
+                    if (!keepLooking) {
+                        break;
+                    } else {
+                        $lastChild.appendTo($popup);
+                    }
+                }
+                if (allInPopup) {
                     $this.append('<li class="flexMenu-viewMore flexMenu-allInPopup has-submenu"><a class="item" href="#" title="' + s.linkTitleAll + '">' + s.linkTextAll + '</a></li>');
-				} else {
+                } else {
                     $this.append('<li class="flexMenu-viewMore has-submenu"><a class="item" href="#" title="' + s.linkTitle + '">' + s.linkText + '</a></li>');
-				}
-				$moreItem = $this.find('> li.flexMenu-viewMore');
-				/// Check to see whether the more link has been pushed down. This might happen if the link immediately before it is especially wide.
-				if (needsMenu($moreItem)) {
-					$this.find('> li:nth-last-child(2)').appendTo($popup);
-				}
-				// Our popup menu is currently in reverse order. Let's fix that.
-				$popup.children().each(function (i, li) {
-					$popup.prepend(li);
-				});
-				$moreItem.append($popup);
-				$moreLink = $this.find('> li.flexMenu-viewMore > a');
-				$moreLink.bind("tap", function (e) {
-					// Collapsing any other open flexMenu
-					collapseAllExcept($moreItem);
-					//Open and Set active the one being interacted with.
-					$popup.toggle();
-					$moreItem.toggleClass('active');
-					e.preventDefault();
-					return false;
-				});
-				if (s.showOnHover && (typeof Modernizr !== 'undefined') && !Modernizr.touch) { // If requireClick is false AND touch is unsupported, then show the menu on hover. If Modernizr is not available, assume that touch is unsupported. Through the magic of lazy evaluation, we can check for Modernizr and start using it in the same if statement. Reversing the order of these variables would produce an error.
-					$moreItem.hover(
-						function () {
-							$popup.show();
-							$(this).addClass('active');
-						},
-						function () {
-							$popup.hide();
-							$(this).removeClass('active');
-						});
-				}
-			} else if (s.undo && $this.find('ul.flexMenu-popup')) {
-				$menu = $this.find('ul.flexMenu-popup');
-				numToRemove = $menu.find('li').length;
-				for (i = 1; i <= numToRemove; i++) {
-					$menu.find('> li:first-child').appendTo($this);
-				}
-				$menu.remove();
-				$this.find('> li.flexMenu-viewMore').remove();
-			}
-		});
-	};
+                }
+                $moreItem = $this.find('> li.flexMenu-viewMore');
+                /// Check to see whether the more link has been pushed down. This might happen if the link immediately before it is especially wide.
+                if (needsMenu($moreItem)) {
+                    $this.find('> li:nth-last-child(2)').appendTo($popup);
+                }
+                // Our popup menu is currently in reverse order. Let's fix that.
+                $popup.children().each(function (i, li) {
+                    $popup.prepend(li);
+                });
+                $moreItem.append($popup);
+                $moreLink = $this.find('> li.flexMenu-viewMore > a');
+                $moreLink.bind("tap", function (e) {
+                    // Collapsing any other open flexMenu
+                    collapseAllExcept($moreItem);
+                    //Open and Set active the one being interacted with.
+                    $popup.toggle();
+                    $moreItem.toggleClass('active');
+                    e.preventDefault();
+                    return false;
+                });
+                if (s.showOnHover && (typeof Modernizr !== 'undefined') && !Modernizr.touch) { // If requireClick is false AND touch is unsupported, then show the menu on hover. If Modernizr is not available, assume that touch is unsupported. Through the magic of lazy evaluation, we can check for Modernizr and start using it in the same if statement. Reversing the order of these variables would produce an error.
+                    $moreItem.hover(
+                        function () {
+                            $popup.show();
+                            $(this).addClass('active');
+                        },
+                        function () {
+                            $popup.hide();
+                            $(this).removeClass('active');
+                        });
+                }
+            } else if (s.undo && $this.find('ul.flexMenu-popup')) {
+                $menu = $this.find('ul.flexMenu-popup');
+                numToRemove = $menu.find('li').length;
+                for (i = 1; i <= numToRemove; i++) {
+                    $menu.find('> li:first-child').appendTo($this);
+                }
+                $menu.remove();
+                $this.find('> li.flexMenu-viewMore').remove();
+            }
+        });
+    };
 }));
 
 var SQ = SQ || {};
@@ -242,27 +205,18 @@ var SQ = SQ || {};
     // USE STRICT
     "use strict";
 
-    SQ.responsiveClassesAdded = false;
-
     SQ.hb = {
         /* variables for Header Builder */
-        jRes: null,
-        currentDisplay: null,
         prevScroll: 0,
-        headerSection: null,
+        headerSection: $('.header-section'),
         adminBar: '#wpadminbar',
         stickyWrapperClass: 'hb-sticky-wrapper',
         zoneClass: '.stax-zone',
 
         init: function () {
-            SQ.hb.responsiveClasses();
-
-	        if (typeof staxResponsive !== 'undefined') {
-		        SQ.hb.replaceHeader();
-	        }
-	        SQ.hb.headerSectionInit();
-	        SQ.hb.headerSectionCalc();
-
+	        
+            SQ.hb.headerSectionInit();
+            SQ.hb.headerSectionCalc();
 
             /* Register events */
 
@@ -286,17 +240,56 @@ var SQ = SQ || {};
                 SQ.hb.checkImageState();
             });
 
-	        $(window).on('stax-menu-ajax', function () {
-		        setTimeout(function () {
-			        SQ.hb.trimLongMenu();
-		        }, 200);
-	        });
+            $(window).on('stax-menu-ajax', function () {
+                setTimeout(function () {
+                    SQ.hb.trimLongMenu();
+                }, 200);
+            });
 
             $(window).on('after-header-init', function () {
                 SQ.hb.checkHeaderOverflow();
             });
 
             SQ.hb.scrollTo();
+
+            /* Elements */
+            SQ.hb.initAccordion();
+            SQ.hb.initTabs();
+
+            $(window).on('stax-accordion', function () {
+                SQ.hb.initAccordion();
+            });
+            $(window).on('stax-tabs', function () {
+                SQ.hb.initTabs();
+            });
+
+            $('body').on('click', '.sq-menu-modburger-toggle', function (e) {
+                e.preventDefault();
+                $(this).parent().find('.menu').addClass('sq-menu-modburger-show');
+                $('html').addClass('sq-menu-modburger-visible');
+                var container = $(this).closest('.header-section');
+                if (!container)
+                    container = $(this).closest('.hb-section');
+
+                if (!container)
+                    return;
+
+                container.css({'z-index': 100000003});
+            });
+
+            $('body').on('click', '.sq-menu-modburger-close', function (e) {
+                e.preventDefault();
+                $(this).closest('.menu').removeClass('sq-menu-modburger-show');
+                $('html').removeClass('sq-menu-modburger-visible');
+                var container = $(this).closest('.header-section');
+                if (!container)
+                    container = $(this).closest('.hb-section');
+
+                if (!container)
+                    return;
+
+                container.css({'z-index': container.data('index')});
+            });
         },
 
         onLoad: function () {
@@ -304,10 +297,7 @@ var SQ = SQ || {};
         },
 
         onResize: function () {
-	        if (typeof staxResponsive !== 'undefined') {
-		        SQ.hb.replaceHeader();
-	        }
-	        SQ.hb.headerSectionInit();
+            SQ.hb.headerSectionInit();
             SQ.hb.headerSectionCalc(true);
 
         },
@@ -324,104 +314,14 @@ var SQ = SQ || {};
             SQ.hb.headerSectionCalc();
         },
 
-        // Your functions here
-        responsiveClasses: function () {
-            if (SQ.responsiveClassesAdded === true) {
-                return;
-            }
-            SQ.hb.jRes = jRespond([
-                {
-                    label: 'smallest',
-                    enter: 0,
-                    exit: 479
-                }, {
-                    label: 'handheld',
-                    enter: 480,
-                    exit: 767
-                }, {
-                    label: 'tablet',
-                    enter: 768,
-                    exit: 991
-                }, {
-                    label: 'laptop',
-                    enter: 992,
-                    exit: 1199
-                }, {
-                    label: 'desktop',
-                    enter: 1200,
-                    exit: 10000
-                }
-            ]);
-            SQ.hb.jRes.addFunc([
-                {
-                    breakpoint: 'desktop',
-                    enter: function () {
-                        $body.addClass('device-lg');
-                    },
-                    exit: function () {
-                        $body.removeClass('device-lg');
-                    }
-                }, {
-                    breakpoint: 'laptop',
-                    enter: function () {
-                        $body.addClass('device-md');
-                    },
-                    exit: function () {
-                        $body.removeClass('device-md');
-                    }
-                }, {
-                    breakpoint: 'tablet',
-                    enter: function () {
-                        $body.addClass('device-sm');
-                    },
-                    exit: function () {
-                        $body.removeClass('device-sm');
-                    }
-                }, {
-                    breakpoint: 'handheld',
-                    enter: function () {
-                        $body.addClass('device-xs');
-                    },
-                    exit: function () {
-                        $body.removeClass('device-xs');
-                    }
-                }, {
-                    breakpoint: 'smallest',
-                    enter: function () {
-                        $body.addClass('device-xxs');
-                    },
-                    exit: function () {
-                        $body.removeClass('device-xxs');
-                    }
-                }
-            ]);
-            $('body').trigger('jres-ready');
-        },
-
         documentOnClick: function (e) {
             //
         },
 
-        replaceHeader: function () {
+        replaceZones: function () {
 
-            if (SQ.hb.currentDisplay !== null && SQ.hb.currentDisplay === SQ.hb.jRes.getBreakpoint()) {
-                return;
-            }
-
-	        $(SQ.hb.zoneClass).removeClass('stax-zone-mobile stax-zone-tablet stax-zone-desktop');
-
-            SQ.hb.currentDisplay = SQ.hb.jRes.getBreakpoint();
-
-            if (SQ.hb.currentDisplay === "smallest" || SQ.hb.currentDisplay === "handheld") {
-                $(SQ.hb.zoneClass).html(staxResponsive["mobile"]).addClass('stax-zone-mobile');
-            }
-            else if (SQ.hb.currentDisplay === "tablet") {
-                $(SQ.hb.zoneClass).html(staxResponsive["tablet"]).addClass('stax-zone-tablet');
-            }
-            else {
-                $(SQ.hb.zoneClass).html(staxResponsive["desktop"]).addClass('stax-zone-desktop');
-            }
         },
+	    
 
         checkHeaderOverflow: function () {
             var header = $('.header-section');
@@ -479,7 +379,7 @@ var SQ = SQ || {};
 
             SQ.hb.headerSection = $('.header-section');
 
-	        SQ.hb.trimLongMenu(); // Need to be onLoad
+            SQ.hb.trimLongMenu(); // Need to be onLoad
 
             SQ.hb.checkImageState();
             SQ.hb.checkHeaderOverflow();
@@ -498,12 +398,13 @@ var SQ = SQ || {};
             if (typeof staxResponsive !== 'undefined') {
                 var zIndex = 100;
                 SQ.hb.headerSection.each(function (index) {
+                    $(this).attr('data-index', zIndex);
                     $(this).css({'z-index': zIndex});
                     zIndex = zIndex - 2;
                 });
             }
 
-	        SQ.hb.calcMenuOffset();
+            SQ.hb.calcMenuOffset();
 
             $body.trigger("header-init-done");
 
@@ -573,7 +474,7 @@ var SQ = SQ || {};
                 var transparentOffset = $(this).attr('data-transparent') ? parseInt($(this).attr('data-transparent'), 10) : 0;
                 var currentHeader = $(this);
                 var currentHeaderContent = currentHeader;
-                var prevHeight = ($(SQ.hb.adminBar).length && parseInt($(window).width()) > 600 ) ? parseInt($(SQ.hb.adminBar).height(), 10) : 0;
+                var prevHeight = ($(SQ.hb.adminBar).length && parseInt($(window).width()) > 600) ? parseInt($(SQ.hb.adminBar).height(), 10) : 0;
                 var topValue;
                 var topValueChange = false;
                 var resizeDif = 0;
@@ -796,10 +697,10 @@ var SQ = SQ || {};
 
         trimLongMenu: function () {
             $('.flexMenu > ul').flexMenu({
-	            //'linkText': '',
-	            //'linkTextAll': '',
-	            'threshold' : 2, // [integer] If there are this many items or fewer in the list, we will not display a "View More" link and will instead let the list break to the next line. This is useful in cases where adding a "view more" link would actually cause more things to break  to the next line.
-	            'cutoff' : 1 //[integer] If there is space for this many or fewer items outside our "more" popup, just move everything into the more menu. In that case, also use linkTextAll and linkTitleAll instead of linkText and linkTitle. To disable this feature, just set this value to 0.
+                //'linkText': '',
+                //'linkTextAll': '',
+                'threshold': 2, // [integer] If there are this many items or fewer in the list, we will not display a "View More" link and will instead let the list break to the next line. This is useful in cases where adding a "view more" link would actually cause more things to break  to the next line.
+                'cutoff': 1 //[integer] If there is space for this many or fewer items outside our "more" popup, just move everything into the more menu. In that case, also use linkTextAll and linkTitleAll instead of linkText and linkTitle. To disable this feature, just set this value to 0.
             });
         },
 
@@ -824,6 +725,40 @@ var SQ = SQ || {};
 
             menus.css('display', '');
 
+        },
+        initAccordion: function () {
+            $('.sq-accordion > .sq-toggle-acc').on("click", function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var accordionContainer = $(this).parent().parent();
+
+                var toggles = $(accordionContainer).find('.sq-toggle-acc');
+                var contents = $(accordionContainer).find('.sq-inner-acc');
+
+                $(toggles).each(function () {
+                    if ($(this)[0] === $this[0]) {
+                        $(this).addClass('active');
+                        $(this).next('.sq-inner-acc').slideDown(350);
+                        $(this).find('.acc-icon').addClass($(this).data('icon-minimized'));
+                        $(this).find('.acc-icon').removeClass($(this).data('icon-maximized'));
+                    } else {
+                        $(this).removeClass('active');
+                        $(this).next('.sq-inner-acc').slideUp(350);
+                        $(this).find('.acc-icon').addClass($(this).data('icon-maximized'));
+                        $(this).find('.acc-icon').removeClass($(this).data('icon-minimized'))
+                    }
+                });
+            });
+        },
+
+        initTabs: function () {
+            $('.sq-toggle-tab').click(function (e) {
+                e.preventDefault();
+
+                $(this).addClass("active");
+                $(this).siblings().removeClass("active");
+            });
         }
     };
 

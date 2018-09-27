@@ -7,6 +7,9 @@
 
 namespace Stax;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class BuddyappCompat implements CompatibleTheme {
 

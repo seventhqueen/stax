@@ -68,52 +68,49 @@ class Model_Templates extends Base_Model {
 
 		if ( ! is_array( $data )
 		     || ! isset( $data['name'] )
-		     || ! isset( $data['headers'] )
+		     || ! isset( $data['zone'] )
+		     || ! isset( $data['containers'] )
 		     || ! isset( $data['columns'] )
 		     || ! isset( $data['elements'] )
-		     || ! isset( $data['groups'] )
-		     || ! isset( $data['fonts'] )
-		     || ! isset( $data['general'] ) ) {
+		     || ! isset( $data['group'] )
+		     || ! isset( $data['fonts'] ) ) {
 			return $this->response( self::STATUS_FAILED );
 		}
 
 		$pack = [
-			'headers'  => [],
-			'columns'  => [],
-			'elements' => [],
-			'groups'   => json_decode( $data['groups'] )
+			'zone'       => json_decode( $data['zone'] ),
+			'containers' => [],
+			'columns'    => [],
+			'elements'   => [],
+			'group'      => json_decode( $data['group'] )
 		];
 
-		$headers   = json_decode( $data['headers'] );
-		$columns   = json_decode( $data['columns'] );
-		$elements  = json_decode( $data['elements'] );
-		$fonts     = json_decode( $data['fonts'] );
-		$saveFonts = [];
+		$containers = json_decode( $data['containers'] );
+		$columns    = json_decode( $data['columns'] );
+		$elements   = json_decode( $data['elements'] );
+		$fonts      = json_decode( $data['fonts'] );
+		$saveFonts  = [];
 
-		foreach ( $headers as $key => $header ) {
-			$saveFonts       = $this->getItemFonts( $saveFonts, $fonts, $header );
-			$header          = $this->clearTrash( $header );
-			$header->builder = '';
+		foreach ( $containers as $key => $container ) {
+			$saveFonts = $this->getItemFonts( $saveFonts, $fonts, $container );
+			$container = $this->clearTrash( $container );
 
-			$pack['headers'][] = $header;
+			$pack['containers'][ $container->uuid ] = $container;
 		}
 
 		foreach ( $columns as $key => $column ) {
-			$saveFonts         = $this->getItemFonts( $saveFonts, $fonts, $column );
-			$column            = $this->clearTrash( $column );
-			$column->builder   = '';
-			$pack['columns'][] = $column;
+			$saveFonts                        = $this->getItemFonts( $saveFonts, $fonts, $column );
+			$column                           = $this->clearTrash( $column );
+			$pack['columns'][ $column->uuid ] = $column;
 		}
 
 		foreach ( $elements as $key => $element ) {
-			$saveFonts          = $this->getItemFonts( $saveFonts, $fonts, $element );
-			$element            = $this->clearTrash( $element );
-			$element->builder   = '';
-			$pack['elements'][] = $element;
+			$saveFonts                          = $this->getItemFonts( $saveFonts, $fonts, $element );
+			$element                            = $this->clearTrash( $element );
+			$pack['elements'][ $element->uuid ] = $element;
 		}
 
-		$pack['fonts']   = $saveFonts;
-		$pack['general'] = ( $data['general'] === 'true' ) ? true : false;
+		$pack['fonts'] = $saveFonts;
 
 		$template_id = $this->createOrUpdate( $data['name'], $pack );
 

@@ -19,77 +19,96 @@ class ElementText extends Element implements ElementInterface {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->name        = 'Text';
-		$this->slug        = 'text';
-		$this->icon->size  = 'mdi-24px';
-		$this->icon->type  = 'mdi-format-text';
-		$this->icon->color = 'sq-textItem';
-		$this->template    = '<div class="item sq-text" data-controller="container"><div class="item-child"></div></div>';
+		$this->name       = 'Text';
+		$this->slug       = 'text';
+		$this->icon->type = 'mdi-format-text';
+		$this->template   = $this->getTemplate( $this->slug );
 
 		$fields = [];
 
 		$fields[] = new EditorSectionField(
 			[
-				'label'       => 'Text:',
-				'name'        => 'text-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_TEXT_EDITOR,
-				'controller'  => 'container',
-				'edit'        => self::EDIT_INNER,
-				'value'       => 'This is a demo text',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
-				'editorClass' => []
+				'label' => 'Text',
+				'name'  => 'text_field',
+				'type'  => self::FIELD_TEXT_EDITOR,
+				'value' => 'This is a demo text'
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1 = [];
+
+		$fields_1[] = new EditorSectionField(
+			[
+				'label'    => 'Alignment',
+				'name'     => 'align_field',
+				'only'     => 'section',
+				'type'     => self::FIELD_BUTTON_GROUP,
+				'value'    => [
+					[
+						'label'    => '<span class="mdi mdi-format-align-left mdi-18px"></span>',
+						'value'    => 'left',
+						'selected' => true,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					],
+					[
+						'label'    => '<span class="mdi mdi-format-align-center mdi-18px"></span>',
+						'value'    => 'center',
+						'selected' => false,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					],
+					[
+						'label'    => '<span class="mdi mdi-format-align-right mdi-18px"></span>',
+						'value'    => 'right',
+						'selected' => false,
+						'trigger'  => [
+							'section' => [],
+							'field'   => []
+						]
+					]
+				],
+				'selector' => [
+					'{{SELECTOR}}' => 'text-align: {{VALUE}}'
+				],
+			]
+		);
+
+		$fields_1[] = new EditorSectionField(
 			[
 				'label'       => 'Typography',
-				'name'        => 'typo-separator',
-				'visibility'  => true,
+				'name'        => 'typo_separator',
 				'type'        => self::FIELD_SEPARATOR,
-				'controller'  => '',
-				'edit'        => '',
 				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
 				'editorClass' => [
 					'padding-m'
 				]
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Font family:',
-				'name'        => 'text-font-family-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_FONT_FAMILY,
-				'controller'  => '',
-				'edit'        => self::EDIT_FONT,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'    => 'Font family',
+				'name'     => 'text_font_family_field',
+				'type'     => self::FIELD_FONT_FAMILY,
+				'value'    => '',
+				'selector' => [
 					'{{SELECTOR}}' => 'font-family: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Font size:',
-				'name'        => 'text-font-size-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_NUMBER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '14',
-				'units'       => [
+				'label'    => 'Font size',
+				'name'     => 'text_font_size_field',
+				'type'     => self::FIELD_INPUT_NUMBER,
+				'value'    => '14',
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -99,27 +118,21 @@ class ElementText extends Element implements ElementInterface {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => 'font-size: {{VALUE}}{{UNIT}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Font weight:',
-				'name'        => 'typo-font-weight-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_DROPDOWN,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => [
+				'label'    => 'Font weight',
+				'name'     => 'typo_font_weight_field',
+				'type'     => self::FIELD_DROPDOWN,
+				'value'    => [
 					[
 						'label'    => '100',
 						'value'    => '100',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -129,7 +142,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '200',
 						'value'    => '200',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -139,7 +151,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '300',
 						'value'    => '300',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -149,7 +160,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '400',
 						'value'    => '400',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -159,7 +169,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '500',
 						'value'    => '500',
-						'extra'    => [],
 						'selected' => true,
 						'trigger'  => [
 							'section' => [],
@@ -169,7 +178,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '600',
 						'value'    => '600',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -179,7 +187,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '700',
 						'value'    => '700',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -189,7 +196,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '800',
 						'value'    => '800',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -199,7 +205,6 @@ class ElementText extends Element implements ElementInterface {
 					[
 						'label'    => '900',
 						'value'    => '900',
-						'extra'    => [],
 						'selected' => false,
 						'trigger'  => [
 							'section' => [],
@@ -207,25 +212,19 @@ class ElementText extends Element implements ElementInterface {
 						]
 					]
 				],
-				'units'       => [],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => 'font-weight: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Line height:',
-				'name'        => 'text-line-height-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_NUMBER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '20',
-				'units'       => [
+				'label'    => 'Line height',
+				'name'     => 'text_line_height_field',
+				'type'     => self::FIELD_INPUT_NUMBER,
+				'value'    => '24',
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -235,24 +234,19 @@ class ElementText extends Element implements ElementInterface {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => 'line-height: {{VALUE}}{{UNIT}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Letter spacing:',
-				'name'        => 'text-letter-spacing-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_INPUT_NUMBER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '1',
-				'units'       => [
+				'label'    => 'Letter spacing',
+				'name'     => 'text_letter_spacing_field',
+				'type'     => self::FIELD_INPUT_NUMBER,
+				'value'    => '1',
+				'units'    => [
 					[
 						'type'   => 'px',
 						'active' => true
@@ -262,47 +256,33 @@ class ElementText extends Element implements ElementInterface {
 						'active' => false
 					]
 				],
-				'selector'    => [
+				'selector' => [
 					'{{SELECTOR}}' => 'letter-spacing: {{VALUE}}{{UNIT}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1[] = new EditorSectionField(
 			[
 				'label'       => 'Style',
-				'name'        => 'text-style-separator',
-				'visibility'  => true,
+				'name'        => 'text_style_separator',
 				'type'        => self::FIELD_SEPARATOR,
-				'controller'  => '',
-				'edit'        => '',
 				'value'       => '',
-				'units'       => [],
-				'selector'    => [],
-				'tooltip'     => '',
 				'editorClass' => [
 					'padding-m'
 				]
 			]
 		);
 
-		$fields[] = new EditorSectionField(
+		$fields_1[] = new EditorSectionField(
 			[
-				'label'       => 'Color:',
-				'name'        => 'text-color-field',
-				'visibility'  => true,
-				'type'        => self::FIELD_COLOR_PICKER,
-				'controller'  => '',
-				'edit'        => self::EDIT_CSS,
-				'value'       => '',
-				'units'       => [],
-				'selector'    => [
+				'label'    => 'Color',
+				'name'     => 'text_color_n_field',
+				'type'     => self::FIELD_COLOR_PICKER,
+				'value'    => '',
+				'selector' => [
 					'{{SELECTOR}}' => 'color: {{VALUE}}'
-				],
-				'tooltip'     => '',
-				'editorClass' => []
+				]
 			]
 		);
 
@@ -311,12 +291,14 @@ class ElementText extends Element implements ElementInterface {
 			'name'  => 'option-section'
 		] ), $fields );
 
+		$this->addSection( new EditorSection( [
+			'title' => $this->name,
+			'name'  => 'style-text'
+		] ), $fields_1, 'tab_style_text' );
+
 		$this->setBoxDefaults( [
 			self::ADVANCED_PADDING => [
-				'value' => [ 10, 6, 10, 6 ]
-			],
-			self::ADVANCED_MARGIN  => [
-				'value' => [ 0, 2, 0, 2 ]
+				'value' => [ 7, 0, 7, 0 ]
 			]
 		] );
 	}

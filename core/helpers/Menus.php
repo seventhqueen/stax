@@ -39,18 +39,6 @@ class Menus {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function getSlugsSimple() {
-		$menus = [];
-		foreach ( get_terms( 'nav_menu', [ 'hide_empty' => false ] ) as $menu ) {
-			$menus[] = $menu->slug;
-		}
-
-		return $menus;
-	}
-
-	/**
 	 * @param $data
 	 * @param bool $fallback
 	 *
