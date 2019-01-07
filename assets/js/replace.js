@@ -1,6 +1,6 @@
-var currentDisplay = null;
-
 function staxWriteCss() {
+	'use strict';
+
 	var css = '';
 	for (var key in staxResponsive) {
 		if (staxResponsive.hasOwnProperty(key)) {
@@ -36,7 +36,6 @@ function staxWriteCss() {
 function staxListener(event) {
 	for (var key in staxResponsive) {
 		if (staxResponsive.hasOwnProperty(key)) {
-			console.log(event.animationName);
 			var el = staxResponsive[key];
 			if ( event.animationName == "staxZoneDetected" + el.zoneId ) {
 				staxReplaceZone(el.zoneId);
@@ -48,6 +47,8 @@ function staxListener(event) {
 
 
 function getBreakpoint() {
+	'use strict';
+
 	var windowWidth = window.outerWidth;
 
 	if (windowWidth < 480) {
@@ -63,7 +64,18 @@ function getBreakpoint() {
 	}
 }
 
+var previousDisplay = '';
+
 function staxReplaceZone(zoneId) {
+	'use strict';
+
+	var currentDisplay = getBreakpoint();
+
+	if( currentDisplay === previousDisplay ) {
+		return;
+	}
+
+	previousDisplay = currentDisplay;
 
 	for (var key in staxResponsive) {
 
@@ -75,19 +87,15 @@ function staxReplaceZone(zoneId) {
 
 			var el;
 
-			/*if (zoneId === undefined) {
-				el = document.querySelector('.element-' + staxResponsive[key].zoneId );
-			}
-			else */if (staxResponsive[key].isXpath == true) {
+			/*if (zoneId === undefined) { el = document.querySelector('.element-' + staxResponsive[key].zoneId ); } else */
+			if (staxResponsive[key].isXpath == true) {
 				el = document.evaluate(key, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 			} else {
 				el = document.querySelector(key);
 			}
 
 			var newContent = '';
-			var zoneClasses = 'staz-zone';
-
-			currentDisplay = getBreakpoint();
+			var zoneClasses = 'stax-zone';
 
 			if (currentDisplay === "xxs" || currentDisplay === "xs") {
 				newContent = staxResponsive[key].mobile;
@@ -110,6 +118,11 @@ function staxReplaceZone(zoneId) {
 			//}
 
 			el.classList.add("stax-loaded");
+
+			// Create the event.
+			var event = document.createEvent('Event');
+			event.initEvent('staxReplace', true, true);
+			el.dispatchEvent(event);
 		}
 	}
 }
@@ -151,6 +164,8 @@ function XPathException(message) {
 
 
 function cssify(xpath) {
+	'use strict';
+
 	var prog, match, result, nav, tag, attr, nth, nodes, css, node_css = '', csses = [], xindex = 0, position = 0;
 
 	// preparse xpath:

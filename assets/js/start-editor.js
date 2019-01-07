@@ -141,4 +141,3 @@ var startEditor = startEditor || {};
     });
 
 })(jQuery);
-

@@ -1,4 +1,4 @@
-<div class="<%= data.container_for %>-item sq-col element-<%= data.uuid %> <%= data.stax_adv_classes %>
+<div class="<%= data.container_for %>-item sq-col-lg element-<%= data.uuid %> <%= data.stax_adv_classes %>
     <% if (data.css_class_advanced) { %> <%= data.css_class_advanced %> <% } %>
     <% if (data.content_position_field) { %> <%= data.content_position_field %> <% } %>"
     <% if (data.css_id_advanced) { %> id="<%= data.css_id_advanced %>" <% } %>

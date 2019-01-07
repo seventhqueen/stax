@@ -234,7 +234,7 @@ class ElementMenu extends Element implements ElementInterface {
 				'type'     => self::FIELD_COLOR_PICKER,
 				'value'    => '',
 				'selector' => [
-					'{{SELECTOR}} .menu-default' => 'background-color: {{VALUE}}'
+					'{{SELECTOR}} .menu-default > ul > li > a' => 'background-color: {{VALUE}}'
 				]
 			]
 		);
@@ -258,8 +258,9 @@ class ElementMenu extends Element implements ElementInterface {
 				'type'     => self::FIELD_COLOR_PICKER,
 				'value'    => 'rgb(255,51,102)',
 				'selector' => [
-					'{{SELECTOR}} .menu-default > ul > li:hover > a'                         => 'color: {{VALUE}}',
-					'{{SELECTOR}} .menu-default > ul > li.menu-item.current-menu-item > a'   => 'color: {{VALUE}}',
+					'{{SELECTOR}}.sq-menu .menu-default > ul > li:hover > a'                         => 'color: {{VALUE}}',
+					'{{SELECTOR}}.sq-menu .menu-default > ul > li > a:hover'                         => 'color: {{VALUE}}',
+					'{{SELECTOR}}.sq-menu .menu-default > ul > li.menu-item.current-menu-item > a'   => 'color: {{VALUE}}',
 					'{{SELECTOR}} .menu-default > ul > li.flexMenu-viewMore:hover > a:after' => 'color: {{VALUE}}'
 				]
 			]
@@ -1099,7 +1100,7 @@ class ElementMenu extends Element implements ElementInterface {
 					]
 				],
 				'selector' => [
-					'{{SELECTOR}} .menu-default' => [
+					'{{SELECTOR}} .menu-default > ul > li > a' => [
 						'border-top-left-radius: {{VALUE_1}}{{UNIT}}',
 						'border-top-right-radius: {{VALUE_2}}{{UNIT}}',
 						'border-bottom-right-radius: {{VALUE_3}}{{UNIT}}',
@@ -1630,7 +1631,7 @@ class ElementMenu extends Element implements ElementInterface {
 		$this->addSection( new EditorSection( [
 			'title' => 'Menu presets',
 			'name'  => 'menu-section',
-			'state' => true
+			'state' => false
 		] ), $fields_2 );
 
 		$this->addSection( new EditorSection( [

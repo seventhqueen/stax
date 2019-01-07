@@ -59,7 +59,9 @@ class ElementSpecs {
 
 	protected function getTemplate( $slug ) {
 		if ( file_exists( STAX_CORE_PATH . 'components/templates/' . $slug . '.tpl' ) ) {
-			return file_get_contents( STAX_CORE_PATH . 'components/templates/' . $slug . '.tpl' );
+			$content =  file_get_contents( STAX_CORE_PATH . 'components/templates/' . $slug . '.tpl' );
+			$content = preg_replace('/\s+/', ' ',$content);
+			return $content;
 		}
 
 		return '';

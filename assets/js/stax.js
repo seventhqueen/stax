@@ -263,7 +263,7 @@ var SQ = SQ || {};
                 SQ.hb.initTabs();
             });
 
-            $('body').on('click', '.sq-menu-modburger-toggle', function (e) {
+            $body.on('click', '.sq-menu-modburger-toggle', function (e) {
                 e.preventDefault();
                 $(this).parent().find('.menu').addClass('sq-menu-modburger-show');
                 $('html').addClass('sq-menu-modburger-visible');
@@ -277,7 +277,7 @@ var SQ = SQ || {};
                 container.css({'z-index': 100000003});
             });
 
-            $('body').on('click', '.sq-menu-modburger-close', function (e) {
+            $body.on('click', '.sq-menu-modburger-close', function (e) {
                 e.preventDefault();
                 $(this).closest('.menu').removeClass('sq-menu-modburger-show');
                 $('html').removeClass('sq-menu-modburger-visible');
@@ -290,6 +290,15 @@ var SQ = SQ || {};
 
                 container.css({'z-index': container.data('index')});
             });
+
+	        // Listen for the event.
+	        var elem = document.querySelector('.stax-loaded');
+	        if(elem !== null) {
+		        elem.addEventListener('staxReplace', function (e) {
+			        SQ.hb.headerSectionInit();
+			        SQ.hb.headerSectionCalc(true);
+		        }, false);
+	        }
         },
 
         onLoad: function () {
@@ -397,11 +406,13 @@ var SQ = SQ || {};
 
             if (typeof staxResponsive !== 'undefined') {
                 var zIndex = 100;
-                SQ.hb.headerSection.each(function (index) {
-                    $(this).attr('data-index', zIndex);
-                    $(this).css({'z-index': zIndex});
-                    zIndex = zIndex - 2;
-                });
+                if (!$body.hasClass('elementor-editor-active')) {
+	                SQ.hb.headerSection.each(function (index) {
+		                $(this).attr('data-index', zIndex);
+		                $(this).css({'z-index': zIndex});
+		                zIndex = zIndex - 2;
+	                });
+                }
             }
 
             SQ.hb.calcMenuOffset();
@@ -557,13 +568,14 @@ var SQ = SQ || {};
                                 topValueChange = true;
                                 forceCheckHeaders = true;
                             }
-                        } else if ($(this).hasClass("is-sticky")) {
-                            $(this).removeClass("is-sticky");
-                            $(this).trigger("is-sticky");
-
-                            topValue = '';
-                            topValueChange = true;
-                            forceCheckHeaders = true;
+                        }else {
+	                        if ($(this).hasClass("is-sticky")) {
+		                        $(this).removeClass("is-sticky");
+		                        $(this).trigger("is-sticky");
+	                        }
+	                        topValue = '';
+	                        topValueChange = true;
+	                        forceCheckHeaders = true;
                         }
 
 

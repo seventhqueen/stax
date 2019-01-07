@@ -66,6 +66,7 @@ class Model_Zones extends Base_Model {
 			$result[ $zone->uuid ] = [
 				'name'      => $zone->name,
 				'uuid'      => $zone->uuid,
+				'slug'      => $zone->slug,
 				'pack'      => $zone->pack,
 				'condition' => @json_decode( $zone->condition ),
 				'selector'  => @json_decode( $zone->selector ),

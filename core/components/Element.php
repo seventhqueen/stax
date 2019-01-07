@@ -144,12 +144,12 @@ class Element extends ElementSpecs {
 		$this->visibilityTablet  = true;
 		$this->visibilityMobile  = true;
 		$this->customDesktop     = false;
-		$this->customTablet      = false;
-		$this->customMobile      = false;
+		$this->customTablet      = true;
+		$this->customMobile      = true;
 		$this->editor            = [];
-		$this->desktop           = [];
-		$this->tablet            = [];
-		$this->mobile            = [];
+		$this->desktop           = new \stdClass();
+		$this->tablet            = new \stdClass();
+		$this->mobile            = new \stdClass();
 		$this->generalCSS        = '';
 		$this->desktopCSS        = '';
 		$this->tabletCSS         = '';

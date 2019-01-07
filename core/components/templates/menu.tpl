@@ -1,6 +1,5 @@
-<div class="item <% if (data.menu_type_field === 'modburger') { %> sq-menu-<%= data.menu_type_field %> <% } else { %> sq-menu <% } %>
-    element-<%= data.uuid %>
-    <%= data.stax_adv_classes %>"
+<div class="item<% if (data.menu_type_field === 'modburger') { %> sq-menu-<%= data.menu_type_field %><% } else { %> sq-menu<% } %>
+ element-<%= data.uuid %> <%= data.stax_adv_classes %>"
     <% if (data.stax_adv_id) { %> id="<%= data.stax_adv_id %>" <% } %>>
     <% if (data.menu_type_field === 'modburger') { %>
         <div class="sq-menu-modburger-toggle">
@@ -24,5 +23,3 @@
         </div>
     <% } %>
 </div>
-
-

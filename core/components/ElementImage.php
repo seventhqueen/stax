@@ -108,7 +108,7 @@ class ElementImage extends Element implements ElementInterface {
 					],
 				],
 				'selector' => [
-					'.header-section {{SELECTOR}} img' => [
+					'.header-section {{SELECTOR}} img, .hb-section {{SELECTOR}} img' => [
 						'height: {{VALUE}}{{UNIT}}',
 						'max-height: initial !important'
 					],

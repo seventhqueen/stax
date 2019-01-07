@@ -27,7 +27,7 @@ class RenderStatus {
 	 * @return bool
 	 */
 	public function getStatus() {
-		return boolval( get_option( 'stax-render-status' ) );
+		return get_option( 'stax-render-status' );
 	}
 
 	/**

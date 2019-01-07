@@ -8827,6 +8827,47 @@ code {
 .popover--m .popover-select-subtitle {
   max-width: 180px;
 }
+.mdi[data-description] {
+  position: relative;
+  margin-left: 5px;
+}
+.mdi[data-description]:before {
+  transform: scale(1.3);
+}
+.mdi[data-description]:after {
+  content: attr(data-description);
+  position: absolute;
+  z-index: 1;
+  bottom: calc(130%);
+  left: 0;
+  display: none;
+  opacity: 0;
+  background: #2196f3;
+  color: white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 4px 6px;
+  min-width: 110px;
+}
+.mdi[data-description]:hover:after {
+  display: inline-flex;
+  animation: fade 0.4s ease-in-out 0.1s both;
+}
+.mdi.is-scaled {
+  margin-left: 5px;
+}
+.mdi.is-scaled:before {
+  transform: scale(1.3);
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .modal {
   transform: scale(0.5);
   opacity: 0;
@@ -10257,6 +10298,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .labelGroup-toggle {
   display: inline-block;
+  float: right;
 }
 .labelGroup-toggle .lbl-status-link {
   text-decoration: none;
@@ -11734,6 +11776,9 @@ pre,
 .sq-panel-widget .close-icon:hover {
   color: #2196f3;
   cursor: pointer;
+}
+.hb-desktop-view .sq-panel-widget.sq-resolution-settings {
+  display: none;
 }
 .default-properties,
 .advanced-properties {

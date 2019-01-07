@@ -104,51 +104,44 @@ class Base_Model {
 	 * @return mixed
 	 */
 	protected function clearTrash( $item ) {
-		$views = [
-			'editor',
-			'desktop',
-			'tablet',
-			'mobile'
-		];
+		$item->template = '';
 
-		foreach ( $views as $view ) {
-			foreach ( $item->{$view} as $items ) {
-				foreach ( $items->fields as $key => $field ) {
-					if ( is_array( $field->value ) ) {
-						$value = [];
-						foreach ( $field->value as $val ) {
-							if ( is_array( $val ) ) {
-								$val = (object) $val;
-							}
-
-							$stack          = [];
-							$stack['value'] = $val->value;
-
-							if ( isset( $val->checked ) ) {
-								$stack['checked'] = $val->checked;
-							}
-
-							if ( isset( $val->selected ) ) {
-								$stack['selected'] = $val->selected;
-							}
-
-							if ( isset( $val->extra ) ) {
-								$stack['extra'] = $val->extra;
-							}
-
-							$value[] = $stack;
+		foreach ( $item->editor as $items ) {
+			foreach ( $items->fields as $key => $field ) {
+				if ( is_array( $field->value ) ) {
+					$value = [];
+					foreach ( $field->value as $val ) {
+						if ( is_array( $val ) ) {
+							$val = (object) $val;
 						}
-					} else {
-						$value = $field->value;
-					}
 
-					$items->fields[ $key ] = (object) [
-						'name'       => $field->name,
-						'visibility' => $field->visibility,
-						'value'      => $value,
-						'units'      => $field->units
-					];
+						$stack          = [];
+						$stack['value'] = $val->value;
+
+						if ( isset( $val->checked ) ) {
+							$stack['checked'] = $val->checked;
+						}
+
+						if ( isset( $val->selected ) ) {
+							$stack['selected'] = $val->selected;
+						}
+
+						if ( isset( $val->extra ) ) {
+							$stack['extra'] = $val->extra;
+						}
+
+						$value[] = $stack;
+					}
+				} else {
+					$value = $field->value;
 				}
+
+				$items->fields[ $key ] = (object) [
+					'name'       => $field->name,
+					'visibility' => $field->visibility,
+					'value'      => $value,
+					'units'      => $field->units
+				];
 			}
 		}
 

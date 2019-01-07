@@ -19,14 +19,13 @@
 		Version <?php echo STAX_VERSION; ?>
 	</div>
 	<p class="stax-page-actions">
-		<a href="<?php echo home_url( '?stax-editor' ); ?>" class="button button-primary">Start Editing Header</a>
+		<a href="<?php echo home_url( '?stax-editor' ); ?>" class="button button-primary">Start Stax Builder</a>
 	</p>
 
 	<div class="stax_welcome-tab changelog">
 		<div class="stax_feature-section-teaser">
 			<div>
-				<img class="stax-featured-img" width="200"
-				     src="<?php echo STAX_ASSETS_URL; ?>images/stax-welcome.png">
+				<img class="stax-featured-img" src="<?php echo STAX_ASSETS_URL; ?>images/stax-welcome.png">
 
 				<h3>Live design - like it should be</h3>
 				<p>See live how your header looks, right at the moment of edit. Easily switch from desktop, tablet or
@@ -94,7 +93,9 @@
 
 	.stax-page-welcome img.stax-featured-img {
 		margin: 0 5%;
-		float: left
+		float: left;
+    width: 200px;
+    height: 100%;
 	}
 
 	.stax-page-welcome .stax_welcome-feature {

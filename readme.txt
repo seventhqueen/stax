@@ -1,26 +1,25 @@
 === STAX Header Builder ===
 Contributors: SeventhQueen
-Tags: stax, header builder, frontend editor, landing page, drag-and-drop, visual editor, wysiwyg, design, sticky header, slide-up header, transparent header
+Tags: header builder, header edit, frontend editor, page builder, drag-and-drop, visual editor, wysiwyg, design, sticky header, slide-up header, transparent header
 Requires at least: 4.6
-Tested up to: 4.9.8
+Tested up to: 5.0.2
 Requires PHP: 5.6
-Stable tag: 1.0.4
+Stable tag: 1.0.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The most advanced frontend drag & drop header builder. Create pixel perfect headers with ease. Works with any theme.
+A header builder that works with any theme. Front-end drag&drop interface to create pixel perfect headers with ease.
 
 == Description ==
 
-### Version 1.0.3 notes
-- Multi zone editing added. Customize footer, header or content.
-- Please be advised that when updating, old elements will loose their settings and you will need to adjust them.
-
 Stax is a front-end drag & drop visual header builder plugin for WordPress enabling the creation of page headers in a live, visual way. This lets you focus on the look and design of your page headers, instead of tripping over the behind-the-scenes mechanics of building headers.
-Check out **[Stax Builder](https://staxbuilder.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)**.
+Check out **[Stax Builder demos](https://staxbuilder.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)**.
 
 = Works with any theme =
 Yes that is right, it doesn't matter the theme you are using. Even more cool is that you can change the theme and you can keep your built header.
+
+= Mobile/Tablet/Desktop different content & settings =
+You won't see this in any other builder. Just an example is to have your logo in one place on desktop and centered on mobile. You can change the content just on a specific resolution if you like or just the settings of an element. How cool is that?
 
 = Live design - like it should be =
 See live how your header looks, right at the moment of edit. Easily switch from desktop, tablet or mobile view
@@ -28,13 +27,10 @@ See live how your header looks, right at the moment of edit. Easily switch from 
 = Unlimited headers =
 For real, you can have as many headers on your site. Change background, border, typography, make'em sticky, boxed, full-width, custom height, custom width.
 
-= Mobile/Tablet/Desktop different content & settings =
-This is the cherry of the cake, you can change the content only on mobile if you like or just the settings of your logo. How cool is that?
-
 = Deleted items history =
 Removed an elements you now want back? Say no more, Deleted Items to the rescue
 
-= Try STAX Builder Pro. Create a really professional header =
+= STAX Builder Pro. Create a really professional header =
 Header resize, Header Slide up, Header transparent. Different logo for resize and transparent states.
 Templates.
 Import/Export Headers.
@@ -45,14 +41,21 @@ And many more.
 = Free widgets .. for now =
 
 - **Logo**. Add a logo with lots of options to style.
-- **Image**. Control the size and other settings of images.
+- **Menu**. Add your existing Wordpress menus to the header.
 - **Search**. Add a WordPress search
-- **Text**. A WYSIWYG text editor, just like the WordPress editor.
 - **Button**. Create an eye-catching button
-- **Button**. Add a quick link
 - **Icon**. Add an icon and play with the cool options
+- **Text**. A WYSIWYG text editor, just like the WordPress editor.
+- **Image**. Control the size and other settings of images.
+- **Link**. Add a quick link
 - **Separator**. Use it to nicely separate header elements
-- **Menu **. Add your existing Wordpress menus to the header.
+- **Accordion**. Used for the Content area, easily create content that expands
+- **Tabs**. Easily create tabbed content
+- **Divider**. Separate content with the help of this element
+- **Google Map**. App a Google map to your page
+- **Heading**. Styled text with lot of options and typography.
+- **Spacer**. Adds space between content elements
+
 - **And counting...**
 
 = Documentation and Support =
@@ -95,7 +98,7 @@ You can use STAX to design and build your site header on any theme, all in front
 
 **Will Stax work with my theme?**
 
-Yes, you can use it on any theme. The first time you open Stax you will be prompted to select your current header area to replace.
+Yes, you can use it on any theme. The first time you open Stax you will just have to select your current header area to replace.
 
 == Upgrade Notice ==
 
@@ -106,6 +109,21 @@ Updating to 1.0.4 will result in element settings be lost on update. Starting wi
 Be advised that element settings will be lost on update. We made some big changes to this version, one of them is the ability to edit multiple zones on your site
 
 == Changelog ==
+
+= 1.0.8 - 2019-01-08 =
+- Elements now move independent on resolutions.
+- Refresh and "Apply to desktop" buttons have been added for each different settings on mobile&tablet.
+- Theme compatibility added for themes that want to make a better integration with Stax.
+- Fixed image height on sections
+
+= 1.0.7 - 2018-12-11 =
+- Fixed zone selector saving and adding extra checks on front-end
+
+= 1.0.6 - 2018-10-17 =
+- Fixed saving data on some isolated server environments.
+
+= 1.0.5 - 2018-10-10 =
+- Removed Start editor button in front. Added it in admin bar. Also other fixes.
 
 = 1.0.4 - 2018-09-27 =
 - Applied a Safari browser fix on load.

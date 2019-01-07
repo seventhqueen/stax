@@ -42,211 +42,211 @@ class Routes {
 	 */
 	public function load() {
 		register_rest_route( STAX_API_NAMESPACE, '/save-data', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Model_Zones::instance(),
 				'save'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/save-template', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Model_Templates::instance(),
 				'save'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/update-template', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Model_Templates::instance(),
 				'update'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/get-default-template/(?P<id>\d+)', [
-			'methods'             => 'GET',
+			'methods'             => \WP_REST_SERVER::READABLE,
 			'callback'            => [
 				Templates::instance(),
 				'rest_get_by_id'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/save-component', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Model_Components::instance(),
 				'save'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/update-editor-theme', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Model_Settings::instance(),
 				'update_theme'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/update-preset-colors', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Model_Settings::instance(),
 				'update_colors'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/import', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Import::instance(),
 				'execute'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/clean-export', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Export::instance(),
 				'cleanExport'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/rebuild-element', [
-			'methods'             => 'POST',
+			'methods'             => \WP_REST_SERVER::CREATABLE,
 			'callback'            => [
 				Composer::instance(),
 				'buildTemplate'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/export', [
-			'methods'             => 'GET',
+			'methods'             => \WP_REST_SERVER::READABLE,
 			'callback'            => [
 				Export::instance(),
 				'execute'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/menus', [
-			'methods'             => 'GET',
+			'methods'             => \WP_REST_SERVER::READABLE,
 			'callback'            => [
 				Menus::instance(),
 				'getSlugs'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/shortcode', [
-			'methods'             => 'GET',
+			'methods'             => \WP_REST_SERVER::READABLE,
 			'callback'            => [
 				ShortCode::instance(),
 				'getString'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/menu/(?P<slug>\S+)', [
-			'methods'             => 'GET',
+			'methods'             => \WP_REST_SERVER::READABLE,
 			'callback'            => [
 				Menus::instance(),
 				'getBySlug'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/render-status', [
-			'methods'             => 'GET',
+			'methods'             => \WP_REST_SERVER::READABLE,
 			'callback'            => [
 				RenderStatus::instance(),
 				'toggleStatus'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/helpers/find-page-for-zone', [
-			'methods'             => 'GET',
+			'methods'             => \WP_REST_SERVER::READABLE,
 			'callback'            => [
 				PageSeeker::instance(),
 				'find'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/delete-template/(?P<id>\d+)', [
-			'methods'             => 'DELETE',
+			'methods'             => \WP_REST_SERVER::DELETABLE,
 			'callback'            => [
 				Model_Templates::instance(),
 				'delete'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/delete-component/(?P<id>\d+)', [
-			'methods'             => 'DELETE',
+			'methods'             => \WP_REST_SERVER::DELETABLE,
 			'callback'            => [
 				Model_Components::instance(),
 				'delete'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 
 		register_rest_route( STAX_API_NAMESPACE, '/delete-zone/(?P<uuid>[a-zA-Z0-9]+)', [
-			'methods'             => 'DELETE',
+			'methods'             => \WP_REST_SERVER::DELETABLE,
 			'callback'            => [
 				Model_Zones::instance(),
 				'delete'
 			],
 			'permission_callback' => function () {
-				return current_user_can( 'administrator' );
+				return current_user_can( 'manage_options' );
 			}
 		] );
 	}

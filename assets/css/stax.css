@@ -544,9 +544,9 @@ html {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  /*-webkit-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;*/
+  flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -935,9 +935,9 @@ html {
   }
 }
 .sq-col {
-  /*-webkit-flex-basis: 0;
+  -webkit-flex-basis: 0;
   -ms-flex-preferred-size: 0;
-  flex-basis: 0;*/
+  flex-basis: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -3316,9 +3316,11 @@ button.add-new-header:hover {
 .header-section .sq-menu em:hover {
   color: #fff;
 }
+.sq-menu .menu-default ul {
+  margin: 0;
+}
 .sq-menu .menu-default > ul {
   list-style: none;
-  margin: 0;
   height: 100%;
   padding: 0;
   display: -webkit-box;
@@ -3674,15 +3676,17 @@ button.add-new-header:hover {
 .menu-style-4 > ul > li.menu-item > a:before {
   transition: all .3s;
 }
-.menu-style-5 > ul > li.menu-item > a {
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item > a {
   position: relative;
 }
-.menu-style-5 > ul > li.menu-item > a::before,
-.menu-style-5 > ul > li.menu-item > a::after {
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item > a::before,
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item > a::after {
   position: absolute;
   left: 0;
   width: 100%;
   height: 1px;
+  margin-left: 0;
+  min-height: auto;
   content: '';
   opacity: 0;
   -webkit-transition: height 0.3s, opacity 0.3s, -webkit-transform 0.3s;
@@ -3692,29 +3696,29 @@ button.add-new-header:hover {
   -moz-transform: translateY(0);
   transform: translateY(0);
 }
-.menu-style-5 > ul > li.menu-item > a::before {
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item > a::before {
   top: 10px;
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   transform: translateY(0);
 }
-.menu-style-5 > ul > li.menu-item:hover > a::before,
-.menu-style-5 > ul > li.menu-item:hover > a::after {
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item:hover > a::before,
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item:hover > a::after {
   height: 2px;
   opacity: 1;
 }
-.menu-style-5 > ul > li.menu-item:hover > a::before {
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item:hover > a::before {
   -webkit-transform: translateY(-10px);
   -moz-transform: translateY(-10px);
   transform: translateY(-10px);
 }
-.menu-style-5 > ul > li.menu-item > a::after {
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item > a::after {
   bottom: 0;
   -webkit-transform: translateY(-10px);
   -moz-transform: translateY(-10px);
   transform: translateY(-10px);
 }
-.menu-style-5 > ul > li.menu-item:hover > a::after {
+.sq-menu .menu-default.menu-style-5 > ul > li.menu-item:hover > a::after {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   transform: translateY(0);

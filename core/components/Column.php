@@ -152,14 +152,14 @@ class Column extends ElementSpecs implements ColumnInterface {
 		$this->visibilityTablet  = true;
 		$this->visibilityMobile  = true;
 		$this->customDesktop     = false;
-		$this->customTablet      = false;
-		$this->customMobile      = false;
+		$this->customTablet      = true;
+		$this->customMobile      = true;
 		$this->editor            = [];
 		$this->editor_header     = [];
 		$this->editor_section    = [];
-		$this->desktop           = [];
-		$this->tablet            = [];
-		$this->mobile            = [];
+		$this->desktop           = new \stdClass();
+		$this->tablet            = new \stdClass();
+		$this->mobile            = new \stdClass();
 		$this->generalCSS        = '';
 		$this->desktopCSS        = '';
 		$this->tabletCSS         = '';
@@ -218,7 +218,7 @@ class Column extends ElementSpecs implements ColumnInterface {
 					]
 				],
 				'selector' => [
-					'{{SELECTOR}}' => 'width: {{VALUE}}{{UNIT}}'
+					'{{SELECTOR}}' => 'max-width: {{VALUE}}{{UNIT}}; flex: 0 0 {{VALUE}}{{UNIT}}',
 				]
 			]
 		);
@@ -449,10 +449,10 @@ class Column extends ElementSpecs implements ColumnInterface {
 				],
 				'selector' => [
 					'{{SELECTOR}}' => [
-						'padding-top: {{VALUE_1}}{{UNIT}}',
-						'padding-right: {{VALUE_2}}{{UNIT}}',
-						'padding-bottom: {{VALUE_3}}{{UNIT}}',
-						'padding-left: {{VALUE_4}}{{UNIT}}'
+						'padding-top: {{VALUE_1}}{{UNIT}} !important',
+						'padding-right: {{VALUE_2}}{{UNIT}} !important',
+						'padding-bottom: {{VALUE_3}}{{UNIT}} !important',
+						'padding-left: {{VALUE_4}}{{UNIT}} !important'
 					]
 				]
 			]

@@ -29,7 +29,7 @@ class L10n {
 	public function strings() {
 		return (object) [
 			'auth'        => [
-				'labelBoth'    => __( 'Both', 'stax' ),
+				'labelBoth'    => __( 'Everyone', 'stax' ),
 				'labelAuth'    => __( 'Auth', 'stax' ),
 				'labelNotAuth' => __( 'Not auth', 'stax' )
 			],
@@ -38,23 +38,34 @@ class L10n {
 				'preset' => __( 'Preset colors', 'stax' )
 			],
 			'exit'        => [
-				'confirmation' => __( 'There are unsaved changes. Do you want to proceed?', 'stax' )
+				'confirmation' => esc_html__( 'There are unsaved changes. Do you want to proceed?', 'stax' )
 			],
 			'save'        => [
 				'changesDetected' => __( 'You made changes! Don\'t forget to', 'stax' ),
-				'save'            => __( 'save', 'stax' ),
-				'success'         => __( 'Great, all settings are saved now', 'stax' )
+				'save'            => esc_html__( 'save', 'stax' ),
+				'success'         => esc_html__( 'Great, all settings are saved now', 'stax' )
 			],
 			'frame'       => [
-				'loading'     => __( 'LOADING', 'stax' ),
-				'closeEditor' => __( 'Close editor', 'stax' ),
-				'saveSuccess' => __( 'All settings are saved!', 'stax' ),
-				'saveFailed'  => __( 'All settings are NOT saved!', 'stax' )
+				'loading'     => esc_html__( 'LOADING', 'stax' ),
+				'closeEditor' => esc_html__( 'Close editor', 'stax' ),
+				'zonesManager' => esc_html__( 'Zones Manager', 'stax'),
+				'desktopView' => esc_html__( 'Desktop View', 'stax'),
+				'tabletView' => esc_html__( 'Tablet View', 'stax'),
+				'mobileView' => esc_html__( 'Mobile View', 'stax'),
+				'templatesView' => esc_html__( 'Templates', 'stax'),
+				'layersView' => esc_html__( 'Layers', 'stax'),
+				'deletedView' => esc_html__( 'Deleted Items', 'stax'),
+				'settingsView' => esc_html__( 'Settings', 'stax'),
+				'docs' => esc_html__( 'Documentation', 'stax'),
+				'enableRender' => esc_html__( 'Turn ON Stax', 'stax'),
+				'disableRender' => esc_html__( 'Turn OFF Stax', 'stax'),
+				'saveSuccess' => esc_html__( 'All settings are saved!', 'stax' ),
+				'saveFailed'  => esc_html__( 'Settings are NOT saved!', 'stax' )
 			],
 			'panel'       => [
-				'titleStart'            => __( 'Editing ', 'stax' ),
-				'titleLayers'           => __( 'Layers', 'stax' ),
-				'titleTemplates'        => __( 'Templates', 'stax' ),
+				'titleStart'            => esc_html__( 'Editing ', 'stax' ),
+				'titleLayers'           => esc_html__( 'Layers', 'stax' ),
+				'titleTemplates'        => esc_html__( 'Templates', 'stax' ),
 				'titleZones'            => __( 'Zones', 'stax' ),
 				'titleOrderZones'       => __( 'Order zones', 'stax' ),
 				'titleDefaultZones'     => __( 'Default zones', 'stax' ),
@@ -81,6 +92,7 @@ class L10n {
 				'searchNoTemplates'     => __( 'No templates found.', 'stax' ),
 				'searchNoElements'      => __( 'No elements found. Please try again.', 'stax' ),
 				'resolutionSettings'    => __( 'Apply settings for %s only', 'stax' ),
+				'resolutionTooltip'    => __( 'When enabled, below settings are applied only for current resolution. If disabled, your settings will be as on Desktop', 'stax' ),
 				'saveTemplateInfo'      => __( 'You can use this layout later if you save it as template.', 'stax' ),
 				'saveTemplateSingle'    => __( 'You can save this %s for later use.', 'stax' ),
 				'settingsExportInfo'    => __( 'Export zones from this page to file.', 'stax' ),
@@ -104,8 +116,8 @@ class L10n {
 				],
 				'panel' => [
 					'individualSettings' => [
-						'singleTitle' => __( 'This item\'s settings will be set to individual for this resolution. Don\'t worry, you can switch back anytime you want.', 'stax' ),
-						'masterTitle' => __( 'This item\'s settings will be set to general for this resolution. Your changes for this resolution will be lost.', 'stax' )
+						'singleTitle' => __( 'You are switching to individual settings. Don\'t worry, you can reset to general anytime you want.', 'stax' ),
+						'masterTitle' => __( 'You are switching to Desktop settings. Your specific changes for this resolution will be lost.', 'stax' )
 					],
 					'template'           => [
 						'saveTitle'   => __( 'You are about to save this item as template, but first you have to name your template.', 'stax' ),
@@ -128,8 +140,8 @@ class L10n {
 						'btnAction' => __( 'Go Pro', 'stax' )
 					],
 					'newZone'            => [
-						'title'        => __( 'Add a new zone', 'stax' ),
-						'subtitle'     => __( 'To add a new zone you have to use one of the following options:', 'stax' ),
+						'title'        => __( 'Define Zone', 'stax' ),
+						'subtitle'     => __( 'To select where to render the zone, choose from the options below:', 'stax' ),
 						'selectOption' => __( 'Select a zone using your mouse (recommended)', 'stax' ),
 						'inputOption'  => __( 'Enter a CSS selector', 'stax' )
 					],
